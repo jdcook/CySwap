@@ -4,8 +4,8 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<link href="app/css/bootstrapOverrides.css" rel="stylesheet" />
-	<link href="app/css/main.css" rel="stylesheet" />
+	{{ HTML::style('css/bootstrapOverrides.css')}}
+	{{ HTML::style('css/main.css')}}
 
 </head>
 <body>
@@ -14,12 +14,11 @@
 	<div id="header" class="jumbotron">
 		<div class="row">
 			<div class="col-md-2">
-				<img id="logo" src="app/storage/media/logo.jpg" style="width:14em; height:10em" />
+				<img id="logo" src="{{asset('media/logo.jpg')}}" style="width:14em; height:10em" />
 			</div>
 			<div class="col-md-1"></div>
 			<div class="col-md-4">
 				<h1 style="text-align:left">Cyswap</h1>
-				<p>The place to swap</p>
 			</div>
 			<div class="col-md-2">
 			</div>
@@ -44,7 +43,7 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="">Home</a>
+						<a href="{{URL::to('/')}}">Home</a>
 					</li>
 					<li>
 						<a href="">Categories</a>
@@ -55,10 +54,10 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="">Safety</a>
+						<a href="{{URL::to('/safety')}}">Safety</a>
 					</li>
 					<li>
-						<a href="">About Us</a>
+						<a href="{{URL::to('/about')}}">About Us</a>
 					</li>
 				</ul>
 			</div>
@@ -74,10 +73,10 @@
 <br /><br />
 <!-- footer -->
 <div id="footer" class="row">
-	<div class="col-md-3"><a href="">Copyright</a></div>
-	<div class="col-md-3"><a href="">Terms of Use</a></div>
-	<div class="col-md-3"><a href="">Report</a></div>
-	<div class="col-md-3"><a href="">Contact Us</a></div>
+	<div class="col-md-3"><a href="{{URL::to('/copyright')}}">Copyright</a></div>
+	<div class="col-md-3"><a href="{{URL::to('/legaljargon')}}">Terms of Use</a></div>
+	<div class="col-md-3"><a href="{{URL::to('/report')}}">Report</a></div>
+	<div class="col-md-3"><a href="{{URL::to('/contact')}}">Contact Us</a></div>
 </div>
 <!-- end footer -->
 

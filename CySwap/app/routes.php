@@ -1,14 +1,13 @@
 <?php
 
+
+
+
+
+
+
 /*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
+ Header/footer links
 */
 
 Route::get('/', function()
@@ -16,10 +15,33 @@ Route::get('/', function()
 	return View::make('home');
 });
 
-Route::get('users', function()
-{
-	//getting all rows of the user table
-	$users = User::all();
 
-	return View::make('users')->with('users', $users);
+Route::get('safety', function()
+{
+	return View::make('safety');
+});
+
+Route::get('about', function()
+{
+	return View::make('about');
+});
+
+Route::get('copyright', function()
+{
+	return View::make('copyright');
+});
+
+Route::get('legaljargon', function()
+{
+	return View::make('termsofuse');
+});
+
+Route::get('report', function()
+{
+	return View::make('report');
+});
+
+Route::get('contact', function()
+{
+	return View::make('contact');
 });

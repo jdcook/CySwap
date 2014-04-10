@@ -1,17 +1,11 @@
 /* footer */
 #footer{
 	background-color: rgb(185, 0, 17);
-	height: 5em;
+	height: auto;
 	width: auto;
 	text-align: center;
+	padding: 2em;
 }
-
-
-#footer .row{
-	width: 100%;
-	height: 100%;
-}
-
 
 #footer a:hover{
 	text-decoration: none;
@@ -23,10 +17,10 @@
 .entry{
 	width: 100%;
 	height: auto;
-	background-color: rgb(75, 72, 64);
-	background-image: -webkit-gradient(linear, 100% 100%, 0% 0%, color-stop(0.25, rgba(255, 255, 255, 0.298039)), to(transparent));
+	background-color: rgb(50, 50, 50);
+	background-image: -webkit-gradient(linear, 100% 0%, 0% 0%, color-stop(0.25, rgba(200, 200, 200, 0.298039)), to(transparent));
 	color: white;
-	border-radius: 15px;
+	border-radius: 5px;
 	padding: .5em 0;
 	margin: 2em 0;
 }

@@ -17,7 +17,7 @@
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-5">	
-					<img class="entryimg" src="app/storage/media/logo.jpg" />
+					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
 				</div>
 				<div class="col-md-6 details">
 					<p><b>Detail 1:</b> Things and stuff</p>
@@ -32,7 +32,7 @@
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-5">
-					<img class="entryimg" src="app/storage/media/logo.jpg" />
+					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
 				</div>
 				<div class="col-md-6 details">
 					<p><b>Detail 1:</b> Things and stuff</p>
@@ -63,7 +63,7 @@
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-5">
-					<img class="entryimg" src="app/storage/media/logo.jpg" />
+					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
 				</div>
 				<div class="col-md-6 details">
 					<p><b>Detail 1:</b> Things and stuff</p>
@@ -78,7 +78,7 @@
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-5">
-					<img class="entryimg" src="app/storage/media/logo.jpg" />
+					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
 				</div>
 				<div class="col-md-6 details">
 					<p><b>Detail 1:</b> Things and stuff</p>
