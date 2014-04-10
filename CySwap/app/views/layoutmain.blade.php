@@ -49,7 +49,7 @@
 						<a href="">Categories</a>
 					</li>
 					<li>
-						<a href="">Post an Item</a>
+						<a href="{{URL::to('/isbnexample')}}">Post an item</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

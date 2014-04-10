@@ -45,3 +45,8 @@ Route::get('contact', function()
 {
 	return View::make('contact');
 });
+
+Route::get('isbnexample', function()
+{
+	return View::make('isbnexample');
+});
