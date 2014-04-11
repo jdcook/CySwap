@@ -1,17 +1,12 @@
 <?php
 
-
-
-
-
-
-
 /*
  Header/footer links
 */
 
 Route::get('/', function()
 {
+
 	return View::make('home');
 });
 
@@ -48,5 +43,6 @@ Route::get('contact', function()
 
 Route::get('isbnexample', function()
 {
-	return View::make('isbnexample');
+	$isbn_data = App::make('IsbnExampleController')->isbndb_request("0764524984");
+	return View::make('isbnexample')->with('isbn_data', $isbn_data);
 });

@@ -91,14 +91,33 @@
 <!-- end javascript includes -->
 
 <script>
+
 /* affixing navbar to top */
 $('#nav').affix({
   offset: {
-    top: $('#header').height()
+    top: $('#header').outerHeight()
   }
+})
+
+</script>
+
+<script>
+
+$(document).ready( function() {
+    var header_done = $('#header').outerHeight();
+    var adjusted = 0;
+    var content = document.getElementById("content");
+    $(window).scroll(function() {
+        if($(window).scrollTop() > header_done && !adjusted) { //scrolled past the other div?
+            content.setAttribute("style","padding-top: " + $('#nav').outerHeight() + ";");
+            adjusted = 1;
+        }
+        if($(window).scrollTop() < header_done && adjusted) { //scrolled past the other div?
+        	content.setAttribute("style","padding-top: 0px;");
+        	adjusted = 0;
+        }
+    });
 });
-
-
 
 </script>
 </body>
