@@ -5,6 +5,8 @@
 	width: auto;
 	text-align: center;
 	padding: 2em;
+	border-style: solid;
+	border-width: .25em 0 0 0;
 }
 
 #footer a:hover{
@@ -18,7 +20,6 @@
 	width: 100%;
 	height: auto;
 	background-color: rgb(50, 50, 50);
-	background-image: -webkit-gradient(linear, 100% 0%, 0% 0%, color-stop(0.25, rgba(200, 200, 200, 0.298039)), to(transparent));
 	color: white;
 	border-radius: 5px;
 	padding: .5em 0;
