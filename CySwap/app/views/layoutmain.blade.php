@@ -101,18 +101,23 @@ $('#nav').affix({
 
 </script>
 
+<!--script to add padding to @content equal to the displacement of the navbar switching to a fixed position-->
 <script>
 
+/*run when document is ready*/
 $(document).ready( function() {
     var header_done = $('#header').outerHeight();
+    var nav_height = $('#nav').outerHeight();
     var adjusted = 0;
     var content = document.getElementById("content");
+
+    /*run when user scrolls*/
     $(window).scroll(function() {
-        if($(window).scrollTop() > header_done && !adjusted) { //scrolled past the other div?
-            content.setAttribute("style","padding-top: " + $('#nav').outerHeight() + ";");
+        if($(window).scrollTop() > header_done && !adjusted) { //scrolled past header?
+            content.setAttribute("style","padding-top: " + nav_height + ";");
             adjusted = 1;
         }
-        if($(window).scrollTop() < header_done && adjusted) { //scrolled past the other div?
+        else if($(window).scrollTop() < header_done && adjusted) { //header back in view?
         	content.setAttribute("style","padding-top: 0px;");
         	adjusted = 0;
         }
