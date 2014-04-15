@@ -46,18 +46,18 @@
 						<a href="{{URL::to('/')}}">Home</a>
 					</li>
 					<li>
-						<a href="">Categories</a>
+						<a href="{{URL::to('categories')}}">Categories</a>
 					</li>
 					<li>
-						<a href="{{URL::to('/isbnexample')}}">Post an item</a>
+						<a href="{{URL::to('isbnexample')}}">Post an item</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="{{URL::to('/safety')}}">Safety</a>
+						<a href="{{URL::to('safety')}}">Safety</a>
 					</li>
 					<li>
-						<a href="{{URL::to('/about')}}">About Us</a>
+						<a href="{{URL::to('about')}}">About Us</a>
 					</li>
 				</ul>
 			</div>

@@ -39,6 +39,15 @@
 	margin: .1em 1em .1em 1em;
 }
 
+/* categories */
+#categories > div{
+	margin: 5em 0;
+}
+#categories a{
+	padding: 3em 6em;;
+}
+
+
 /* misc */
 #content{
 	 margin:0em 2em 0em 2em;

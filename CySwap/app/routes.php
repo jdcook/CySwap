@@ -6,8 +6,12 @@
 
 Route::get('/', function()
 {
+	return Redirect::to('/index.php');
+});
 
-	return View::make('home');
+Route::get('categories', function()
+{
+	return View::make('categories');
 });
 
 
