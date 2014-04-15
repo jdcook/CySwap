@@ -9,36 +9,34 @@ Route::get('/', function()
 	return View::make('home');
 });
 
-
-
 Route::get('safety', function()
 {
-	return View::make('safety');
+	return View::make('Info/safety');
 });
 
 Route::get('about', function()
 {
-	return View::make('about');
+	return View::make('Info/about');
 });
 
 Route::get('copyright', function()
 {
-	return View::make('copyright');
+	return View::make('Info/copyright');
 });
 
 Route::get('legaljargon', function()
 {
-	return View::make('termsofuse');
+	return View::make('Info/termsofuse');
 });
 
 Route::get('report', function()
 {
-	return View::make('report');
+	return View::make('Info/report');
 });
 
 Route::get('contact', function()
 {
-	return View::make('contact');
+	return View::make('Info/contact');
 });
 
 Route::get('isbnexample', function()
@@ -47,23 +45,25 @@ Route::get('isbnexample', function()
 	return View::make('isbnexample')->with('isbn_data', $isbn_data);
 });
 
+
+
 /* categories */
 Route::get('categories', function()
 {
-	return View::make('categories');
+	return View::make('Categories/categories');
 });
 
 Route::get('textbooks', function()
 {
-	return View::make('textbooks');
+	return View::make('Categories/textbooks');
 });
 
 Route::get('tickets', function()
 {
-	return View::make('tickets');
+	return View::make('Categories/tickets');
 });
 
 Route::get('misc', function()
 {
-	return View::make('misc');
+	return View::make('Categories/misc');
 });

@@ -7,6 +7,19 @@
 <hr>
 
 <div class="row">
+	<div class="col-md-4">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			Sort By
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="#">Date Posted</a></li>
+			<li><a href="#">Date of Event</a></li>
+			<li><a href="#">Event Type</a></li>
+		</ul>
+	</div>
+
+
 	<div class="col-md-6 container-fluid">
 		<!-- will be dynamically generated later -->
 		<div class="entry">
