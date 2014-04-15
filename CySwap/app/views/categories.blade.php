@@ -14,7 +14,7 @@
     </div>
 
 	<div class="col-md-4">
-          <p><a class="btn btn-default" href="{{URL::to('misc')}}" role="button">Misc »</a></p>
+          <p><a class="btn btn-default" href="{{URL::to('misc')}}" role="button">Miscellaneous »</a></p>
     </div>
 </div>
 @stop

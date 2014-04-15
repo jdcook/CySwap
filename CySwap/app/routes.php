@@ -6,13 +6,9 @@
 
 Route::get('/', function()
 {
-	return Redirect::to('/index.php');
+	return View::make('home');
 });
 
-Route::get('categories', function()
-{
-	return View::make('categories');
-});
 
 
 Route::get('safety', function()
@@ -49,4 +45,25 @@ Route::get('isbnexample', function()
 {
 	$isbn_data = App::make('IsbnExampleController')->isbndb_request("0764524984");
 	return View::make('isbnexample')->with('isbn_data', $isbn_data);
+});
+
+/* categories */
+Route::get('categories', function()
+{
+	return View::make('categories');
+});
+
+Route::get('textbooks', function()
+{
+	return View::make('textbooks');
+});
+
+Route::get('tickets', function()
+{
+	return View::make('tickets');
+});
+
+Route::get('misc', function()
+{
+	return View::make('misc');
 });
