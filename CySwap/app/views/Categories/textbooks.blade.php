@@ -8,7 +8,7 @@
 
 
 <div class="row">
-
+<!--
 	<div class="col-md-4">
 		<div class="input-group">
 		  <span class="input-group-addon">Search ISBN</span>
@@ -25,6 +25,8 @@
 			<li><a href="#">Title</a></li>
 		</ul>
 	</div>
+-->
+
 	<div class="col-md-8">
 
 		<!-- will be dynamically generated later -->

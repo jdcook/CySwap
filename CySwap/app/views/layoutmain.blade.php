@@ -27,7 +27,7 @@
 			<div class="col-md-2">
 				<input type="text" placeholder="Search" />
 				<br/>
-				<a href="">login</a>
+				<a href="{{URL::to('login')}}">login</a>
 			</div>
 		</div>
 	</div>

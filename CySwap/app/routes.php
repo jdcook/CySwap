@@ -1,11 +1,22 @@
 <?php
 
 /*
+	Account stuff
+*/
+Route::get('login', function(){
+	return View::make('Account/login');
+});
+
+/*
  Header/footer links
 */
 
 Route::get('/', function()
 {
+	return View::make('home');
+});
+
+Route::get('home', function(){
 	return View::make('home');
 });
 

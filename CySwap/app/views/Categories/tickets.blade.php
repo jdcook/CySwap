@@ -7,6 +7,7 @@
 <hr>
 
 <div class="row">
+	<!--
 	<div class="col-md-4">
 		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 			Sort By
@@ -18,7 +19,7 @@
 			<li><a href="#">Event Type</a></li>
 		</ul>
 	</div>
-
+	-->
 
 	<div class="col-md-6 container-fluid">
 		<!-- will be dynamically generated later -->
