@@ -10,6 +10,8 @@
 </head>
 <body>
 
+
+
 	<!-- header -->
 	<div id="header" class="jumbotron">
 		<div class="row">
@@ -30,6 +32,7 @@
 		</div>
 	</div>
 
+	<div id="navwrapper">
 	<div id="nav" class="navbar navbar-default navbar-static">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -49,7 +52,7 @@
 						<a href="{{URL::to('categories')}}">Categories</a>
 					</li>
 					<li>
-						<a href="{{URL::to('isbnexample')}}">Post an item</a>
+						<a href="{{URL::to('postItem')}}">Post an item</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -63,7 +66,7 @@
 			</div>
 		</div>
 	</div>
-
+	</div>
 
 <div id="content" class="container-fluid">
 	@yield('content')
@@ -92,36 +95,10 @@
 
 <script>
 
+$('#navwrapper').height($("#nav").height());
 /* affixing navbar to top */
 $('#nav').affix({
-  offset: {
-    top: $('#header').outerHeight()
-  }
-})
-
-</script>
-
-<!--script to add padding to @content equal to the displacement of the navbar switching to a fixed position-->
-<script>
-
-/*run when document is ready*/
-$(document).ready( function() {
-    var header_done = $('#header').outerHeight();
-    var nav_height = $('#nav').outerHeight();
-    var adjusted = 0;
-    var content = document.getElementById("content");
-
-    /*run when user scrolls*/
-    $(window).scroll(function() {
-        if($(window).scrollTop() > header_done && !adjusted) { //scrolled past header?
-            content.setAttribute("style","padding-top: " + nav_height + ";");
-            adjusted = 1;
-        }
-        else if($(window).scrollTop() < header_done && adjusted) { //header back in view?
-        	content.setAttribute("style","padding-top: 0px;");
-        	adjusted = 0;
-        }
-    });
+	offset:{top:$('#nav').offset().top }
 });
 
 </script>

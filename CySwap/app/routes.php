@@ -9,6 +9,11 @@ Route::get('/', function()
 	return View::make('home');
 });
 
+Route::get('postItem', function()
+{
+	return View::make('postItem');
+});
+
 Route::get('safety', function()
 {
 	return View::make('Info/safety');
