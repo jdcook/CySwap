@@ -20,8 +20,13 @@ Route::get('mail', function()
 {
 	Mail::send('emails.welcome', array(), function($message)
 	{
-		$message->from('fabianb@iastate.edu', 'Kyle Johnson');
-		$message->to('kabernsj@yahoo.com', 'John Smith')->subject('Welcome!');
+		/*sender will be a new netid such as cyswap@iastate.edu*/
+		$message->sender('kabernsj@iastate.edu', 'Kyle Johnson')
+		/*to the poster of the item*/
+		->to('asu1351@iastate.edu', 'asu1351')
+		->subject('Welcome!')
+		/*the potential buyer's netid*/
+		->replyTo('fabianb@iastate.edu', 'fabianb');
 	});
 	return View::make('mail');
 });
