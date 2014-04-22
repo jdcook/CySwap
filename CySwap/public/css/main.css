@@ -1,3 +1,18 @@
+/* posting item */
+#postImages > img{
+	height: 8em;
+	width: 12em;
+}
+
+.detail{
+	padding: 2em 0;
+}
+
+.detail .description{
+	height: 20em;
+	width: 100%;
+}
+
 /* footer */
 #footer{
 	background-color: rgb(185, 0, 17);

@@ -83,3 +83,10 @@ Route::get('misc', function()
 {
 	return View::make('Categories/misc');
 });
+
+/* Testing view post */
+Route::get('viewpost/{postid}', function($postid)
+{
+	$posting = App::make('PostController')->getPost($postid);
+	return View::make('viewpost')->with('posting', $posting);
+});

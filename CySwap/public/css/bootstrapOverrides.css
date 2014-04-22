@@ -1,3 +1,16 @@
+.btn-primary{
+	background-color: red;
+}
+
+.btn-primary:hover{
+	background-color: white;
+}
+
+.btn-primary.active{
+	background-color: black;
+}
+
+
 body{
 	font-family:Verdana;
 }
@@ -50,3 +63,4 @@ input{
     margin-right: 6em;
     width: 100%;
 }
+
