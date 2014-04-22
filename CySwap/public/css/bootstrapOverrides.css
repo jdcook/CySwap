@@ -1,13 +1,17 @@
 .btn-primary{
-	background-color: red;
+	background-color: rgb(204, 204, 204);
+	color: black;
+	border-color: rgb(150, 150, 150);
 }
 
 .btn-primary:hover{
-	background-color: white;
+	background-color: rgb(150, 150, 150);
+	border-color: rgb(150, 150, 150);
 }
 
 .btn-primary.active{
-	background-color: black;
+	background-color: rgb(150, 150, 150);
+	border-color: rgb(150, 150, 150);
 }
 
 
@@ -44,6 +48,7 @@ input{
 	background-color: rgb(200, 0, 14);
 	color: white;
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(rgba(0, 0, 0, 0.278431)));
+    z-index: 10;
 }
 
 .navbar-default .navbar-nav > li > a {
