@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'database',
+			'host'      => 'proj-492-02.cs.iastate.edu',
+			'database'  => 'mysql',
 			'username'  => 'root',
-			'password'  => '',
+			'password'  => 'dec1413',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
