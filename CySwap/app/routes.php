@@ -7,6 +7,28 @@ Route::get('login', function(){
 	return View::make('Account/login');
 });
 
+Route::group(array('before' => 'auth'), function(){
+	Route::get('Account/logout', array(
+			'as' => 'logout',
+			'uses' => 'LoginController@getLogout'
+		));
+});
+
+Route::group(array('before' => 'guest'), function() {
+
+	Route::group(array('before' => 'csrf'), function(){
+		Route::post('Account/login', array(
+			'as' => 'login-post',
+			'uses' => 'LoginController@postLogin'
+		));
+	});
+
+	Route::get('Account/login', array(
+		'as' => 'login',
+		'uses' => 'LoginController@getLogin'
+	));
+});
+
 /*
  Home and Info Links
 */

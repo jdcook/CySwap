@@ -27,7 +27,12 @@
 			<div class="col-md-2">
 				<input type="text" placeholder="Search" />
 				<br/>
-				<a href="{{URL::to('login')}}">login</a>
+				{{--TODO: add session info to track whether user logged in instead of Auth::check--}}
+				@if(Auth::check())
+					<a href="{{URL::route('logout')}}">logout</a>
+				@else
+					<a href="{{URL::route('login')}}">login</a>
+				@endif
 			</div>
 		</div>
 	</div>
