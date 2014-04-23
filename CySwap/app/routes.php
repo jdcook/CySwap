@@ -57,7 +57,7 @@ Route::get('contact', function()
 
 Route::get('isbnexample', function()
 {
-	$isbn_data = App::make('IsbnExampleController')->isbndb_request("0764524984");
+	$isbn_data = App::make('IsbnController')->isbndb_request("0764524984");
 	return View::make('isbnexample')->with('isbn_data', $isbn_data);
 });
 

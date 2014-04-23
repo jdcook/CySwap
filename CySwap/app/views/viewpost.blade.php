@@ -28,7 +28,6 @@
 	@endforeach
 
 	@for($i = 0; $i < $posting['num_images']; $i++)
-		<p>{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpeg</p>
 		<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="DAMN"/>
 	@endfor
 
