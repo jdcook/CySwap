@@ -27,4 +27,17 @@ class Post extends Eloquent {
 		// return post array
 		return $post_array;
 	}
+
+
+	public function getPostingLites($category) 
+	{
+		$postingLites;
+		if($category == "textbook") {
+			$postingLites = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id in (select posting_id from cyswap.postings where category = \'textbook\' order by date DESC) limit 2 ');
+		} elseif($category == "miscellaneous") {
+			$postingLites = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id in (select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC) limit 2 ');
+		}
+		
+		return $postingLites;
+	}
 }

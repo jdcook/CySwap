@@ -13,11 +13,13 @@ Route::get('login', function(){
 
 Route::get('/', function()
 {
-	return View::make('home');
+	$postingLites = App::make('HomeController')->showData();
+	return View::make('home')->with('postingLites', $postingLites);
 });
 
 Route::get('home', function(){
-	return View::make('home');
+	$postingLites = App::make('HomeController')->showData();
+	return View::make('home')->with('postingLites', $postingLites);
 });
 
 Route::get('safety', function()

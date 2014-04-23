@@ -8,7 +8,11 @@
 </div>
 
 <div id="postImages" class="col-md-4">
-	<img src="{{asset('media/logo.jpg')}}" />
+	@if($posting['num_images'] == 0)
+		<img class="entryimg" src="{{asset('media/notfound.png')}}" />
+	@else
+		<img class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
+	@endif
 	<div class="price">
 		@for($i = 0; $i < $posting['num_images']; $i++)
 			<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="DAMN"/>

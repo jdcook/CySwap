@@ -15,9 +15,14 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function showData()
 	{
-		return View::make('hello');
+		$category1_name = 'textbook';
+		$category1 = App::make('Post')->getPostingLites($category1_name);
+		$category2_name = 'miscellaneous';
+		$category2 = App::make('Post')->getPostingLites($category2_name);
+		$postingLites =  array($category1_name=>$category1,$category2_name=>$category2);
+		return $postingLites;
 	}
 
 }
