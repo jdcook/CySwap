@@ -19,13 +19,17 @@
 	<div class="entry">
 	@foreach($posting as $key => $value)
 	@if($key != "posting_id" and $key != "tags" and $key != "able_to_delete" and $key != "hide_post" and $key != "title"
-		and $key != "description" and $key != 'user' and $key != "suggested_price" and $key != 'num_images' and !is_null($value))
+		and $key != "description" and $key != 'user' and $key != "suggested_price" and $key != 'num_images' and
+		!is_null($value))
 		<p class="detailHeading">
 			{{$key}} : {{$value}}
 		</p>
 	@endif
 	@endforeach
 
+	@for($i = 0; $i < $posting['num_images']; $i++)
+		<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="DAMN"/>
+	@endfor
 
 	{{array_get($posting, 'description');}}
 

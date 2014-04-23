@@ -1,6 +1,6 @@
 <?php
 
-class IsbnExampleController extends BaseController {
+class IsbnController extends BaseController {
 
 	/**ISBNDB request controller
 	* @param $query: isbn to use to query isbndb.com database
@@ -12,13 +12,13 @@ class IsbnExampleController extends BaseController {
 		$accessKey = "C3LF8KRN";
 
 		if ($query):
-			
+
 			// query url
 			$url_details = "http://isbndb.com/api/books.xml?access_key=$accessKey&results=details&index1=isbn&value1=$query";
-			
+
 			// API lookup ISBN value at isbndb.com
 			$xml_details = @simplexml_load_file($url_details) or die ("no file loaded") ;
-			
+
 			// Parse Data
 			$isbn = $xml_details->BookList[0]->BookData[0]['isbn'] ;
 			$title = $xml_details->BookList[0]->BookData[0]->Title ;
