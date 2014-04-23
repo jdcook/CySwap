@@ -8,11 +8,11 @@
 </div>
 
 <div id="postImages" class="col-md-3">
-		<img src="{{asset('media/logo.jpg')}}" />
-		<p>Poster: {{array_get($posting, 'user')}}</p>
-		<p>ratings</p><br/><br/>
-		<p>Suggested Price: {{array_get($posting, 'suggested_price')}}</p>
-		<p><a class="btn btn-default" href="{{URL::to('home')}}" role="button">Contact Seller »</a></p>
+	<img src="{{asset('media/logo.jpg')}}" />
+	<p>Poster: {{array_get($posting, 'user')}}</p>
+	<p>ratings</p><br/><br/>
+	<p>Suggested Price: {{array_get($posting, 'suggested_price')}}</p>
+	<p><a class="btn btn-default" href="{{URL::to('home')}}" role="button">Contact Seller »</a></p>
 </div>
 
 <div class="col-md-6">

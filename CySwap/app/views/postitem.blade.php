@@ -23,6 +23,10 @@
 	  </label>
 	</div>
 
+<?php
+	$isbn_data = App::make('IsbnExampleController')->isbndb_request("0764524984");
+
+?>
 
 	<div id="textbookDetails">
 		<div class="input-group detail">
@@ -31,6 +35,8 @@
 		</div>
 
 		<div class="input-group detail">
+			
+			{{$isbn_data["authors"]}}
 		  <span class="input-group-addon">Author</span>
 		  <input type="text" class="form-control">
 		</div>

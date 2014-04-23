@@ -8,7 +8,7 @@ Route::get('login', function(){
 });
 
 /*
- Header/footer links
+ Home and Info Links
 */
 
 Route::get('/', function()
@@ -18,11 +18,6 @@ Route::get('/', function()
 
 Route::get('home', function(){
 	return View::make('home');
-});
-
-Route::get('postItem', function()
-{
-	return View::make('postItem');
 });
 
 Route::get('safety', function()
@@ -45,20 +40,16 @@ Route::get('legaljargon', function()
 	return View::make('Info/termsofuse');
 });
 
-Route::get('report', function()
-{
-	return View::make('Info/report');
-});
 
 Route::get('contact', function()
 {
 	return View::make('Info/contact');
 });
 
-Route::get('isbnexample', function()
+/* report */
+Route::get('report', function()
 {
-	$isbn_data = App::make('IsbnExampleController')->isbndb_request("0764524984");
-	return View::make('isbnexample')->with('isbn_data', $isbn_data);
+	return View::make('Info/report');
 });
 
 
@@ -84,9 +75,21 @@ Route::get('misc', function()
 	return View::make('Categories/misc');
 });
 
-/* Testing view post */
+/* Posts */
 Route::get('viewpost/{postid}', function($postid)
 {
 	$posting = App::make('PostController')->getPost($postid);
 	return View::make('viewpost')->with('posting', $posting);
 });
+
+Route::get('postItem', function()
+{
+	return View::make('postItem');
+});
+
+Route::get('postItem/{isbn}', function($isbn)
+{
+	$isbn_data = App::make('IsbnController')->isbndb_request($isbn);
+	return View::make('postItem')->with('isbn_data', $isbn_data);
+});
+
