@@ -100,21 +100,6 @@ $('#navwrapper').height($("#nav").height());
 $('#nav').affix({
 	offset:{top:$('#nav').offset().top }
 });
-
-
-$('.detailHeading').each(function(){
-	var cur = $(this).html();
-	var newstr = formatDetailHeading(cur);
-	$(this).text(newstr);
-});
-
-
-function formatDetailHeading(string)
-{
-	var ret = string.charAt(0).toUpperCase() + string.slice(1);
-	ret = ret.replace(new RegExp('_', 'g'), ' ');
-	return ret;
-}
 </script>
 
 @yield('javascript')

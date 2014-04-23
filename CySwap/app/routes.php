@@ -52,8 +52,6 @@ Route::get('report', function()
 	return View::make('Info/report');
 });
 
-
-
 /* categories */
 Route::get('categories', function()
 {

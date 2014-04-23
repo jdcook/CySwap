@@ -21,9 +21,7 @@
 	@if($key != "posting_id" and $key != "tags" and $key != "able_to_delete" and $key != "hide_post" and $key != "title"
 		and $key != "description" and $key != 'user' and $key != "suggested_price" and $key != 'num_images' and
 		!is_null($value))
-		<p class="detailHeading">
-			{{$key}} : {{$value}}
-		</p>
+		<p class="detailHeading">{{$key}} : {{$value}}</p>
 	@endif
 	@endforeach
 
@@ -38,4 +36,23 @@
 
 
 
+@stop
+
+
+
+@section('javascript')
+<script>
+$('.detailHeading').each(function(){
+	var cur = $(this).html();
+	var newstr = formatDetailHeading(cur);
+	$(this).text(newstr);
+});
+
+function formatDetailHeading(string)
+{
+	var ret = string.charAt(0).toUpperCase() + string.slice(1);
+	ret = ret.replace('_', ' ');
+	return ret;
+}
+</script>
 @stop

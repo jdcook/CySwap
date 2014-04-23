@@ -23,33 +23,34 @@
 	  </label>
 	</div>
 
-<?php
-	$isbn_data = App::make('IsbnExampleController')->isbndb_request("0764524984");
-
-?>
 
 	<div id="textbookDetails">
 		<div class="input-group detail">
+		  <span class="input-group-addon">Title</span>
+		  <input type="text" class="form-control"
+		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["title"]}}@endif">
+		</div>
+
+		<div class="input-group detail">
 		  <span class="input-group-addon">ISBN</span>
-		  <input type="text" class="form-control">
+		  <input id="isbnInput" type="text" class="form-control" 
+		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["isbn"]}}@endif">
+		  <a id="isbnPopBtn" class="input-group-addon" href="#">Auto Populate</a>
 		</div>
 
 		<div class="input-group detail">
-			
-			{{$isbn_data["authors"]}}
 		  <span class="input-group-addon">Author</span>
-		  <input type="text" class="form-control">
-		</div>
-
-		<div class="input-group detail">
-		  <span class="input-group-addon">Other Details</span>
-		  <input type="text" class="form-control">
+		  <input type="text" class="form-control"
+		  value="@if(isset($isbn_data) and $isbn_data != null)
+		  	{{$isbn_data["authors"]}}
+		  @endif">
 		</div>
 	</div>
 
 	<div class="detail">
 		Description:
-		<input type="textarea" class="form-control description">
+		<input type="textarea" class="form-control description"
+		value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["publisher"]}}@endif">
 	</div>
 </div>
 
@@ -83,6 +84,11 @@ $('#textbookButton').click(function(){
 $('#miscButton').click(function(){
 	console.log("as;dlkfjasdf");
 	$('#textbookDetails').hide();
+});
+
+$('#isbnPopBtn').click(function(e){
+	window.location.href="{{URL::to('postItem')}}/" + $('#isbnInput').attr("value");
+	e.preventDefault();
 });
 
 </script>
