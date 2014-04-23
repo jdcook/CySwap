@@ -13,7 +13,7 @@
 		<h2>Textbooks</h2>
 
 		<!-- will be dynamically generated later -->
-		<div class="entry">
+		<div class="entry" data-postid="D6815A6A34">
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-3">	
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="entry">
+		<div class="entry" data-postid="D6815A6A34">
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-3">	
@@ -41,15 +41,8 @@
 				</div>
 			</div>
 		</div>
-
-
-
 
 	</div>
-
-
-
-
 
 
 	<div class="col-md-6 container-fluid">
@@ -58,7 +51,7 @@
 		<h2>Tickets</h2>
 
 		<!-- will be dynamically generated later -->
-		<div class="entry">
+		<div class="entry" data-postid="D6815A6A34">
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-3">	
@@ -72,7 +65,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="entry">
+		<div class="entry" data-postid="D6815A6A34">
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-3">	
@@ -86,8 +79,10 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
+
+
+	</div>
 </div>
 
 @stop

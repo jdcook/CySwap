@@ -20,8 +20,8 @@ class IsbnController extends BaseController {
 			$xml_details = @simplexml_load_file($url_details) or die ("no file loaded") ;
 
 			// Parse Data
-			$isbn = $xml_details->BookList[0]->BookData[0]['isbn'] ;
-			$title = $xml_details->BookList[0]->BookData[0]->Title ;
+			$isbn = $xml_details->BookList[0]->BookData[0]['isbn'];
+			$title = $xml_details->BookList[0]->BookData[0]->Title;
 			$authors = $xml_details->BookList[0]->BookData[0]->AuthorsText ;
 			$publisher = $xml_details->BookList[0]->BookData[0]->PublisherText ;
 

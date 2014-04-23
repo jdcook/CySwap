@@ -30,7 +30,7 @@
 	<div class="col-md-8">
 
 		<!-- will be dynamically generated later -->
-		<div class="entry">
+		<div class="entry" data-postid="D6815A6A34">
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-3">	
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="entry">
+		<div class="entry" data-postid="D6815A6A34">
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-3">	
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="entry">
+		<div class="entry" data-postid="D6815A6A34">
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-3">	
@@ -72,7 +72,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="entry">
+		<div class="entry" data-postid="D6815A6A34">
 			<h4>Dynamic Entry</h4>
 			<div class="row">
 				<div class="col-md-3">	

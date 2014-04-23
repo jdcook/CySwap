@@ -100,6 +100,12 @@ $('#navwrapper').height($("#nav").height());
 $('#nav').affix({
 	offset:{top:$('#nav').offset().top }
 });
+
+
+$('.entry').click(function(){
+	window.location.href="{{URL::to('viewpost')}}" + "/" + $(this).attr("data-postid");
+});
+
 </script>
 
 @yield('javascript')

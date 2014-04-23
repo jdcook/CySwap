@@ -1,3 +1,30 @@
+/* View Post */
+.price{
+	padding: 1em;
+	background-color:rgb(240, 240, 240);
+	border-radius-bottom: 5px;
+	border-radius-top: 0;
+	border: 2px solid rgb(160, 160, 160);
+	width: 100%;
+	color: black;
+}
+
+.detailContainer{
+	border-radius: 30px;
+	background-color:rgb(240, 240, 240);
+	border: 2px solid rgb(160, 160, 160);
+	width: 100%;
+	height: auto;
+	color: black;
+	padding: 1em 3em;
+	margin: 0 2em;
+}
+
+.posterInfo{
+
+}
+
+
 /* posting item */
 #postButton{
 	width: 100%;
@@ -13,8 +40,7 @@
 }
 
 #postImages > img{
-	height: 8em;
-	width: 12em;
+	width: 100%;
 }
 
 .categoryButton{
@@ -50,12 +76,18 @@
 /* entries */
 .entry{
 	border-radius: 5px;
-	background-color: rgb(20, 20, 20);
+	border: 2px solid rgb(160, 160, 160);
+	background-color:rgb(250, 250, 250);
 	width: 100%;
 	height: auto;
-	color: white;
+	color: black;
 	padding: .5em 0;
 	margin: 2em 0;
+}
+
+.entry:hover{
+	border: 2px solid black;
+	background-color: rgb(245, 245, 245);
 }
 
 .entryimg{
