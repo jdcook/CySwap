@@ -23,7 +23,6 @@
 	  </label>
 	</div>
 
-
 	<div id="textbookDetails">
 		<div class="input-group detail">
 		  <span class="input-group-addon">Title</span>
@@ -62,7 +61,7 @@
 </div>
 
 
-<div class="col-md-12">	
+<div class="col-md-12">
 	<a id="postButton" class="btn btn-default" href="{{URL::to('textbooks')}}" role="button">Submit Post</a>
 </div>
 
