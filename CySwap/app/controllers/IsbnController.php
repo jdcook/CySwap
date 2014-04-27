@@ -5,7 +5,6 @@ class IsbnController extends BaseController {
 	/**ISBNDB request controller
 	* @param $query: isbn to use to query isbndb.com database
 	* @ret array("isbn", "title", "authors", "publisher") **/
-
 	public function isbndb_request($query)
 	{
 		// ISBNDB Access key

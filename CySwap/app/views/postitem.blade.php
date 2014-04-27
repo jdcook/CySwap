@@ -40,8 +40,7 @@
 		<div class="input-group detail">
 		  <span class="input-group-addon">Author</span>
 		  <input type="text" class="form-control"
-		  value="@if(isset($isbn_data) and $isbn_data != null)
-		  	{{$isbn_data["authors"]}}
+		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["authors"]}}
 		  @endif">
 		</div>
 	</div>
