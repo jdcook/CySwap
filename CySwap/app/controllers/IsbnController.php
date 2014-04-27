@@ -19,11 +19,20 @@ class IsbnController extends BaseController {
 			// API lookup ISBN value at isbndb.com
 			$xml_details = @simplexml_load_file($url_details) or die ("no file loaded") ;
 
-			// Parse Data
-			$isbn = $xml_details->BookList[0]->BookData[0]['isbn'];
-			$title = $xml_details->BookList[0]->BookData[0]->Title;
-			$authors = $xml_details->BookList[0]->BookData[0]->AuthorsText ;
-			$publisher = $xml_details->BookList[0]->BookData[0]->PublisherText ;
+			try
+			{
+				// Parse Data
+				$isbn = $xml_details->BookList[0]->BookData[0]['isbn'];
+				$title = $xml_details->BookList[0]->BookData[0]->Title;
+				$authors = $xml_details->BookList[0]->BookData[0]->AuthorsText ;
+				$publisher = $xml_details->BookList[0]->BookData[0]->PublisherText ;
+			} catch(Exception $e)
+			{
+				$isbn = $query;
+				$title = null;
+				$authors = null;
+				$publisher = null;
+			}
 
 			//insert parsed data into index ret array
 			$ret = array("isbn" => $isbn, "title" => $title, "authors" => $authors, "publisher" => $publisher);
