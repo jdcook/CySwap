@@ -15,7 +15,7 @@
 	@endif
 	<div class="price">
 		@for($i = 0; $i < $posting['num_images']; $i++)
-			<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="DAMN"/>
+			<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
 		@endfor
 		<p><b>Suggested Price:</b><br/> {{$posting['suggested_price']}}</p>
 		<p><b>Poster:</b><br/> {{$posting['user']}}</p><br/>
