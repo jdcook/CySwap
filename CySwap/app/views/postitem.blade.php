@@ -53,9 +53,7 @@
 </div>
 
 <div class="col-md-8">
-	Upload Pictures
-	<input type="file" name="picupload[]">
-	<input type="file" name="picupload[]">
+	Upload Picture
 	<input type="file" name="picupload[]">
 </div>
 

@@ -26,6 +26,18 @@
 
 
 /* posting item */
+#isbnPopBtn{
+	background-color: rgb(45, 45, 75);
+	color: white;
+}
+
+#isbnPopBtn:hover{
+	background-color:rgb(225, 225, 225);
+	text-decoration: none;
+	color: rgb(45, 45, 75);
+	box-shadow: rgba(0, 0, 0, 0.121569) 0px 7px 9px 0px inset;
+}
+
 #postButton{
 	width: 100%;
 	font-size: 2em;
@@ -35,7 +47,7 @@
 }
 
 #postButton:hover{
-	background-color: rgb(45, 45, 45);
+	background-color: rgb(45, 45, 75);
 	color: white;
 }
 
