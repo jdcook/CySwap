@@ -25,6 +25,8 @@
 
 <div class="col-md-6">
 	<div class="detailContainer">
+		<h2>Details</h2>
+		<hr />
 			@foreach($posting as $key => $value)
 			@if($key != "posting_id" and $key != "tags" and $key != "able_to_delete" and $key != "hide_post" and $key != "title"
 				and $key != "description" and $key != 'user' and $key != "suggested_price" and $key != 'num_images' and
