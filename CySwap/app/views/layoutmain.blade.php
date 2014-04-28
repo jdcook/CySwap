@@ -27,8 +27,7 @@
 			<div class="col-md-2">
 				<input type="text" placeholder="Search" />
 				<br/>
-				{{--TODO: add session info to track whether user logged in instead of Auth::check--}}
-				@if(Auth::check())
+				@if(Session::has('user'))
 					<a href="{{URL::route('logout')}}">logout</a>
 				@else
 					<a href="{{URL::route('login')}}">login</a>

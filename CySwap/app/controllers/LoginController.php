@@ -40,8 +40,8 @@ class LoginController extends BaseController {
 	}
 
 	public function getLogout() {
-		//if not using Auth user delete cookie storing session
-		Auth::logout();
+
+		{{Session::flush();}}
 		return Redirect::to('/');
 	}
 
@@ -73,8 +73,8 @@ class LoginController extends BaseController {
 	    		//set valid message
 	    		$msg = 'Login succesful!';
 
-	    		/*$user = User::where('netid', '=', $netid)->first();
-				Auth::login($user);*/
+				Session::put('user', $data['netid']);
+
 	    		return Redirect::intended('/');
 	    	} else {
 	    		//set invalid message

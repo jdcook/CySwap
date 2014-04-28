@@ -7,12 +7,10 @@ Route::get('login', function(){
 	return View::make('Account/login');
 });
 
-Route::group(array('before' => 'auth'), function(){
-	Route::get('Account/logout', array(
+Route::get('Account/logout', array(
 			'as' => 'logout',
 			'uses' => 'LoginController@getLogout'
-		));
-});
+));
 
 Route::group(array('before' => 'guest'), function() {
 
