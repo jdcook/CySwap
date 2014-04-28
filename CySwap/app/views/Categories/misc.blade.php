@@ -6,65 +6,37 @@
 <h1>Miscellaneous</h1>
 <hr>
 
-<div class="row">
+	<h2>Miscellaneous</h2>
+
 	<div class="col-md-6 container-fluid">
-		<!-- will be dynamically generated later -->
-		<div class="entry" data-postid="D6815A6A34">
-			<h4>Dynamic Entry</h4>
+	@for($i = 0; $i < 4; $i++)
+	@if(isset($postingLites[$i]))
+		<div class="entry" data-postid="{{$postingLites[$i]->posting_id}}">
 			<div class="row">
-				<div class="col-md-3">	
-					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
+				<h4>{{$postingLites[$i]->title}}</h4>
+			</div>
+			<br/>
+			<div class="row">
+				@if($postingLites[$i]->num_images == 0)
+				<div class="col-sm-3">
+					@else
+						<img class="entryimg" src="{{asset('media/post_images')}}/{{$postingLites[$i]->posting_id}}_0.jpg" />
+					@endif
 				</div>
-				<div class="col-md-9 details">
-					<p><b>Detail 1:</b> Things and stuff</p>
-					<p><b>Detail 2:</b> Things and stuff</p>
-					<p><b>Detail 3:</b> Things and stuff</p>
-					<p><b>Detail 4:</b> Things and stuff</p>
+				<br/>
+				<div class="col-sm-9 details">
+					@if(!is_null($postingLites[$i]->condition))
+						<p><b>Condition:</b> {{$postingLites[$i]->condition}}</p>
+					@endif
+					@if(!is_null($postingLites[$i]->description))
+						<p><b>Description:</b> {{$postingLites[$i]->description}}</p>
+					@endif
 				</div>
 			</div>
 		</div>
-		<div class="entry" data-postid="D6815A6A34">
-			<h4>Dynamic Entry</h4>
-			<div class="row">
-				<div class="col-md-3">	
-					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
-				</div>
-				<div class="col-md-9 details">
-					<p><b>Detail 1:</b> Things and stuff</p>
-					<p><b>Detail 2:</b> Things and stuff</p>
-					<p><b>Detail 3:</b> Things and stuff</p>
-					<p><b>Detail 4:</b> Things and stuff</p>
-				</div>
-			</div>
-		</div>
-		<div class="entry" data-postid="D6815A6A34">
-			<h4>Dynamic Entry</h4>
-			<div class="row">
-				<div class="col-md-3">	
-					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
-				</div>
-				<div class="col-md-9 details">
-					<p><b>Detail 1:</b> Things and stuff</p>
-					<p><b>Detail 2:</b> Things and stuff</p>
-					<p><b>Detail 3:</b> Things and stuff</p>
-					<p><b>Detail 4:</b> Things and stuff</p>
-				</div>
-			</div>
-		</div>
-		<div class="entry" data-postid="D6815A6A34">
-			<h4>Dynamic Entry</h4>
-			<div class="row">
-				<div class="col-md-3">	
-					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
-				</div>
-				<div class="col-md-9 details">
-					<p><b>Detail 1:</b> Things and stuff</p>
-					<p><b>Detail 2:</b> Things and stuff</p>
-					<p><b>Detail 3:</b> Things and stuff</p>
-					<p><b>Detail 4:</b> Things and stuff</p>
-				</div>
-			</div>
-		</div>
+	@endif
+	@endfor
+
+
 	</div>
-</div>
 @stop

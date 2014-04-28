@@ -6,87 +6,42 @@
 	<h1>Textbooks</h1>
 	<hr>
 
+	<div class="col-md-6 container-fluid">
 
-<div class="row">
-<!--
-	<div class="col-md-4">
-		<div class="input-group">
-		  <span class="input-group-addon">Search ISBN</span>
-		  <input type="text" class="form-control">
-		</div>
-		<br>
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			Sort By
-			<span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu">
-			<li><a href="#">Date Posted</a></li>
-			<li><a href="#">Author</a></li>
-			<li><a href="#">Title</a></li>
-		</ul>
+		@for($i = 0; $i < 4; $i++)
+		@if(isset($postingLites[$i]))
+			<div class="entry" data-postid="{{$postingLites[$i]->posting_id}}">
+				<div class="row">
+					<h4>{{$postingLites[$i]->title}}</h4>
+				</div>
+				<br/>
+				<div class="row">
+					<div class="col-sm-3">	
+						@if($postingLites[$i]->num_images != 0)
+							<img class="entryimg" src="{{asset('media/post_images')}}/{{$postingLites[$i]->posting_id}}_0.jpg" />
+						@endif
+					</div>
+					<br/>
+					<div class="col-sm-9 details">
+						@if(!is_null($postingLites[$i]->author))
+							<p><b>Author:</b> {{$postingLites[$i]->author}}</p>
+						@endif
+						@if(!is_null($postingLites[$i]->isbn_10))
+							<p><b>ISBN-10:</b> {{$postingLites[$i]->isbn_10}}</p>
+						@endif
+						@if(!is_null($postingLites[$i]->isbn_13))
+							<p><b>ISBN-13:</b> {{$postingLites[$i]->isbn_13}}</p>
+						@endif
+						@if(!is_null($postingLites[$i]->condition))
+							<p><b>Condition:</b> {{$postingLites[$i]->condition}}</p>
+						@endif
+					</div>
+				</div>
+			</div>
+		@endif
+		@endfor
+
 	</div>
--->
 
-	<div class="col-md-8">
-
-		<!-- will be dynamically generated later -->
-		<div class="entry" data-postid="D6815A6A34">
-			<h4>Dynamic Entry</h4>
-			<div class="row">
-				<div class="col-md-3">	
-					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
-				</div>
-				<div class="col-md-9 details">
-					<p><b>Detail 1:</b> Things and stuff</p>
-					<p><b>Detail 2:</b> Things and stuff</p>
-					<p><b>Detail 3:</b> Things and stuff</p>
-					<p><b>Detail 4:</b> Things and stuff</p>
-				</div>
-			</div>
-		</div>
-		<div class="entry" data-postid="D6815A6A34">
-			<h4>Dynamic Entry</h4>
-			<div class="row">
-				<div class="col-md-3">	
-					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
-				</div>
-				<div class="col-md-9 details">
-					<p><b>Detail 1:</b> Things and stuff</p>
-					<p><b>Detail 2:</b> Things and stuff</p>
-					<p><b>Detail 3:</b> Things and stuff</p>
-					<p><b>Detail 4:</b> Things and stuff</p>
-				</div>
-			</div>
-		</div>
-		<div class="entry" data-postid="D6815A6A34">
-			<h4>Dynamic Entry</h4>
-			<div class="row">
-				<div class="col-md-3">	
-					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
-				</div>
-				<div class="col-md-9 details">
-					<p><b>Detail 1:</b> Things and stuff</p>
-					<p><b>Detail 2:</b> Things and stuff</p>
-					<p><b>Detail 3:</b> Things and stuff</p>
-					<p><b>Detail 4:</b> Things and stuff</p>
-				</div>
-			</div>
-		</div>
-		<div class="entry" data-postid="D6815A6A34">
-			<h4>Dynamic Entry</h4>
-			<div class="row">
-				<div class="col-md-3">	
-					<img class="entryimg" src="{{asset('media/logo.jpg')}}" />
-				</div>
-				<div class="col-md-9 details">
-					<p><b>Detail 1:</b> Things and stuff</p>
-					<p><b>Detail 2:</b> Things and stuff</p>
-					<p><b>Detail 3:</b> Things and stuff</p>
-					<p><b>Detail 4:</b> Things and stuff</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 @stop

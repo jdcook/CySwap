@@ -82,17 +82,20 @@ Route::get('categories', function()
 
 Route::get('textbooks', function()
 {
-	return View::make('Categories/textbooks');
+	$postingLites = App::make('CategoryController')->GetCategoryData('textbook');
+	return View::make('Categories/textbooks')->with('postingLites', $postingLites);
 });
 
 Route::get('tickets', function()
 {
-	return View::make('Categories/tickets');
+	$postingLites = App::make('CategoryController')->GetCategoryData('tickets');
+	return View::make('Categories/tickets')->with('postingLites', $postingLites);
 });
 
 Route::get('misc', function()
 {
-	return View::make('Categories/misc');
+	$postingLites = App::make('CategoryController')->GetCategoryData('miscellaneous');
+	return View::make('Categories/misc')->with('postingLites', $postingLites);
 });
 
 /* Posts */
