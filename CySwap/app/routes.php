@@ -75,27 +75,15 @@ Route::get('report', function()
 });
 
 /* categories */
+Route::get('category/{category}', function($category)
+{
+	$postingLites = App::make('CategoryController')->showCategoryData($category);
+	return View::make('category')->with('postingLites', $postingLites)->with('category', $category);
+});
+
 Route::get('categories', function()
 {
-	return View::make('Categories/categories');
-});
-
-Route::get('textbooks', function()
-{
-	$postingLites = App::make('CategoryController')->GetCategoryData('textbook');
-	return View::make('Categories/textbooks')->with('postingLites', $postingLites);
-});
-
-Route::get('tickets', function()
-{
-	$postingLites = App::make('CategoryController')->GetCategoryData('tickets');
-	return View::make('Categories/tickets')->with('postingLites', $postingLites);
-});
-
-Route::get('misc', function()
-{
-	$postingLites = App::make('CategoryController')->GetCategoryData('miscellaneous');
-	return View::make('Categories/misc')->with('postingLites', $postingLites);
+	return View::make('categories');
 });
 
 /* Posts */

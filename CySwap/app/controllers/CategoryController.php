@@ -2,10 +2,10 @@
 
 class CategoryController extends BaseController {
 
-
-	public function GetCategoryData($category)
+	public function showCategoryData($category)
 	{
-		return App::make('Post')->getPostingLites($category);
+		$postingLites = App::make('Post')->getPostingLites($category, '4');
+		return $postingLites;
 	}
 
 }

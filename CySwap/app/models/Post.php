@@ -29,13 +29,16 @@ class Post extends Eloquent {
 	}
 
 
-	public function getPostingLites($category) 
+	public function getPostingLites($category, $number_of_postings) 
 	{
 		$postingLites;
-		if($category == "textbook") {
-			$postingLites = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id in (select posting_id from cyswap.postings where category = \'textbook\' order by date DESC) limit 2 ');
+		if($category == "textbooks") {
+			$postingLites = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id in (select posting_id from cyswap.postings where category = \'textbook\' order by date DESC) limit '.$number_of_postings);
 		} elseif($category == "miscellaneous") {
-			$postingLites = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id in (select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC) limit 2 ');
+			$postingLites = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id in (select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC) limit '.$number_of_postings);
+		}
+		foreach ($postingLites as  $key => $value) {
+			$postingLites[$key] = (array) $value;
 		}
 		
 		return $postingLites;
