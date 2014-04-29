@@ -23,7 +23,7 @@
 	  </label>
 	</div>
 
-	{{ Form::open(array('action' => array('PostController@postItem')) }}
+	{{ Form::open(array('action' => array('PostController@postItem'))) }}
 
 	<div id="textbookDetails">
 		<div class="input-group detail">
