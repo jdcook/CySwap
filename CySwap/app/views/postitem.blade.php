@@ -23,32 +23,75 @@
 	  </label>
 	</div>
 
+	{{ Form::open(array('action' => array('PostController@postItem')) }}
+
 	<div id="textbookDetails">
 		<div class="input-group detail">
-		  <span class="input-group-addon">Title</span>
-		  <input type="text" class="form-control"
-		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["title"]}}@endif">
+		  <span class="input-group-addon">{{Form::label('Title')}}</span>
+		  @if(isset($isbn_data) and $isbn_data != null)
+		  	{{Form::text('Title', $isbn_data["title"], ['class' => 'form-control'])}}
+		  @else
+		  	{{Form::text('Title', '', ['class' => 'form-control'])}}
+		  @endif
 		</div>
 
 		<div class="input-group detail">
-		  <span class="input-group-addon">ISBN</span>
+		  <span class="input-group-addon">{{Form::label('ISBN')}}</span>
 		  <input id="isbnInput" type="text" class="form-control"
 		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["isbn"]}}@endif">
 		  <a id="isbnPopBtn" class="input-group-addon" href="#">Auto Populate</a>
 		</div>
 
 		<div class="input-group detail">
-		  <span class="input-group-addon">Author</span>
-		  <input type="text" class="form-control"
-		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["authors"]}}
-		  @endif">
+		  <span class="input-group-addon">{{Form::label('ISBN13')}}</span>
+		  @if(isset($isbn_data) and $isbn_data != null)
+		  	{{Form::text('ISBN13', $isbn_data["isbn13"], ['class' => 'form-control'])}}
+		  @else
+		  	{{Form::text('ISBN13', '', ['class' => 'form-control'])}}
+		  @endif
+		</div>
+
+		<div class="input-group detail">
+		  <span class="input-group-addon">{{Form::label('Author')}}</span>
+		  @if(isset($isbn_data) and $isbn_data != null)
+		  	{{Form::text('Author', $isbn_data["authors"], ['class' => 'form-control'])}}
+		  @else
+		  	{{Form::text('Author', '', ['class' => 'form-control'])}}
+		  @endif
+		</div>
+
+		<div class="input-group detail">
+		  <span class="input-group-addon">{{Form::label('Publisher')}}</span>
+		  @if(isset($isbn_data) and $isbn_data != null)
+		  	{{Form::text('Publisher', $isbn_data["publisher"], ['class' => 'form-control'])}}
+		  @else
+		  	{{Form::text('Publisher', '', ['class' => 'form-control'])}}
+		  @endif
+		</div>
+
+		<div class="input-group detail">
+		  <span class="input-group-addon">{{Form::label('Edition')}}</span>
+		  @if(isset($isbn_data) and $isbn_data != null)
+		  	{{Form::text('Edition', $isbn_data["edition"], ['class' => 'form-control'])}}
+		  @else
+		  	{{Form::text('Edition', '', ['class' => 'form-control'])}}
+		  @endif
+		</div>
+
+		<div class="input-group detail">
+		  <span class="input-group-addon">{{Form::label('Condition')}}</span>
+		  	{{Form::text('Condition', '', ['class' => 'form-control'])}}
+		</div>
+
+		<div class="input-group detail">
+		  <span class="input-group-addon">{{Form::label('Suggested Price')}}</span>
+		  	{{Form::text('Suggested Price', '', ['class' => 'form-control'])}}
 		</div>
 	</div>
 
 	<div class="detail">
 		Description:
-		<input type="textarea" class="form-control description"
-		value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["publisher"]}}@endif">
+		<input type="textarea" class="form-control description">
 	</div>
 </div>
 
@@ -59,8 +102,10 @@
 
 
 <div class="col-md-12">
-	<a id="postButton" class="btn btn-default" href="{{URL::to('textbooks')}}" role="button">Submit Post</a>
+	<a> {{ Form::submit('Submit Post', ['id' => 'postButton', 'class' => 'btn btn-default', 'role' => 'button']) }} </a>
 </div>
+
+{{ Form::token().Form::close() }}
 
 
 

@@ -22,19 +22,24 @@ class IsbnController extends BaseController {
 			{
 				// Parse Data
 				$isbn = $xml_details->BookList[0]->BookData[0]['isbn'];
+				$isbn13 = "978".$xml_details->BookList[0]->BookData[0]['isbn'];
 				$title = $xml_details->BookList[0]->BookData[0]->Title;
 				$authors = $xml_details->BookList[0]->BookData[0]->AuthorsText ;
 				$publisher = $xml_details->BookList[0]->BookData[0]->PublisherText ;
+				$edition = $xml_details->BookList[0]->BookData[0]->Details['edition_info'] ;
 			} catch(Exception $e)
 			{
 				$isbn = $query;
+				$isbn13 = null;
 				$title = null;
 				$authors = null;
 				$publisher = null;
+				$edition = null;
 			}
 
 			//insert parsed data into index ret array
-			$ret = array("isbn" => $isbn, "title" => $title, "authors" => $authors, "publisher" => $publisher);
+			$ret = array("isbn" => $isbn, "isbn13" => $isbn13, "title" => $title, "authors" => $authors, "publisher"
+				=> $publisher, "edition" => $edition);
 
 			//return successfully
 			return $ret;

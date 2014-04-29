@@ -12,4 +12,14 @@ class PostController extends BaseController {
 		return $posting;
 	}
 
+	public function postItem()
+	{
+		$postid = str_random(10);
+		DB::insert('insert into CySwap.postings (posting_id, user, date, category, able_to_delete, hide_post) values (?, ?, ?, ?, ?, ?)',
+			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 1, 0));
+		DB::insert('insert into CySwap.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, CySwap.category_textbook.condition, tags, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			array($postid, Input::get('Title'), substr(Input::get('ISBN13'), 3, 10), Input::get('ISBN13'), Input::get('Author'), Input::get('Publisher'), Input::get('Edition'), 'Math', 'This is Calculus for dummies', Input::get('Condition'), null, Input::get('Suggested Price'), 0));
+		$posting = App::make('PostController')->getPost($postid);
+		return View::make('viewpost')->with('posting', $posting);
+	}
 }

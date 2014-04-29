@@ -29,18 +29,36 @@ class Post extends Eloquent {
 	}
 
 
-	public function getPostingLites($category, $number_of_postings) 
+	public function getPostingLites($category, $number_of_postings)
 	{
 		$postingLites;
 		if($category == "textbooks") {
-			$postingLites = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id in (select posting_id from cyswap.postings where category = \'textbook\' order by date DESC) limit '.$number_of_postings);
+			$postingids = DB::select('select posting_id from cyswap.postings where category = \'textbook\' order by date DESC limit '.$number_of_postings);
+			$postingidstring = "'".$postingids[0]->posting_id."'";
+			foreach($postingids as $postingidstr) {
+				$postingidstring = $postingidstring." or posting_id = '".$postingidstr->posting_id."'";
+			}
+			$postingLites = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '.$postingidstring);
 		} elseif($category == "miscellaneous") {
-			$postingLites = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id in (select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC) limit '.$number_of_postings);
+			$postingids = DB::select('select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC limit '.$number_of_postings);
+			$postingidstring = "'".$postingids[0]->posting_id."'";
+			foreach($postingids as $postingidstr) {
+				$postingidstring = $postingidstring." or posting_id = '".$postingidstr->posting_id."'";
+			}
+			$postingLites = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id = '.$postingidstring);
 		}
 		foreach ($postingLites as  $key => $value) {
 			$postingLites[$key] = (array) $value;
 		}
-		
+
 		return $postingLites;
+	}
+
+	public function postItem()
+	{
+		if(Input::has('Title'))
+		{
+			View::make('postItem');
+		}
 	}
 }

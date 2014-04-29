@@ -104,3 +104,5 @@ Route::get('postItem/{isbn}', function($isbn)
 	return View::make('postItem')->with('isbn_data', $isbn_data);
 });
 
+Route::post('postItem', 'PostController@postItem');
+

@@ -8,7 +8,9 @@
 </div>
 
 <div id="postImages" class="col-md-4">
-	@if($posting['num_images'] != 0)
+	@if($posting['num_images'] == 0)
+		<img class="entryimg" src="{{asset('media/notAvailable.jpg')}}" />
+	@else
 		<img class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 	@endif
 	<div class="price">
@@ -16,8 +18,10 @@
 			<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
 		@endfor
 		<p><b>Suggested Price:</b><br/> {{$posting['suggested_price']}}</p>
-		<p><b>Poster:</b><br/> {{$posting['user']}}</p><br/>
-	<p><a class="btn btn-default" href="{{URL::to('home')}}" role="button">Contact Seller</a></p>
+		@if(Session::has('user'))
+			<p><b>Poster:</b><br/> {{$posting['user']}}</p><br/>
+			<p><a class="btn btn-default" href="{{URL::to('home')}}" role="button">Contact Seller</a></p>
+		@endif
 	</div>
 </div>
 
