@@ -25,16 +25,23 @@
 				<p><b>Poster:</b><br/> {{$posting['user']}} (me)</p><br/>
 				<p><a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default" role="button">Mark Transaction Complete</a></p>
 				<div class='panel-collapse collapse' id="markCompletePanel">
-					mark as complete panel
+					<p id="confirmText">Are you sure?</p>
+					<p><a id="markCompleteConfirmBtn" style="border-color: green" class="btn btn-default" role="button">I'm Sure</a></p>
 				</div>
 
 			<!-- otherwise, show contact seller button -->
 			@else
 				<p><b>Poster:</b><br/> {{$posting['user']}}</p><br/>
-				<p><a id="contactSellerBtn" data-toggle="collapse" data-target='#closeme' class="btn btn-default" role="button">Contact Seller</a></p>
+				<p><a id="contactSellerBtn" data-toggle="collapse" data-target='#contactPanel' class="btn btn-default" role="button">Contact Seller</a></p>
 
-				<div class='panel-collapse collapse' id="closeme">
-					<textarea>contact seller panel</textarea>
+				<div class='panel-collapse collapse' id="contactPanel">
+					<textarea id='contactInput'>Type stuff here</textarea>
+					<p>
+						<p id="confirmText">Send Email to {{$posting['user']}}</p>
+						<a id="sendEmailBtn" style="border-color:green" class="btn btn-default" role="button">Send Email</a>
+						<a id="cancelBtn" data-toggle="collapse" data-target="#contactPanel" style="border-color:red" class="btn btn-default" role="button">Cancel</a>
+					</p>
+
 				</div>
 			@endif
 		@endif
@@ -78,5 +85,23 @@ function formatDetailHeading(string)
 	ret = ret.replace('_', ' ');
 	return ret;
 }
+
+$('#markCompleteConfirmBtn').click(function(){
+	//todo: delete post from database, or mark as complete and delete in a few days?
+	$('#confirmText').html("The post has been closed.");
+	$('#markCompleteConfirmBtn').remove();
+});
+
+$('#sendEmailBtn').click(function(){
+	$('#confirmText').html("The email has been sent to "+"{{$posting['user']}}")
+	$('#contactInput').remove();
+	$('#cancelBtn').remove();
+	$('#sendEmailBtn').remove();
+
+});
+
+$('#cancelBtn').click(function(){
+	$('#contactInput').val('Type stuff here');
+});
 </script>
 @stop
