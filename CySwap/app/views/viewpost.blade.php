@@ -13,14 +13,30 @@
 	@else
 		<img class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 	@endif
-	<div class="price">
+	<div id="collapseParent" class="price">
 		@for($i = 0; $i < $posting['num_images']; $i++)
 			<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
 		@endfor
 		<p><b>Suggested Price:</b><br/> {{$posting['suggested_price']}}</p>
 		@if(Session::has('user'))
-			<p><b>Poster:</b><br/> {{$posting['user']}}</p><br/>
-			<p><a class="btn btn-default" href="{{URL::to('home')}}" role="button">Contact Seller</a></p>
+
+			<!-- if the poster is the same as the current user, let them mark as complete -->
+			@if(Session::get('user') == $posting['user'])
+				<p><b>Poster:</b><br/> {{$posting['user']}} (me)</p><br/>
+				<p><a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default" role="button">Mark Transaction Complete</a></p>
+				<div class='panel-collapse collapse' id="markCompletePanel">
+					mark as complete panel
+				</div>
+
+			<!-- otherwise, show contact seller button -->
+			@else
+				<p><b>Poster:</b><br/> {{$posting['user']}}</p><br/>
+				<p><a id="contactSellerBtn" data-toggle="collapse" data-target='#closeme' class="btn btn-default" role="button">Contact Seller</a></p>
+
+				<div class='panel-collapse collapse' id="closeme">
+					<textarea>contact seller panel</textarea>
+				</div>
+			@endif
 		@endif
 	</div>
 </div>
@@ -49,6 +65,7 @@
 
 @section('javascript')
 <script>
+
 $('.detailHeading').each(function(){
 	var cur = $(this).html();
 	var newstr = formatDetailHeading(cur);

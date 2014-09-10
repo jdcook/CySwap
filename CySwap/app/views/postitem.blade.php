@@ -123,7 +123,6 @@ $('#textbookButton').click(function(){
 });
 
 $('#miscButton').click(function(){
-	console.log("as;dlkfjasdf");
 	$('#textbookDetails').hide();
 });
 
