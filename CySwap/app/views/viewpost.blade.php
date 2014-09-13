@@ -35,11 +35,36 @@
 				<p><a id="contactSellerBtn" data-toggle="collapse" data-target='#contactPanel' class="btn btn-default" role="button">Contact Seller</a></p>
 
 				<div class='panel-collapse collapse' id="contactPanel">
-					<textarea id='contactInput'>Type stuff here</textarea>
+					
 					<p>
-						<p id="confirmText">Send Email to {{$posting['user']}}</p>
-						<a id="sendEmailBtn" style="border-color:green" class="btn btn-default" role="button">Send Email</a>
-						<a id="cancelBtn" data-toggle="collapse" data-target="#contactPanel" style="border-color:red" class="btn btn-default" role="button">Cancel</a>
+					<p id="confirmText">Send Email to {{$posting['user']}}</p>
+						
+						{{ Form::open(array('action' => array('EmailController@emailContact'))) }}
+						<br>
+
+
+						<div class="detail">
+						  <span class="input-group-addon textareaLabel">{{Form::label('Email')}}</span>
+						  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'] . ' (' . $posting['posting_id'] . ')', 
+						  	['id' => 'contactInput', 'class' => 'form-control description'])}}
+						</div>
+
+
+						<br />
+						<div class="detail">
+						  <span class="textareaLabel">{{Form::label('Re-Enter Password')}}</span>
+						  	{{Form::password('password', '', ['class' => 'form-control'])}}
+						</div>
+
+						{{ Form::submit('Send Email', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default confirmInput', 'role' => 'button']) }}
+
+						<a id="cancelBtn" data-toggle="collapse" data-target="#contactPanel" 
+						style="border-color:red" class="btn btn-default" role="button">Cancel</a>
+
+						{{ Form::token() }}
+
+					</form>
+						
 					</p>
 
 				</div>
@@ -101,7 +126,7 @@ $('#sendEmailBtn').click(function(){
 });
 
 $('#cancelBtn').click(function(){
-	$('#contactInput').val('Type stuff here');
+	$('#contactInput').val("{{'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'] . ' (' . $posting['posting_id'] . ')'}}");
 });
 </script>
 @stop

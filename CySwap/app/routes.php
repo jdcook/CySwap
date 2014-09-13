@@ -106,3 +106,4 @@ Route::get('postItem/{isbn}', function($isbn)
 
 Route::post('postItem', 'PostController@postItem');
 
+Route::post('contactEmail', 'EmailController@emailContact');

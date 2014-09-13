@@ -90,14 +90,15 @@
 	</div>
 
 	<div class="detail">
-		Description:
-		<input type="textarea" class="form-control description">
+		<span class="input-group-addon textareaLabel">{{Form::label('Description')}}</span>
+		{{Form::textarea('Description', '', ['class' => 'form-control description'])}}
 	</div>
 </div>
 
 <div class="col-md-8">
 	Upload Picture
 	<input type="file" name="picupload[]">
+	<br />
 </div>
 
 
