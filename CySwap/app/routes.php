@@ -28,6 +28,18 @@ Route::group(array('before' => 'guest'), function() {
 });
 
 /*
+	Search Link
+*/
+Route::post('search_results', function()
+{
+	$keyword = Input::get('keyword');
+	
+	$posts = Posting::where('user', 'LIKE', '%'.$keyword.'%')->get();
+
+	return View::make('search')->with('posts', $posts);;
+});
+
+/*
  Home and Info Links
 */
 

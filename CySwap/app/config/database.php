@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'proj-492-02.cs.iastate.edu',
-			'database'  => 'mysql',
+			'database'  => 'cyswap',
 			'username'  => 'root',
 			'password'  => 'dec1413',
 			'charset'   => 'utf8',
