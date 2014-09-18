@@ -18,15 +18,23 @@
 			<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
 		@endfor
 		<p><b>Suggested Price:</b><br/> {{$posting['suggested_price']}}</p>
+		
+		@if(Session::has('message'))
+			{{ Session::get('message') }}
+		@endif
 		@if(Session::has('user'))
-
 			<!-- if the poster is the same as the current user, let them mark as complete -->
 			@if(Session::get('user') == $posting['user'])
 				<p><b>Poster:</b><br/> {{$posting['user']}} (me)</p><br/>
 				<p><a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default" role="button">Mark Transaction Complete</a></p>
 				<div class='panel-collapse collapse' id="markCompletePanel">
-					<p id="confirmText">Are you sure?</p>
-					<p><a id="markCompleteConfirmBtn" style="border-color: green" class="btn btn-default" role="button">I'm Sure</a></p>
+					{{ Form::open(array('action'=>'EmailController@emailBuyer')) }}
+					{{Form::hidden('postid', $posting['posting_id'])}}
+				  	<span id="textareaLabel" class="input-group-addon textareaLabel">{{Form::label('NetID of Buyer')}}</span>
+					{{Form::text('buyerName', '', ['class'=>'form-control'])}}
+					{{ Form::submit('Complete Transaction', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default confirmInput', 'role' => 'button']) }}<br /><br />
+					<p><a style="border-color: red" class="btn btn-default" role="button">Didn't sell to iastate user</a></p>
+					{{Form::token()}}
 				</div>
 
 			<!-- otherwise, show contact seller button -->
@@ -39,22 +47,20 @@
 					<p>
 					<p id="confirmText">Send Email to {{$posting['user']}}</p>
 						
-						{{ Form::open(array('action' => array('EmailController@emailContact'))) }}
+						{{ Form::open(array('action'=>'EmailController@emailContact')) }}
 						<br>
 
 
 						<div class="detail">
-						  <span class="input-group-addon textareaLabel">{{Form::label('Email')}}</span>
-						  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'] . ' (' . $posting['posting_id'] . ')', 
+						  <span id="textareaLabel" class="input-group-addon textareaLabel">{{Form::label('Email')}}</span>
+						  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'], 
 						  	['id' => 'contactInput', 'class' => 'form-control description'])}}
 						</div>
 
+						{{Form::hidden('posterName', ''.$posting['user'])}}
+
 
 						<br />
-						<div class="detail">
-						  <span class="textareaLabel">{{Form::label('Re-Enter Password')}}</span>
-						  	{{Form::password('password', '', ['class' => 'form-control'])}}
-						</div>
 
 						{{ Form::submit('Send Email', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default confirmInput', 'role' => 'button']) }}
 
@@ -110,20 +116,6 @@ function formatDetailHeading(string)
 	ret = ret.replace('_', ' ');
 	return ret;
 }
-
-$('#markCompleteConfirmBtn').click(function(){
-	//todo: delete post from database, or mark as complete and delete in a few days?
-	$('#confirmText').html("The post has been closed.");
-	$('#markCompleteConfirmBtn').remove();
-});
-
-$('#sendEmailBtn').click(function(){
-	$('#confirmText').html("The email has been sent to "+"{{$posting['user']}}")
-	$('#contactInput').remove();
-	$('#cancelBtn').remove();
-	$('#sendEmailBtn').remove();
-
-});
 
 $('#cancelBtn').click(function(){
 	$('#contactInput').val("{{'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'] . ' (' . $posting['posting_id'] . ')'}}");
