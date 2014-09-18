@@ -34,18 +34,19 @@ class Post extends Eloquent {
 		$postingLites;
 		if($category == "textbooks") {
 			$postingids = DB::select('select posting_id from cyswap.postings where category = \'textbook\' order by date DESC limit '.$number_of_postings);
-			$postingidstring = "'".$postingids[0]->posting_id."'";
-			foreach($postingids as $postingidstr) {
-				$postingidstring = $postingidstring." or posting_id = '".$postingidstr->posting_id."'";
+
+			foreach($postingids as $postingIdObj) {
+				$postingidstr = $postingIdObj->posting_id;
+				$postingLites[$postingidstr] = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'")[0];
 			}
-			$postingLites = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '.$postingidstring);
+
 		} elseif($category == "miscellaneous") {
 			$postingids = DB::select('select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC limit '.$number_of_postings);
-			$postingidstring = "'".$postingids[0]->posting_id."'";
-			foreach($postingids as $postingidstr) {
-				$postingidstring = $postingidstring." or posting_id = '".$postingidstr->posting_id."'";
+
+			foreach($postingids as $postingIdObj) {
+				$postingidstr = $postingIdObj->posting_id;
+				$postingLites[$postingidstr] = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id = '."'".$postingidstr."'")[0];
 			}
-			$postingLites = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id = '.$postingidstring);
 		}
 		foreach ($postingLites as  $key => $value) {
 			$postingLites[$key] = (array) $value;
