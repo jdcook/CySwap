@@ -25,8 +25,6 @@ class EmailController extends BaseController {
 
 
     public function emailBuyer(){
-
-        $msg = 'The transaction has been completed.';
         try{
             DB::update('update cyswap.postings set hide_post = 1 where posting_id = '.Input::get('postid').';');
 
@@ -40,10 +38,9 @@ class EmailController extends BaseController {
             });
         }
         catch(Exception $e){
-            $msg = 'An error has occurred:'.$e->getMessage();
+            return Redirect::to('/finishedEmail')->with('message', 'An error has occurred:'.$e->getMessage());
         }
 
-
-        return Redirect::to('/finishedEmail')->with('message', $msg);
+        return Redirect::to('/rateBuyer')->with('posting', App::make('PostController')->getPost(Input::get('postid')));
     }
 }

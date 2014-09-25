@@ -67,9 +67,7 @@
 						<a id="cancelBtn" data-toggle="collapse" data-target="#contactPanel" 
 						style="border-color:red" class="btn btn-default" role="button">Cancel</a>
 
-						{{ Form::token() }}
-
-					</form>
+						{{ Form::token().Form::close() }}
 						
 					</p>
 
