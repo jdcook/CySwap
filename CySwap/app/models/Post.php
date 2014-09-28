@@ -55,11 +55,20 @@ class Post extends Eloquent {
 		return $postingLites;
 	}
 
-	public function postItem()
+	public function postItem($post_params)
 	{
-		if(Input::has('Title'))
-		{
-			View::make('postItem');
-		}
+		//generate random postid
+		$postid = str_random(10);
+
+		//insert posting lite into table
+		DB::insert('insert into CySwap.postings (posting_id, user, date, category, able_to_delete, hide_post) values (?, ?, ?, ?, ?, ?)',
+			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 1, 0));
+
+		//insert posting into table
+		DB::insert('insert into CySwap.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, CySwap.category_textbook.condition, tags, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], null, $post_params['Suggested_Price'], 0));
+		
+		//return the randomly generated post id
+		return $postid;
 	}
 }
