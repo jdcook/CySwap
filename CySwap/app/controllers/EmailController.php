@@ -11,7 +11,7 @@ class EmailController extends BaseController {
                 $poster = Input::get('posterName');
                 $buyer = Session::get('user');
                 $message->sender('kabernsj@iastate.edu', 'CySwap')
-                ->to($poster.'@gmail.com', $poster)
+                ->to($poster.'@iastate.edu', $poster)
                 ->subject($buyer.' is interested in buying your item!')
                 ->replyTo($buyer.'@iastate.edu', $buyer);
             });

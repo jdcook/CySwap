@@ -21,10 +21,12 @@
 		</a>
 	</div>
 
+	<!-- 
 	<div class="input-group detail">
 	  <span class="input-group-addon">{{Form::label('Leave Feedback')}}</span>
 	  	{{Form::text('feedback', '', ['id' => 'feedback', 'class' => 'form-control'])}}
-	</div>
+	</div> 
+	-->
 
 
 	<br />
