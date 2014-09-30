@@ -89,14 +89,31 @@
 	border-right:solid 1px #ccc;
 }
 
+.topTextLabel{
+	border-bottom: 0;
+	border-radius: 0;
+	background-color: rgb(200, 200, 200);
+}
+
 .confirmPass{
 	width: 100%;
 }
 
-.confirmInput{
+.positive-active{
 	border-color: green;
 }
 
+.negative-active{
+	border-color: red;
+}
+
+.switch-inactive{
+	border-color:rgb(240, 240, 240);
+}
+
+.switch{
+	border-radius:0;
+}
 
 
 /* footer */
@@ -170,4 +187,8 @@ h1{
 hr{
 	width: auto;
 	border-top-color: rgb(150, 150, 150);
+}
+
+.outlinedCollapse{
+	border: 1px solid rgb(180, 180, 180);
 }

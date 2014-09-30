@@ -26,14 +26,24 @@
 			<!-- if the poster is the same as the current user, let them mark as complete -->
 			@if(Session::get('user') == $posting['user'])
 				<p><b>Poster:</b><br/> {{$posting['user']}} (me)</p><br/>
-				<p><a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default" role="button">Mark Transaction Complete</a></p>
-				<div class='panel-collapse collapse' id="markCompletePanel">
+				<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default" role="button">Close Post</a></p>
+				<div class='panel-collapse collapse outlinedCollapse' id="markCompletePanel">
 					{{ Form::open(array('action'=>'EmailController@emailBuyer')) }}
 					{{Form::hidden('postid', $posting['posting_id'])}}
-				  	<span id="textareaLabel" class="input-group-addon textareaLabel">{{Form::label('NetID of Buyer')}}</span>
-					{{Form::text('buyerName', '', ['class'=>'form-control'])}}
-					{{ Form::submit('Complete Transaction', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default confirmInput', 'role' => 'button']) }}<br /><br />
-					<p><a style="border-color: red" class="btn btn-default" role="button">Didn't sell to iastate user</a></p>
+					{{Form::hidden('finish', 'y', ['id'=>'isFinishing'])}}
+					<a id='finishBtn' class='btn btn-default center-block positive-active switch' role='button'>Finish</a>
+					<a id='deleteBtn' class='btn btn-default center-block switch-inactive switch' role='button'>Delete Post</a>
+
+					<br/>
+					<br/>
+
+					<div class='panel-collapse' id='netidInput'>
+				  		<span id="textareaLabel" class="input-group-addon topTextLabel">{{Form::label('NetID of Buyer')}}</span>
+						{{Form::text('buyerName', '', ['class'=>'form-control'])}}
+						<br/>
+					</div>
+
+					{{ Form::submit('Submit', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default positive-active', 'role' => 'button']) }}<br /><br />
 					{{Form::token()}}
 				</div>
 
@@ -43,34 +53,32 @@
 				<p><a id="contactSellerBtn" data-toggle="collapse" data-target='#contactPanel' class="btn btn-default" role="button">Contact Seller</a></p>
 
 				<div class='panel-collapse collapse' id="contactPanel">
-					
-					<p>
-					<p id="confirmText">Send Email to {{$posting['user']}}</p>
-						
-						{{ Form::open(array('action'=>'EmailController@emailContact')) }}
-						<br>
+						<p>
+						<p id="confirmText">Send Email to {{$posting['user']}}</p>
+							
+							{{ Form::open(array('action'=>'EmailController@emailContact')) }}
+							<br>
 
 
-						<div class="detail">
-						  <span id="textareaLabel" class="input-group-addon textareaLabel">{{Form::label('Email')}}</span>
-						  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'], 
-						  	['id' => 'contactInput', 'class' => 'form-control description'])}}
-						</div>
+							<div class="detail">
+							  <span id="textareaLabel" class="input-group-addon textareaLabel">{{Form::label('Email')}}</span>
+							  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'], 
+							  	['id' => 'contactInput', 'class' => 'form-control description'])}}
+							</div>
 
-						{{Form::hidden('posterName', ''.$posting['user'])}}
+							{{Form::hidden('posterName', ''.$posting['user'])}}
 
 
-						<br />
+							<br />
 
-						{{ Form::submit('Send Email', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default confirmInput', 'role' => 'button']) }}
+							{{ Form::submit('Send Email', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default confirmInput', 'role' => 'button']) }}
 
-						<a id="cancelBtn" data-toggle="collapse" data-target="#contactPanel" 
-						style="border-color:red" class="btn btn-default" role="button">Cancel</a>
+							<a id="cancelBtn" data-toggle="collapse" data-target="#contactPanel" 
+							style="border-color:red" class="btn btn-default" role="button">Cancel</a>
 
-						{{ Form::token().Form::close() }}
-						
-					</p>
-
+							{{ Form::token().Form::close() }}
+							
+						</p>
 				</div>
 			@endif
 		@endif
@@ -117,6 +125,25 @@ function formatDetailHeading(string)
 
 $('#cancelBtn').click(function(){
 	$('#contactInput').val("{{'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'] . ' (' . $posting['posting_id'] . ')'}}");
+});
+
+$('#deleteBtn').click(function(){
+	$('#netidInput').slideUp();
+	$('#isFinishing').val('n');
+	$('#finishBtn').removeClass('positive-active');
+	$('#finishBtn').addClass('switch-inactive');
+	$(this).removeClass('switch-inactive');
+	$(this).addClass('negative-active');
+});
+
+$('#finishBtn').click(function(){
+	$('#netidInput').slideDown();
+	$('#isFinishing').val('y');
+
+	$('#deleteBtn').removeClass('negative-active');
+	$('#deleteBtn').addClass('switch-inactive');
+	$(this).removeClass('switch-inactive');
+	$(this).addClass('positive-active');
 });
 </script>
 @stop
