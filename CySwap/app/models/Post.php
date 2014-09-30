@@ -71,4 +71,14 @@ class Post extends Eloquent {
 		//return the randomly generated post id
 		return $postid;
 	}
+
+	public function hidePost($postid)
+	{
+        DB::update('update cyswap.postings set hide_post = 1 where posting_id = '.$postid.';');
+	}
+
+	public function deletePost($postid)
+	{
+		
+	}
 }

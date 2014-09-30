@@ -26,24 +26,20 @@
 			<!-- if the poster is the same as the current user, let them mark as complete -->
 			@if(Session::get('user') == $posting['user'])
 				<p><b>Poster:</b><br/> {{$posting['user']}} (me)</p><br/>
-				<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default" role="button">Close Post</a></p>
+				<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
 				<div class='panel-collapse collapse outlinedCollapse' id="markCompletePanel">
 					{{ Form::open(array('action'=>'EmailController@emailBuyer')) }}
 					{{Form::hidden('postid', $posting['posting_id'])}}
-					{{Form::hidden('finish', 'y', ['id'=>'isFinishing'])}}
-					<a id='finishBtn' class='btn btn-default center-block positive-active switch' role='button'>Finish</a>
+					{{Form::hidden('isFinishing', 'y', ['id'=>'isFinishing'])}}
 					<a id='deleteBtn' class='btn btn-default center-block switch-inactive switch' role='button'>Delete Post</a>
-
-					<br/>
-					<br/>
-
-					<div class='panel-collapse' id='netidInput'>
+					<a id='finishBtn' class='btn btn-default center-block positive-active switch' role='button'>Complete Transaction</a>
+					<div class='panel-collapse switch' style="margin-top: 0" id='netidInput'>
 				  		<span id="textareaLabel" class="input-group-addon topTextLabel">{{Form::label('NetID of Buyer')}}</span>
-						{{Form::text('buyerName', '', ['class'=>'form-control'])}}
+						{{Form::text('buyerName', '', ['id'=>'buyerName', 'class'=>'form-control'])}}
 						<br/>
 					</div>
-
-					{{ Form::submit('Submit', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default positive-active', 'role' => 'button']) }}<br /><br />
+					<br/>
+					{{ Form::submit('Submit', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default positive-active center-block', 'role' => 'button']) }}<br /><br />
 					{{Form::token()}}
 				</div>
 
@@ -144,6 +140,8 @@ $('#finishBtn').click(function(){
 	$('#deleteBtn').addClass('switch-inactive');
 	$(this).removeClass('switch-inactive');
 	$(this).addClass('positive-active');
+
+	$('#buyerName').focus();
 });
 </script>
 @stop
