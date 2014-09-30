@@ -20,7 +20,7 @@ class EmailController extends BaseController {
             $msg = 'An error has occurred: '.$e->getMessage();
         }
 
-        return Redirect::to('/finishedEmail')->with('message', $msg);
+        return Redirect::to('/finishedEmail')->with('message', $msg . Input::get('emailText'));
     }
 
 
@@ -28,13 +28,13 @@ class EmailController extends BaseController {
         try{
             if(Input::get('isFinishing') == 'y'){
                 App::make('Post')->hidePost(Input::get('postid'));
-                Mail::send('emails.contact', array('emailText'=>'Rate so-and-so'), function($message)
+                $username = Session::get('user');
+                Mail::send('emails.rate', array('postid'=>Input::get('postid'), 'poster'=>$username), function($message)
                 {
                     $buyerName = Input::get('buyerName');
-                    $username = Session::get('user');
                     $message->sender('kabernsj@iastate.edu', 'CySwap')
                     ->to($buyerName.'@iastate.edu', $buyerName)
-                    ->subject('Rate so-and-so');
+                    ->subject('Cyswap Transaction Completed');
                 });
                 return Redirect::to('/rateBuyer')->with('posting', App::make('PostController')->getPost(Input::get('postid')));
             }

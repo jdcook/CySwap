@@ -58,7 +58,7 @@
 
 							<div class="detail">
 							  <span id="textareaLabel" class="input-group-addon textareaLabel">{{Form::label('Email')}}</span>
-							  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'], 
+							  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I am interested in buying your ' . $posting['title'] . '         -'.Session::get("user") , 
 							  	['id' => 'contactInput', 'class' => 'form-control description'])}}
 							</div>
 
@@ -66,14 +66,14 @@
 
 
 							<br />
-
-							{{ Form::submit('Send Email', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default confirmInput', 'role' => 'button']) }}
-
-							<a id="cancelBtn" data-toggle="collapse" data-target="#contactPanel" 
-							style="border-color:red" class="btn btn-default" role="button">Cancel</a>
-
+							<div class="col-md-6">
+								{{ Form::submit('Send Email', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default positive-active center-block', 'role' => 'button']) }}
+							</div>
+							<div class="col-md-6">
+								<a id="cancelBtn" data-toggle="collapse" data-target="#contactPanel" class="btn btn-default center-block negative-active" role="button">Cancel</a>
+							</div>
 							{{ Form::token().Form::close() }}
-							
+							<br/>
 						</p>
 				</div>
 			@endif

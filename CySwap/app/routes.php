@@ -119,8 +119,13 @@ Route::get('postItem/{isbn}', function($isbn)
 Route::post('postItem', 'PostController@postItem');
 Route::post('emailContact', 'EmailController@emailContact');
 Route::post('emailBuyer', 'EmailController@emailBuyer');
+Route::post('rateBuyer', 'RateController@rateBuyer');
 
 
 Route::get('/finishedEmail', function(){
 	return View::make('finishedEmail');
+});
+
+Route::get('/rateBuyer', function(){
+	return View::make('rateBuyer');
 });

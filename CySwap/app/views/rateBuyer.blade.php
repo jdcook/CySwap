@@ -12,7 +12,7 @@
 		<p>Rate username</p>
 		<a id="likeBtnArea" class="btn btn-default" role="button">
 			<label id="likeBtnLabel" for="likeBtn" class="btnLabel glyphicon glyphicon-thumbs-up" />
-			<input id="likeBtn" type="checkbox" name="like" style="visibility: hidden">
+			<input id="likeBtn" type="checkbox" name="like" style="visibility: hidden;">
 		</a>
 
 		<a id="dislikeBtnArea" class="btn btn-default" role="button">
