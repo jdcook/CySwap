@@ -4,12 +4,48 @@
 class EmailController extends BaseController {
 
     public function emailContact () {
+        $msg = 'The email has been sent.';
+        try{
+            Mail::send('emails.contact', array('emailText'=>Input::get('emailText')), function($message)
+            {
+                $poster = Input::get('posterName');
+                $buyer = Session::get('user');
+                $message->sender('kabernsj@iastate.edu', 'CySwap')
+                ->to($poster.'@iastate.edu', $poster)
+                ->subject($buyer.' is interested in buying your item!')
+                ->replyTo($buyer.'@iastate.edu', $buyer);
+            });
+        }
+        catch(Exception $e){
+            $msg = 'An error has occurred: '.$e->getMessage();
+        }
+
+        return Redirect::to('/finishedEmail')->with('message', $msg . Input::get('emailText'));
+    }
 
 
-        Mail::send(array('text' => 'view'), array('key' => 'value'), function($message)
-        {
-            //$message->to(Input::get('contactInput').'@iastate.edu', 'John Smith')->subject('Welcome!');
-            $message->to('jdcook@iastate.edu', 'John Smith')->subject('Welcome!');
-        });
+    public function emailBuyer(){
+        try{
+            if(Input::get('isFinishing') == 'y'){
+                App::make('Post')->hidePost(Input::get('postid'));
+                $username = Session::get('user');
+                Mail::send('emails.rate', array('postid'=>Input::get('postid'), 'poster'=>$username), function($message)
+                {
+                    $buyerName = Input::get('buyerName');
+                    $message->sender('kabernsj@iastate.edu', 'CySwap')
+                    ->to($buyerName.'@iastate.edu', $buyerName)
+                    ->subject('Cyswap Transaction Completed');
+                });
+                return Redirect::to('/rateBuyer')->with('posting', App::make('PostController')->getPost(Input::get('postid')));
+            }
+            else{
+                App::make('Post')->deletePost(Input::get('postid'));
+                return Redirect::to('/finishedEmail')->with('message', 'The post has been deleted.'); 
+            }
+
+        }
+        catch(Exception $e){
+            return Redirect::to('/finishedEmail')->with('message', 'An error has occurred:'.$e->getMessage());
+        }
     }
 }

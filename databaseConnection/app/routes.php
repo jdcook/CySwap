@@ -23,10 +23,10 @@ Route::get('mail', function()
 		/*sender will be a new netid such as cyswap@iastate.edu*/
 		$message->sender('kabernsj@iastate.edu', 'Kyle Johnson')
 		/*to the poster of the item*/
-		->to('asu1351@iastate.edu', 'asu1351')
+		->to('jdcook@iastate.edu', 'jdcook')
 		->subject('Welcome!')
 		/*the potential buyer's netid*/
-		->replyTo('fabianb@iastate.edu', 'fabianb');
+		->replyTo('jaredc35@gmail.com', 'jaredc35');
 	});
 	return View::make('mail');
 });

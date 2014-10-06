@@ -34,18 +34,19 @@ class Post extends Eloquent {
 		$postingLites;
 		if($category == "textbooks") {
 			$postingids = DB::select('select posting_id from cyswap.postings where category = \'textbook\' order by date DESC limit '.$number_of_postings);
-			$postingidstring = "'".$postingids[0]->posting_id."'";
-			foreach($postingids as $postingidstr) {
-				$postingidstring = $postingidstring." or posting_id = '".$postingidstr->posting_id."'";
+
+			foreach($postingids as $postingIdObj) {
+				$postingidstr = $postingIdObj->posting_id;
+				$postingLites[$postingidstr] = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'")[0];
 			}
-			$postingLites = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '.$postingidstring);
+
 		} elseif($category == "miscellaneous") {
 			$postingids = DB::select('select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC limit '.$number_of_postings);
-			$postingidstring = "'".$postingids[0]->posting_id."'";
-			foreach($postingids as $postingidstr) {
-				$postingidstring = $postingidstring." or posting_id = '".$postingidstr->posting_id."'";
+
+			foreach($postingids as $postingIdObj) {
+				$postingidstr = $postingIdObj->posting_id;
+				$postingLites[$postingidstr] = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id = '."'".$postingidstr."'")[0];
 			}
-			$postingLites = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id = '.$postingidstring);
 		}
 		foreach ($postingLites as  $key => $value) {
 			$postingLites[$key] = (array) $value;
@@ -54,11 +55,30 @@ class Post extends Eloquent {
 		return $postingLites;
 	}
 
-	public function postItem()
+	public function postItem($post_params)
 	{
-		if(Input::has('Title'))
-		{
-			View::make('postItem');
-		}
+		//generate random postid
+		$postid = str_random(10);
+
+		//insert posting lite into table
+		DB::insert('insert into CySwap.postings (posting_id, user, date, category, able_to_delete, hide_post) values (?, ?, ?, ?, ?, ?)',
+			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 1, 0));
+
+		//insert posting into table
+		DB::insert('insert into CySwap.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, CySwap.category_textbook.condition, tags, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], null, $post_params['Suggested_Price'], 0));
+		
+		//return the randomly generated post id
+		return $postid;
+	}
+
+	public function hidePost($postid)
+	{
+        //DB::update('update cyswap.postings set hide_post = 1 where posting_id = '.$postid.';');
+	}
+
+	public function deletePost($postid)
+	{
+		
 	}
 }

@@ -89,14 +89,36 @@
 	border-right:solid 1px #ccc;
 }
 
+.topTextLabel{
+	border-bottom: 0;
+	border-radius: 0;
+	background-color: rgb(200, 200, 200);
+}
+
 .confirmPass{
 	width: 100%;
 }
 
-.confirmInput{
+.positive-active{
 	border-color: green;
+	border-width: 2px;
+	background-color: rgb(245, 245, 245);
 }
 
+.negative-active{
+	border-color: red;
+	border-width: 2px;
+	background-color: rgb(245, 245, 245);
+}
+
+.switch-inactive{
+	border-color:rgb(240, 240, 240);
+}
+
+.switch{
+	border-radius:0;
+	margin: 2em 2em 0 2em;
+}
 
 
 /* footer */
@@ -170,4 +192,12 @@ h1{
 hr{
 	width: auto;
 	border-top-color: rgb(150, 150, 150);
+}
+
+.outlinedCollapse{
+	border: 1px solid rgb(180, 180, 180);
+}
+
+.btnLabel{
+	cursor:hand;
 }

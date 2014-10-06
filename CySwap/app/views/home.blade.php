@@ -7,7 +7,8 @@
 <hr>
 
 <div class="row">
-	@foreach($postingLites as $categoryname => $category)
+
+@foreach($postingLites as $categoryname => $category)
 		<div class="col-md-6 container-fluid">
 			<h2>{{ucfirst($categoryname)}}</h2>
 			@foreach($category as $posting)
@@ -37,6 +38,6 @@
 			@endforeach
 		</div>
 	@endforeach
-</div>
+</div> 
 
 @stop

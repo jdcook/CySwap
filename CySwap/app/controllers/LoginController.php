@@ -79,7 +79,7 @@ class LoginController extends BaseController {
 	    	} else {
 	    		//set invalid message
 	    		return Redirect::route('login')
-	    			->with('message', 'Login unsuccessful!');
+	    			->with('message', 'Login unsuccessful');
 	    	}
 	    }
 
