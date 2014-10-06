@@ -25,11 +25,11 @@
 			<div class="col-md-2">
 			</div>
 			<div class="col-md-2">
+				<br/>
 				{{Form::open(array('url'=>'/search_results'))}}
 					{{Form::text('keyword', null, array('placeholder'=>'Search'))}}
 					{{Form::submit('search')}}
 				{{Form::close()}}
-				<br/>
 				@if(Session::has('user'))
 					<a href="{{URL::route('logout')}}">logout</a>
 				@else
