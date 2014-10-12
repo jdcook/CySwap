@@ -8,6 +8,15 @@ class RateController extends BaseController {
 	* @ret array representing post**/
 	public function rateBuyer()
 	{
+        $username = Input::get('username');
+        if(Input::has('like')){
+            //todo: update user's rating
+            return Redirect::to('/finishedEmail')->with('message', 'liked '.$username);
+        }
+        else if(Input::has('dislike')){
+            //todo: update user's rating
+            return Redirect::to('/finishedEmail')->with('message', 'disliked '.$username);
+        }
         return Redirect::to('/finishedEmail')->with('message', 'Submitted');
 	}
 }

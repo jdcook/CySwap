@@ -120,6 +120,7 @@ Route::get('/finishedEmail', function(){
 	return View::make('finishedEmail');
 });
 
-Route::get('/rateBuyer', function(){
-	return View::make('rateBuyer');
+Route::get('/rateBuyer/{user}/{postid}', function($user, $postid){
+	$data = array('user'=>$user, 'postid'=>$postid);
+	return View::make('rateBuyer')->with('data', $data);
 });

@@ -2,7 +2,12 @@
 
 
 <?php
-echo "Rate your interaction with " . $poster . " for this item: ";
+
+echo "<a href='http://localhost/Github/CySwap/CySwap/rateBuyer/".$poster."/".$postid
+."'>Click Here</a> to rate your interaction with ".$poster
+." for <a href='http://localhost/Github/CySwap/CySwap/viewpost/".$postid."'>this item.</a>";
+
+
 ?>
-<br/>
-<a href="cyswapServer/viewpost/<?php echo $postid; ?>">cyswapServer/viewpost/<?php echo $postid; ?></a>
+
+

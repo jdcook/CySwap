@@ -27,16 +27,17 @@ class EmailController extends BaseController {
     public function emailBuyer(){
         try{
             if(Input::get('isFinishing') == 'y'){
-                App::make('Post')->hidePost(Input::get('postid'));
+                $postid = Input::get('postid');
+                App::make('Post')->hidePost($postid);
                 $username = Session::get('user');
-                Mail::send('emails.rate', array('postid'=>Input::get('postid'), 'poster'=>$username), function($message)
+                Mail::send('emails.rate', array('postid'=>$postid, 'poster'=>$username), function($message)
                 {
                     $buyerName = Input::get('buyerName');
                     $message->sender('kabernsj@iastate.edu', 'CySwap')
                     ->to($buyerName.'@iastate.edu', $buyerName)
                     ->subject('Cyswap Transaction Completed');
                 });
-                return Redirect::to('/rateBuyer')->with('posting', App::make('PostController')->getPost(Input::get('postid')));
+                return Redirect::to('/rateBuyer/'.Input::get('buyerName').'/'.$postid);
             }
             else{
                 App::make('Post')->deletePost(Input::get('postid'));
