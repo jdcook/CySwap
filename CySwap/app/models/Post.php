@@ -74,11 +74,11 @@ class Post extends Eloquent {
 
 	public function hidePost($postid)
 	{
-        //DB::update('update cyswap.postings set hide_post = 1 where posting_id = '.$postid.';');
+        DB::update('update cyswap.postings set hide_post = 1 where posting_id = ?', array($postid));
 	}
 
 	public function deletePost($postid)
 	{
-		
+		DB::delete('delete from cyswap.postings where posting_id = ?', array($postid));
 	}
 }
