@@ -79,6 +79,8 @@ class Post extends Eloquent {
 
 	public function deletePost($postid)
 	{
+		DB::delete('delete from cyswap.category_miscellaneous where posting_id = ?', array($postid));
+		DB::delete('delete from cyswap.category_textbook where posting_id = ?', array($postid));
 		DB::delete('delete from cyswap.postings where posting_id = ?', array($postid));
 	}
 }

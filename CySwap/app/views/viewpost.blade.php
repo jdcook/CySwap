@@ -27,7 +27,7 @@
 			@if(Session::get('user') == $posting['user'])
 				<p><b>Poster:</b><br/> {{$posting['user']}} (me)</p><br/>
 				<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
-				<div class='panel-collapse collapse outlinedCollapse' id="markCompletePanel">
+				<div class='panel-collapse collapse wrapper' id="markCompletePanel">
 					{{ Form::open(array('action'=>'EmailController@emailBuyer')) }}
 					{{Form::hidden('postid', $posting['posting_id'])}}
 					{{Form::hidden('isFinishing', 'y', ['id'=>'isFinishing'])}}

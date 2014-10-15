@@ -1,7 +1,7 @@
 <?php
 
 /*
-	Account stuff
+Account stuff
 */
 Route::get('login', function(){
 	return View::make('Account/login');
@@ -11,6 +11,11 @@ Route::get('Account/logout', array(
 			'as' => 'logout',
 			'uses' => 'LoginController@getLogout'
 ));
+
+Route::get('myaccount', function(){
+	$data = App::make('user')->getProfileInfo(Session::get('user'));
+	return View::make('myaccount')->with('data', $data);
+});
 
 Route::group(array('before' => 'guest'), function() {
 
