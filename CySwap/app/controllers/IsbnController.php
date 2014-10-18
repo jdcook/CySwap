@@ -8,8 +8,7 @@ class IsbnController extends BaseController {
 	public function isbndb_request($query)
 	{
 		// ISU http proxy
-		$Proxy = getenv("http://proxy.its.iastate.edu:6969");
-
+		$Proxy = "tcp://proxy.its.iastate.edu:6969")
       	if (strlen($Proxy) > 1) {
         	$r_default_context = stream_context_get_default ( array
                 		('http' => array(
