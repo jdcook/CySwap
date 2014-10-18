@@ -106,13 +106,17 @@ Route::get('viewpost/{postid}', function($postid)
 
 Route::get('postItem', function()
 {
-	return View::make('postitem');
+	if(Session::has('user'))
+		return View::make('postitem');
+	else 
+		return View::make('Account/login');
+	
 });
 
 Route::get('postItem/{isbn}', function($isbn)
 {
 	$isbn_data = App::make('IsbnController')->isbndb_request($isbn);
-	return View::make('postItem')->with('isbn_data', $isbn_data);
+	return View::make('postitem')->with('isbn_data', $isbn_data);
 });
 
 Route::post('postItem', 'PostController@postItem');
