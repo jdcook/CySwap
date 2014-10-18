@@ -33,7 +33,7 @@ class Post extends Eloquent {
 	{
 		$postingLites;
 		if($category == "textbooks") {
-			$postingids = DB::select('select posting_id from cyswap.postings where category = \'textbook\' order by date DESC limit '.$number_of_postings);
+			$postingids = DB::select('select posting_id from cyswap.postings where category = \'textbook\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
 
 			foreach($postingids as $postingIdObj) {
 				$postingidstr = $postingIdObj->posting_id;
@@ -41,7 +41,7 @@ class Post extends Eloquent {
 			}
 
 		} elseif($category == "miscellaneous") {
-			$postingids = DB::select('select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC limit '.$number_of_postings);
+			$postingids = DB::select('select posting_id from cyswap.postings where category = \'miscellaneous\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
 
 			foreach($postingids as $postingIdObj) {
 				$postingidstr = $postingIdObj->posting_id;
