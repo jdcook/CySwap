@@ -106,7 +106,7 @@ Route::get('viewpost/{postid}', function($postid)
 
 Route::get('postItem', function()
 {
-	return View::make('postItem');
+	return View::make('postitem');
 });
 
 Route::get('postItem/{isbn}', function($isbn)
