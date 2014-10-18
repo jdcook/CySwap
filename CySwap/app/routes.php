@@ -112,7 +112,7 @@ Route::get('postItem', function()
 Route::get('postItem/{isbn}', function($isbn)
 {
 	$isbn_data = App::make('IsbnController')->isbndb_request($isbn);
-	return View::make('postItem')->with('isbn_data', $isbn_data);
+	return View::make('postitem')->with('isbn_data', $isbn_data);
 });
 
 Route::post('postItem', 'PostController@postItem');
