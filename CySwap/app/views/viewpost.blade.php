@@ -9,7 +9,8 @@
 
 <div id="postImages" class="col-md-4">
 	@if($posting['num_images'] == 0)
-		<img class="entryimg" src="{{asset('media/notAvailable.jpg')}}" />
+		<span style="text-align: center" class="entryimg notfound glyphicon glyphicon-picture"></span>
+		<br/><br/>
 	@else
 		<img class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 	@endif

@@ -162,6 +162,10 @@
 	max-width: 20em;
 }
 
+.notfound{
+	font-size: 5em;
+}
+
 .entry > h4{
 	margin-left: 3em;
 }

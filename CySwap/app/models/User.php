@@ -48,11 +48,13 @@ class User {
 
 		if(count($queryObj)){
 			$data['positive'] = $queryObj[0]->positive;
+			$data['negative'] = $queryObj[0]->negative;
 		}
 		else{
 			$data['positive'] = 0;
+			$data['negative'] = 0;
 		}
-
+/*
 		$queryObj = DB::select("SELECT * from cyswap.feedback where user = ? limit 0,1", array($username));
 		if(count($queryObj)){
 			$data['negative'] = $queryObj[0]->negative;
@@ -60,7 +62,7 @@ class User {
 		else{
 			$data['negative'] = 0;
 		}
-
+*/
 		return $data;
 	}
 }
