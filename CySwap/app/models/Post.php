@@ -60,6 +60,15 @@ class Post extends Eloquent {
 		//generate random postid
 		$postid = str_random(10);
 
+		//while we don't have a unique id, generate a new one
+		//if we have 1 million posts, there is a 10% chance of conflict
+		//max of 10 million posts
+		$idConflict = $this->checkIdConflict($postid);
+		while($idConflict){
+			$postid = str_random(10);
+			$idConflict = $this->checkIdConflict($postid);
+		}
+
 		//insert posting lite into table
 		DB::insert('insert into CySwap.postings (posting_id, user, date, category, able_to_delete, hide_post) values (?, ?, ?, ?, ?, ?)',
 			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 1, 0));
@@ -70,6 +79,11 @@ class Post extends Eloquent {
 		
 		//return the randomly generated post id
 		return $postid;
+	}
+
+	private function checkIdConflict($id){
+		$result = DB::select("SELECT * from CySwap.postings where posting_id = ?", array($id));
+		return count($result);
 	}
 
 	public function hidePost($postid)
