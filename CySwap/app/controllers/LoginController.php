@@ -70,11 +70,35 @@ class LoginController extends BaseController {
 			$msg = LoginController::login_function($data['netid'], $data['password']);
 
 	    	if($msg == 'valid') {
-	    		//set valid message
-	    		$msg = 'Login succesful!';
 
+				//check for ban
+				$result = DB::select("SELECT * from CySwap.blacklist where user = ?", array($data['netid']));
+				if(count($result)){
+					$baninfo = $result[0];
+
+					return Redirect::route('login')
+					->with('message', 'Login unsuccessful<br/><p class="alert">'.$data['netid'].' has been banned on '.$baninfo->banned_date.' for this reason:<br/><br/>"'.$baninfo->reason.'"</p>');
+				}
+
+				//check for suspension
+				$result = DB::select("SELECT * from CySwap.suspended where user = ?", array($data['netid']));
+				if(count($result)){
+					$info = $result[0];
+
+					//check to see if the suspension time is up
+					if($info->suspended_until_date > date("Y-m-d")){
+						return Redirect::route('login')
+						->with('message', 'Login unsuccessful<br/><p class="alert">'.$data['netid'].' has been suspended until '.$info->suspended_until_date.' for this reason:<br/><br/>"'.$info->reason.'"</p>');
+					}
+
+				}
+
+	    		//set valid message, set session info
+	    		$msg = 'Login succesful!';
 				Session::put('user', $data['netid']);
 
+
+				//check for terms of use
 				if(!App::make('User')->hasAccepted($data['netid'])){
 					Session::put('accepted_terms', 0);
 					return Redirect::to('terms');
@@ -98,5 +122,4 @@ class LoginController extends BaseController {
 		Session::put('accepted_terms', 1);
 		return Redirect::to('home');
 	}
-
 }
