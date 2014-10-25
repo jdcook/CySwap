@@ -68,3 +68,17 @@ input{
     margin-right: 6em;
     width: 100%;
 }
+
+.pagination > li > a, .pagination > li > a:hover{
+    color: red;
+}
+
+.pagination > .active > span:hover{
+    background-color: rgb(150, 0, 0);
+    border-color: rgb(150, 0, 0);
+}
+
+.pagination > .active > span{
+    background-color: red;
+    border-color: red;
+}

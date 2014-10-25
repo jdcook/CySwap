@@ -10,7 +10,7 @@
 
 @foreach($postingLites as $categoryname => $category)
 	<div class="col-md-6 container-fluid">
-		<h2>{{ucfirst($categoryname)}}</h2>
+		<h2 class="categoryTitle">{{ucfirst($categoryname)}}</h2>
 		@foreach($category as $posting)
 			<div class="entry" data-postid="{{$posting['posting_id']}}">
 				<div class="row">

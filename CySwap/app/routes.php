@@ -13,7 +13,8 @@ Route::get('Account/logout', array(
 ));
 
 Route::get('myaccount', function(){
-	$data = App::make('user')->getProfileInfo(Session::get('user'));
+	$numpages = Input::get("page", 1);
+	$data = App::make('user')->getProfileInfo(Session::get('user'), $numpages);
 	return View::make('myaccount')->with('data', $data);
 });
 

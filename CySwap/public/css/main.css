@@ -183,6 +183,9 @@
 	width: 20em;
 }
 
+.categoryTitle{
+	text-align: center;
+}
 
 /* misc */
 #content{
