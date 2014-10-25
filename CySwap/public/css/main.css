@@ -183,7 +183,7 @@
 	width: 20em;
 }
 
-.categoryTitle{
+.centered{
 	text-align: center;
 }
 
@@ -230,4 +230,22 @@ hr{
 
 .faded{
 	color: rgb(180, 180, 180);
+}
+
+.termsBtn{
+	width: 100%;
+	padding: 2em 0;
+}
+
+.accept{
+	border-color: green;
+}
+
+.decline{
+	border-color: red;
+}
+
+.alert{
+	color: red;
+	font-weight: bold;
 }

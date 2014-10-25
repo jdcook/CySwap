@@ -2,6 +2,7 @@
 
 @section('content')
 
+<div class="col-md-3">
 	<form action="{{ URL::route('login-post') }}" method="post">
 		<br>
 
@@ -9,23 +10,25 @@
 			{{ Session::get('message') }}
 		@endif
 
-		<div class="field">
-			Net-Id: <input type="text" name="netid"{{ (Input::old('netid')) ? ' value="' . e(Input::old('netid')) . '"' : ''}}>
+		<div class="input-group detail">
+		  <span class="input-group-addon">Net-Id</span>
+			<input class="form-control" type="text" name="netid"{{ (Input::old('netid')) ? ' value="' . e(Input::old('netid')) . '"' : ''}}>
 			@if($errors->has('netid'))
 				{{$errors->first('netid')}}
 			@endif
 		</div>
 
-		<div class="field">
-			Password: <input type="password" name="password">
+		<div class="input-group detail">
+		  <span class="input-group-addon">Password</span>
+		  <input class="form-control" type="password" name="password">
 			@if($errors->has('password'))
 				{{$errors->first('password')}}
 			@endif
 		</div>
 
-		<input type="submit" value="Login">
+		<input class="btn btn-default" type="submit" value="Login">
 		{{ Form::token() }}
 
 	</form>
-
+</div>
 @stop

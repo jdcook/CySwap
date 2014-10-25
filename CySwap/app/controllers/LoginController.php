@@ -75,6 +75,14 @@ class LoginController extends BaseController {
 
 				Session::put('user', $data['netid']);
 
+				if(!App::make('User')->hasAccepted($data['netid'])){
+					Session::put('accepted_terms', 0);
+					return Redirect::to('terms');
+				}
+				else{
+					Session::put('accepted_terms', 1);
+				}
+
 	    		return Redirect::intended('/');
 	    	} else {
 	    		//set invalid message
@@ -83,6 +91,12 @@ class LoginController extends BaseController {
 	    	}
 	    }
 
+	}
+
+	public function acceptTerms(){
+		App::make("User")->acceptTerms(Session::get("user"));
+		Session::put('accepted_terms', 1);
+		return Redirect::to('home');
 	}
 
 }

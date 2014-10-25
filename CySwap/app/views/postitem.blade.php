@@ -7,6 +7,19 @@
 	<hr>
 </div>
 
+<?php
+$accepted = 0;
+if(Session::has('accepted_terms') && Session::get('accepted_terms')){
+	$accepted = 1;
+}
+?>
+
+
+@if(!$accepted)
+	<p class="alert centered">You have to accept the Terms of Use before posting an item.</p>
+	<a class="btn btn-default accept termsBtn" href="{{URL::to('terms')}}">Terms of Use</a>
+@else
+
 <div class="col-md-4">
 	Category:<br/>
 	<div class="btn-group categoryButton" data-toggle="buttons">
@@ -38,7 +51,7 @@
 		<div class="input-group detail">
 		  <span class="input-group-addon">{{Form::label('ISBN')}}</span>
 		  <input id="isbnInput" type="text" class="form-control"
-		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data["isbn"]}}@endif">
+		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data['isbn']}}@endif">
 		  <a id="isbnPopBtn" class="input-group-addon" href="#">Auto Populate</a>
 		</div>
 
@@ -108,7 +121,7 @@
 
 {{ Form::token().Form::close() }}
 
-
+@endif
 
 
 

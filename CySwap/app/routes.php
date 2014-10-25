@@ -53,6 +53,11 @@ Route::get('home', function(){
 	return View::make('home')->with('postingLites', $postingLites);
 });
 
+Route::get('terms', function()
+{
+	return View::make('terms');
+});
+
 Route::get('safety', function()
 {
 	return View::make('Info/safety');
@@ -119,6 +124,7 @@ Route::get('postItem/{isbn}', function($isbn)
 	return View::make('postitem')->with('isbn_data', $isbn_data);
 });
 
+Route::post('acceptTerms', 'LoginController@acceptTerms');
 Route::post('postItem', 'PostController@postItem');
 Route::post('emailContact', 'EmailController@emailContact');
 Route::post('emailBuyer', 'EmailController@emailBuyer');

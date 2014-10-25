@@ -4,7 +4,7 @@
 class EmailController extends BaseController {
 
     public function emailContact () {
-        $msg = 'The email has been sent.';
+        $msg = 'The email has been sent.<br/>';
         try{
             Mail::send('emails.contact', array('emailText'=>Input::get('emailText')), function($message)
             {
