@@ -55,10 +55,11 @@ class Post extends Eloquent {
 		return $postingLites;
 	}
 
-	public function postItem($post_params)
+	public function postItem($post_params, $image)
 	{
 		//generate random postid
 		$postid = str_random(10);
+		$num_images = 0;
 
 		//while we don't have a unique id, generate a new one
 		//if we have 1 million posts, there is a 10% chance of conflict
@@ -69,14 +70,20 @@ class Post extends Eloquent {
 			$idConflict = $this->checkIdConflict($postid);
 		}
 
+		if(isset($image))
+		{
+			$image->move("C:\wamp\www\CySwap\CySwap\public\media\post_images", $postid."_0.jpg");
+			$num_images++;
+		}
+
 		//insert posting lite into table
 		DB::insert('insert into CySwap.postings (posting_id, user, date, category, able_to_delete, hide_post) values (?, ?, ?, ?, ?, ?)',
 			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 1, 0));
 
 		//insert posting into table
 		DB::insert('insert into CySwap.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, CySwap.category_textbook.condition, tags, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], null, $post_params['Suggested_Price'], 0));
-		
+			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], null, $post_params['Suggested_Price'], $num_images));
+
 		//return the randomly generated post id
 		return $postid;
 	}

@@ -23,7 +23,7 @@
 	  </label>
 	</div>
 
-	{{ Form::open(array('action' => array('PostController@postItem'))) }}
+	{{ Form::open(array('action' => array('PostController@postItem'), 'files'=>true)) }}
 
 	<div id="textbookDetails">
 		<div class="input-group detail">
@@ -97,7 +97,7 @@
 
 <div class="col-md-8">
 	Upload Picture
-	<input type="file" name="picupload[]">
+	<input type="file" name="picture">
 	<br />
 </div>
 
