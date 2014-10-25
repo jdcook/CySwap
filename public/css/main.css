@@ -1,0 +1,173 @@
+/* View Post */
+.price{
+	padding: 1em;
+	background-color:rgb(240, 240, 240);
+	border-radius-bottom: 5px;
+	border-radius-top: 0;
+	border: 2px solid rgb(160, 160, 160);
+	width: 100%;
+	color: black;
+	max-width: 20em;
+	margin-bottom: 5em;
+	margin-right: 2em;
+}
+
+.detailContainer{
+	border-radius: 30px;
+	background-color:rgb(240, 240, 240);
+	border: 2px solid rgb(160, 160, 160);
+	width: 100%;
+	height: auto;
+	color: black;
+	padding: 1em 3em;
+}
+
+.detailContainer > h2{
+	margin: 0;
+	color: rgb(80, 80, 80);
+}
+
+.detailContainer > hr{
+	margin: 0 0 2em 0;
+	width: 50%;
+	min-width: 10em
+}
+
+.posterInfo{
+
+}
+
+/* posting item */
+#isbnPopBtn{
+	background-color: rgb(45, 45, 75);
+	color: white;
+}
+
+#isbnPopBtn:hover{
+	background-color:rgb(225, 225, 225);
+	text-decoration: none;
+	color: rgb(45, 45, 75);
+	box-shadow: rgba(0, 0, 0, 0.121569) 0px 7px 9px 0px inset;
+}
+
+#postButton{
+	width: 100%;
+	font-size: 2em;
+	padding: 1em 0;
+	background-color:rgb(225, 225, 225);
+	color:black;
+}
+
+#postButton:hover{
+	background-color: rgb(45, 45, 75);
+	color: white;
+}
+
+#postImages > img{
+	width: 100%;
+}
+
+.categoryButton{
+	padding: 0 0 3em 0;
+}
+
+.detail{
+	padding: .5em 0;
+}
+
+.detail .description{
+	height: 20em;
+	width: 100%;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+.detail .textareaLabel{
+	border-bottom:0;
+	border-bottom-left-radius:0px;
+	border-top-right-radius: 4px;
+	border-right:solid 1px #ccc;
+}
+
+.confirmPass{
+	width: 100%;
+}
+
+.confirmInput{
+	border-color: green;
+}
+
+
+
+/* footer */
+#footer{
+	background-color: rgb(185, 0, 17);
+	height: auto;
+	width: auto;
+	text-align: center;
+	padding: 2em;
+	border-style: solid;
+	border-width: .25em 0 0 0;
+}
+
+#footer a:hover{
+	text-decoration: none;
+	color: #000;
+}
+
+
+/* entries */
+.entry{
+	border-radius: 5px;
+	border: 2px solid rgb(160, 160, 160);
+	background-color:rgb(250, 250, 250);
+	width: 100%;
+	height: auto;
+	color: black;
+	padding: .5em 0;
+	margin: 2em 0;
+	min-height: 20em;
+}
+
+.entry:hover{
+	border: 2px solid black;
+	background-color: rgb(245, 245, 245);
+}
+
+.entryimg{
+	width: 100%;
+	height: auto;
+	max-width: 20em;
+}
+
+.entry > h4{
+	margin-left: 3em;
+}
+
+.entry .row{
+	margin: .1em 1em .1em 1em;
+}
+
+/* categories */
+#categories > div{
+	margin: 7em 0;
+}
+#categories a{
+	padding: 3em 6em;
+	width: 20em;
+}
+
+
+/* misc */
+#content{
+	 margin:0em 2em;
+}
+
+h1{
+	text-align: center;
+}
+
+hr{
+	width: auto;
+	border-top-color: rgb(150, 150, 150);
+}

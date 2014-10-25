@@ -26,7 +26,7 @@
 			</div>
 			<div class="col-md-2">
 				<br/>
-				{{Form::open(array('url'=>'/search_results'))}}
+				{{Form::open(array('url'=>'/search_results', 'method' => 'get'))}}
 					{{Form::text('keyword', null, array('placeholder'=>'Search'))}}
 					{{Form::submit('search')}}
 				{{Form::close()}}

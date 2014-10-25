@@ -30,7 +30,6 @@ Route::group(array('before' => 'guest'), function() {
 /*
 	Search Link
 */
-Route::post('search_results', 'SearchController@postResults');
 Route::get('search_results', 'SearchController@getResults');
 
 /*

@@ -1,41 +1,54 @@
 <?php
 
 class SearchController extends BaseController {
-
-	public function postResults() {
-		$keyword = Input::get('keyword');
-
-		//use model to run query
-		$textbook_posts = TextbookPost::where('tags', 'LIKE', '%'.$keyword.'%')->paginate(2);
-		//$misc_posts = MiscellaneousPost::where('tags', 'LIKE', '%'.$keyword.'%')->paginate(2);
-		
-
-		//place data into array
-		//$to_view = array('posts' => $posts);
-		$to_view = array('textbook_posts' => $textbook_posts);
-		//$to_view = array_add($to_view, 'misc_posts', $misc_posts);
-		$to_view = array_add($to_view, 'keyword', $keyword);
-
-		//return array to view named 'search'
-		return View::make('search', $to_view);
-	}
+	public $results_each_page = 2;
 
 	public function getResults() {
-
+		
+		//store input called keyword as keyword
 		$keyword = Input::get('keyword');
+		$matches = "";
+		
+		//set allowable characters, matches 0 for not allowable characters
+		$pattern = "/[A-Za-z]+/";
+		$search_keyword = trim ($keyword, "/*\t\n\r\0\x0B/");
+		$matches = preg_match($pattern, $search_keyword);
 
-		//use model to run query
-		$textbook_posts = TextbookPost::where('tags', 'LIKE', '%'.$keyword.'%')->paginate(2);
-		//$misc_posts = MiscellaneousPost::where('tags', 'LIKE', '%'.$keyword.'%')->paginate(2);
+		//if not allowable, set search keyword to ' '
+		if($matches === 0) {
+			$search_keyword = ' ';
+		} else {
+			$search_keyword = str_replace(' ', '*', $search_keyword);
+			$search_keyword = "*".$search_keyword."*";
+		}
 		
 
-		//place data into array
-		//$to_view = array('posts' => $posts);
-		$to_view = array('textbook_posts' => $textbook_posts);
-		//$to_view = array_add($to_view, 'misc_posts', $misc_posts);
-		$to_view = array_add($to_view, 'keyword', $keyword);
+		//get posting ids corresponding to keyword
+		$posting_ids = App::make('Tags')->getPostingIds($search_keyword);
 
-		//return array to view named 'search'
-		return View::make('search', $to_view);
+		var_dump($posting_ids);
+		//var_dump($posting_ids[0]->posting_id);
+
+		//get posts corresponding to posting_ids
+		$posts = array();
+		foreach ($posting_ids  as $post_id){
+			$post_id_string = $post_id->posting_id;
+			$post = App::make('Post')->getPost($post_id_string);
+			array_push($posts, $post);
+		}
+
+		$posts_array = $posts;
+
+		//get page number and set results to display
+		$page = Input::get('page', 1);
+		$paginate = $this->results_each_page;
+    	$slice = array_slice($posts_array, $paginate * ($page - 1), $paginate);
+		$results = Paginator::make($slice, count($posts_array), $paginate);
+		$results->appends('keyword',$keyword);
+
+		//pass results to view search
+		return View::make('search',compact('results'))->with('keyword',$keyword)
+		->with('matches',$matches);
 	}
+
 }
