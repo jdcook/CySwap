@@ -30,6 +30,12 @@
     <h2>Current Posts</h2>
     <hr/>
 
+<?php
+if(!count($data['posts'])){
+    echo "<br/><h3 class='faded'>--  No active posts found  --</h3><br/>";
+}
+
+?>
 @foreach($data['posts'] as $posting)
     <div class="entry" data-postid="{{$posting->posting_id}}">
         <div class="row">

@@ -227,3 +227,7 @@ hr{
 	color: red;
 	border: 1px solid red;
 }
+
+.faded{
+	color: rgb(180, 180, 180);
+}
