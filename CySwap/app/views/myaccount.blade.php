@@ -30,9 +30,7 @@
     <h2>Current Posts</h2>
     <hr/>
 
-
 @foreach($data['posts'] as $posting)
-    
     <div class="entry" data-postid="{{$posting->posting_id}}">
         <div class="row">
             <h4>{{$posting->title}}</h4>
@@ -52,6 +50,8 @@
     </div>
 
 @endforeach
+
+{{$data['posts']->links()}}
 
 
 </div>

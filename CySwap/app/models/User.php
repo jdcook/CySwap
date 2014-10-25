@@ -29,20 +29,25 @@ class User {
 		}
 	}
 
-	public function getProfileInfo($username){
+	public function getProfileInfo($username, $pagenum){
 		$data = array();
-		$data['posts'] = array();
 		$postingids = DB::select("SELECT posting_id, category from cyswap.postings where user = ? order by date DESC", array($username));
+		$topaginate = array();
 
+		$i = 0;
 		foreach($postingids as $id){
 			if($id->category == "textbook"){
-				$data['posts'][$id->posting_id] = DB::select("SELECT title, posting_id, num_images from cyswap.category_textbook where posting_id = ?", array($id->posting_id))[0];
+				$topaginate[$i] = DB::select("SELECT title, posting_id, num_images from cyswap.category_textbook where posting_id = ?", array($id->posting_id))[0];
 			}
 			else{
-				$data['posts'][$id->posting_id] = DB::select("SELECT title, posting_id num_images from cyswap.category_miscellaneous where posting_id = ?", array($id->posting_id))[0];
+				$topaginate[$i] = DB::select("SELECT title, posting_id, num_images from cyswap.category_miscellaneous where posting_id = ?", array($id->posting_id))[0];
 			}
-			$data['posts'][$id->posting_id]->category = $id->category;
+			$topaginate[$i]->category = $id->category;
+			$i++;
 		}
+
+		$total = count($topaginate);
+		$data['posts'] = Paginator::make(array_slice($topaginate, (Input::get("page", 1) - 1) * 2, 2), $total, 2);
 
 		$queryObj = DB::select("SELECT * from cyswap.feedback where user = ? limit 0,1", array($username));
 
@@ -54,15 +59,8 @@ class User {
 			$data['positive'] = 0;
 			$data['negative'] = 0;
 		}
-/*
-		$queryObj = DB::select("SELECT * from cyswap.feedback where user = ? limit 0,1", array($username));
-		if(count($queryObj)){
-			$data['negative'] = $queryObj[0]->negative;
-		}
-		else{
-			$data['negative'] = 0;
-		}
-*/
+
+
 		return $data;
 	}
 }
