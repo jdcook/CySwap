@@ -20,7 +20,7 @@ class EmailController extends BaseController {
             $msg = 'An error has occurred: '.$e->getMessage();
         }
 
-        return Redirect::to('/finishedEmail')->with('message', $msg . Input::get('emailText'));
+        return Redirect::to('/outputMessage')->with('message', $msg . Input::get('emailText'));
     }
 
 
@@ -41,12 +41,12 @@ class EmailController extends BaseController {
             }
             else{
                 App::make('Post')->deletePost(Input::get('postid'));
-                return Redirect::to('/finishedEmail')->with('message', 'The post has been deleted.'); 
+                return Redirect::to('/outputMessage')->with('message', 'The post has been deleted.'); 
             }
 
         }
         catch(Exception $e){
-            return Redirect::to('/finishedEmail')->with('message', 'An error has occurred:'.$e->getMessage());
+            return Redirect::to('/outputMessage')->with('message', 'An error has occurred:'.$e->getMessage());
         }
     }
 }

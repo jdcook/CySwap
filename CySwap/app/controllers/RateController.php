@@ -11,12 +11,12 @@ class RateController extends BaseController {
         $username = Input::get('username');
         if(Input::has('like')){
             App::make('User')->thumbsUp($username);
-            return Redirect::to('/finishedEmail')->with('message', 'liked '.$username);
+            return Redirect::to('/outputMessage')->with('message', 'liked '.$username);
         }
         else if(Input::has('dislike')){
             App::make('User')->thumbsDown($username);
-            return Redirect::to('/finishedEmail')->with('message', 'disliked '.$username);
+            return Redirect::to('/outputMessage')->with('message', 'disliked '.$username);
         }
-        return Redirect::to('/finishedEmail')->with('message', 'Submitted');
+        return Redirect::to('/outputMessage')->with('message', 'Submitted');
 	}
 }

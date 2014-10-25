@@ -131,8 +131,8 @@ Route::post('emailBuyer', 'EmailController@emailBuyer');
 Route::post('rateBuyer', 'RateController@rateBuyer');
 
 
-Route::get('/finishedEmail', function(){
-	return View::make('finishedEmail');
+Route::get('/outputMessage', function(){
+	return View::make('outputMessage');
 });
 
 Route::get('/rateBuyer/{user}/{postid}', function($user, $postid){
