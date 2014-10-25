@@ -31,7 +31,7 @@ class User {
 
 	public function getProfileInfo($username, $pagenum){
 		$data = array();
-		$postingids = DB::select("SELECT posting_id, category from cyswap.postings where user = ? order by date DESC", array($username));
+		$postingids = DB::select("SELECT posting_id, category, date from cyswap.postings where user = ? order by date ASC", array($username));
 		$topaginate = array();
 
 		$i = 0;
@@ -47,7 +47,7 @@ class User {
 		}
 
 		$total = count($topaginate);
-		$data['posts'] = Paginator::make(array_slice($topaginate, (Input::get("page", 1) - 1) * 2, 2), $total, 2);
+		$data['posts'] = Paginator::make(array_slice($topaginate, (Input::get("page", 1) - 1) * 3, 3), $total, 3);
 
 		$queryObj = DB::select("SELECT * from cyswap.feedback where user = ? limit 0,1", array($username));
 
