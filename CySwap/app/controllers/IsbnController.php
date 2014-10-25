@@ -7,6 +7,19 @@ class IsbnController extends BaseController {
 	* @ret array("isbn", "title", "authors", "publisher") **/
 	public function isbndb_request($query)
 	{
+		// ISU http proxy
+		$Proxy = "tcp://proxy.its.iastate.edu:6969";
+      	if (strlen($Proxy) > 1) {
+        	$r_default_context = stream_context_get_default ( array
+                		('http' => array(
+                        	'proxy' => $Proxy,
+                        	'request_fulluri' => True,
+                    	),
+                	)
+            	);
+       	 	libxml_set_streams_context($r_default_context);
+      	}
+
 		// ISBNDB Access key
 		$accessKey = "C3LF8KRN";
 
@@ -16,7 +29,7 @@ class IsbnController extends BaseController {
 			$url_details = "http://isbndb.com/api/books.xml?access_key=$accessKey&results=details&index1=isbn&value1=$query";
 
 			// API lookup ISBN value at isbndb.com
-			$xml_details = @simplexml_load_file($url_details) or die ("no file loaded") ;
+			$xml_details = simplexml_load_file($url_details) or die ("no file loaded") ;
 
 			try
 			{

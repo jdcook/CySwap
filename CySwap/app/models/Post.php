@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
@@ -33,7 +33,7 @@ class Post extends Eloquent {
 	{
 		$postingLites;
 		if($category == "textbooks") {
-			$postingids = DB::select('select posting_id from cyswap.postings where category = \'textbook\' order by date DESC limit '.$number_of_postings);
+			$postingids = DB::select('select posting_id from cyswap.postings where category = \'textbook\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
 
 			foreach($postingids as $postingIdObj) {
 				$postingidstr = $postingIdObj->posting_id;
@@ -41,7 +41,7 @@ class Post extends Eloquent {
 			}
 
 		} elseif($category == "miscellaneous") {
-			$postingids = DB::select('select posting_id from cyswap.postings where category = \'miscellaneous\' order by date DESC limit '.$number_of_postings);
+			$postingids = DB::select('select posting_id from cyswap.postings where category = \'miscellaneous\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
 
 			foreach($postingids as $postingIdObj) {
 				$postingidstr = $postingIdObj->posting_id;
@@ -55,10 +55,26 @@ class Post extends Eloquent {
 		return $postingLites;
 	}
 
-	public function postItem($post_params)
+	public function postItem($post_params, $image)
 	{
 		//generate random postid
 		$postid = str_random(10);
+		$num_images = 0;
+
+		//while we don't have a unique id, generate a new one
+		//if we have 1 million posts, there is a 10% chance of conflict
+		//max of 10 million posts
+		$idConflict = $this->checkIdConflict($postid);
+		while($idConflict){
+			$postid = str_random(10);
+			$idConflict = $this->checkIdConflict($postid);
+		}
+
+		if(isset($image))
+		{
+			$image->move("C:\wamp\www\CySwap\CySwap\public\media\post_images", $postid."_0.jpg");
+			$num_images++;
+		}
 
 		//insert posting lite into table
 		DB::insert('insert into CySwap.postings (posting_id, user, date, category, able_to_delete, hide_post) values (?, ?, ?, ?, ?, ?)',
@@ -66,10 +82,15 @@ class Post extends Eloquent {
 
 		//insert posting into table
 		DB::insert('insert into CySwap.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, CySwap.category_textbook.condition, tags, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], null, $post_params['Suggested_Price'], 0));
-		
+			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], null, $post_params['Suggested_Price'], $num_images));
+
 		//return the randomly generated post id
 		return $postid;
+	}
+
+	private function checkIdConflict($id){
+		$result = DB::select("SELECT * from CySwap.postings where posting_id = ?", array($id));
+		return count($result);
 	}
 
 	public function hidePost($postid)
@@ -79,6 +100,8 @@ class Post extends Eloquent {
 
 	public function deletePost($postid)
 	{
+		DB::delete('delete from cyswap.category_miscellaneous where posting_id = ?', array($postid));
+		DB::delete('delete from cyswap.category_textbook where posting_id = ?', array($postid));
 		DB::delete('delete from cyswap.postings where posting_id = ?', array($postid));
 	}
 }

@@ -12,7 +12,7 @@ class LoginController extends BaseController {
 			$adldap->setAccountSuffix("@iastate.edu");
 			$adldap->setDomainControllers(array("windc1.iastate.edu","windc2.iastate.edu","windc3.iastate.edu","windc4.iastate.edu","windc5.iastate.edu"));
 			//$adldap->baseDn='dc=iastate,dc=edu';
-			
+
 			//echo $adldap->getAccountSuffix();
 			//echo $adldap->getUseSSL();
 			//var_dump($adldap->getDomainControllers());
@@ -46,7 +46,7 @@ class LoginController extends BaseController {
 	}
 
 	public function getLogin() {
-			return View::make('account.login');
+			return View::make('Account/login');
 	}
 
 	public function postLogin() {

@@ -9,7 +9,8 @@
 
 <div id="postImages" class="col-md-4">
 	@if($posting['num_images'] == 0)
-		<img class="entryimg" src="{{asset('media/notAvailable.jpg')}}" />
+		<span style="text-align: center" class="entryimg notfound glyphicon glyphicon-picture"></span>
+		<br/><br/>
 	@else
 		<img class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 	@endif
@@ -27,7 +28,7 @@
 			@if(Session::get('user') == $posting['user'])
 				<p><b>Poster:</b><br/> {{$posting['user']}} (me)</p><br/>
 				<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
-				<div class='panel-collapse collapse outlinedCollapse' id="markCompletePanel">
+				<div class='panel-collapse collapse wrapper' id="markCompletePanel">
 					{{ Form::open(array('action'=>'EmailController@emailBuyer')) }}
 					{{Form::hidden('postid', $posting['posting_id'])}}
 					{{Form::hidden('isFinishing', 'y', ['id'=>'isFinishing'])}}

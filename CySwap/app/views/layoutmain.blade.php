@@ -31,7 +31,7 @@
 					{{Form::submit('search')}}
 				{{Form::close()}}
 				@if(Session::has('user'))
-					<a href="{{URL::route('logout')}}">logout</a>
+					<a href="{{URL::to('myaccount')}}">{{Session::get('user')}}</a> (<a href="{{URL::route('logout')}}">logout</a>)
 				@else
 					<a href="{{URL::route('login')}}">login</a>
 				@endif

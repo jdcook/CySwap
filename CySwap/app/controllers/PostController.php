@@ -19,8 +19,31 @@ class PostController extends BaseController {
 		//get form input
 		$post_params = Input::get();
 
-		//use model to make post
-		$postid = App::make('Post')->postItem($post_params);
+		//check for file
+		if(Input::hasFile('picture'))
+		{
+			//validate files
+			$size = Input::file('picture')->getSize();
+			$extension = Input::file('picture')->getClientOriginalExtension();
+			if($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "bmp")
+			{
+				$extension_supported = true;
+			}
+			if(Input::file('picture')->isValid() && $size < 5242880 /*5MB*/ && isset($extension_supported))
+			{
+				$image = Input::file('picture');
+			}
+		}
+
+		//use model to make post (checking if valid image was provided)
+		if(isset($image))
+		{
+			$postid = App::make('Post')->postItem($post_params, $image);
+		}
+		else
+		{
+			$postid = App::make('Post')->postItem($post_params, null);
+		}
 
 		//use get post controller function to get the created post
 		$posting = App::make('PostController')->getPost($postid);

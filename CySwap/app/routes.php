@@ -1,7 +1,7 @@
 <?php
 
 /*
-	Account stuff
+Account stuff
 */
 Route::get('login', function(){
 	return View::make('Account/login');
@@ -11,6 +11,12 @@ Route::get('Account/logout', array(
 			'as' => 'logout',
 			'uses' => 'LoginController@getLogout'
 ));
+
+Route::get('myaccount', function(){
+	$numpages = Input::get("page", 1);
+	$data = App::make('User')->getProfileInfo(Session::get('user'), $numpages);
+	return View::make('myaccount')->with('data', $data);
+});
 
 Route::group(array('before' => 'guest'), function() {
 
@@ -100,13 +106,17 @@ Route::get('viewpost/{postid}', function($postid)
 
 Route::get('postItem', function()
 {
-	return View::make('postItem');
+	if(Session::has('user'))
+		return View::make('postitem');
+	else
+		return View::make('Account/login');
+
 });
 
 Route::get('postItem/{isbn}', function($isbn)
 {
 	$isbn_data = App::make('IsbnController')->isbndb_request($isbn);
-	return View::make('postItem')->with('isbn_data', $isbn_data);
+	return View::make('postitem')->with('isbn_data', $isbn_data);
 });
 
 Route::post('postItem', 'PostController@postItem');

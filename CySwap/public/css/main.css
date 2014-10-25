@@ -162,6 +162,10 @@
 	max-width: 20em;
 }
 
+.notfound{
+	font-size: 5em;
+}
+
 .entry > h4{
 	margin-left: 3em;
 }
@@ -179,6 +183,9 @@
 	width: 20em;
 }
 
+.categoryTitle{
+	text-align: center;
+}
 
 /* misc */
 #content{
@@ -194,10 +201,33 @@ hr{
 	border-top-color: rgb(150, 150, 150);
 }
 
-.outlinedCollapse{
+.wrapper{
 	border: 1px solid rgb(180, 180, 180);
+}
+
+.wrapper-padded{
+	border: 1px solid rgb(180, 180, 180);
+	padding: 1em;
 }
 
 .btnLabel{
 	cursor:hand;
+}
+
+.like{
+	border-radius: 5px;
+	padding: .75em;
+	color: green;
+	border: 1px solid green;
+}
+
+.dislike{
+	border-radius: 5px;
+	padding: .75em;
+	color: red;
+	border: 1px solid red;
+}
+
+.faded{
+	color: rgb(180, 180, 180);
 }
