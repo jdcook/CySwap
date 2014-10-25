@@ -85,9 +85,9 @@ Route::get('contact', function()
 });
 
 /* report */
-Route::get('report', function()
+Route::get('report/{postId}', function($postId)
 {
-	return View::make('Info/report');
+	return View::make('report')-> with('postId',$postId);
 });
 
 /* categories */
@@ -129,7 +129,7 @@ Route::post('postItem', 'PostController@postItem');
 Route::post('emailContact', 'EmailController@emailContact');
 Route::post('emailBuyer', 'EmailController@emailBuyer');
 Route::post('rateBuyer', 'RateController@rateBuyer');
-
+Route::post('reportPost', 'ReportController@reportPost');
 
 Route::get('/outputMessage', function(){
 	return View::make('outputMessage');

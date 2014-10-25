@@ -106,6 +106,7 @@
 			@endforeach
 			<br/>
 			<p><b>Description:</b><br/>{{$posting['description']}}</p>
+			<a style="color:red" href="{{URL::to('/report/'.$posting['posting_id'])}}">Report </a>
 	</div>
 </div>
 

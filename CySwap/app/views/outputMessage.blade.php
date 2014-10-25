@@ -5,7 +5,7 @@
 <br />
 <br />
     <div class="col-md-12">
-        <b>{{ Session::get('message') }}</b>
+        <strong>{{ Session::get('message') }}</strong>
     </div>
 
 @stop
