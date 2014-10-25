@@ -73,7 +73,7 @@ class Post extends Eloquent {
 		//if an image was provided move it to the correct location in file system
 		if(isset($image))
 		{
-			$image->move(".\media\post_images", $postid."_0.jpg");
+			$image->move("./media/post_images", $postid."_0.jpg");
 			$num_images++;
 		}
 
