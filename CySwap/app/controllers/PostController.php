@@ -19,19 +19,25 @@ class PostController extends BaseController {
 		//get form input
 		$post_params = Input::get();
 
+		$image = array();
+
 		//check for file
-		if(Input::hasFile('picture'))
+		for($i = 1; $i < 11; $i++)
 		{
-			//validate files
-			$size = Input::file('picture')->getSize();
-			$extension = Input::file('picture')->getClientOriginalExtension();
-			if($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "bmp")
+			$laravel_file_name = "picture".$i;
+			if(Input::hasFile($laravel_file_name))
 			{
-				$extension_supported = true;
-			}
-			if(Input::file('picture')->isValid() && $size < 15728640 /*15MB*/ && isset($extension_supported))
-			{
-				$image = Input::file('picture');
+				//validate files
+				$size = Input::file($laravel_file_name)->getSize();
+				$extension = Input::file($laravel_file_name)->getClientOriginalExtension();
+				if($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "bmp")
+				{
+					$extension_supported = true;
+				}
+				if(Input::file($laravel_file_name)->isValid() && $size < 15728640 /*15MB*/ && isset($extension_supported))
+				{
+					$image[$i] = Input::file($laravel_file_name);
+				}
 			}
 		}
 

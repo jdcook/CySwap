@@ -12,14 +12,14 @@
 		<span style="text-align: center" class="entryimg notfound glyphicon glyphicon-picture"></span>
 		<br/><br/>
 	@else
-		<img class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
+		<img id="image_main" class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 	@endif
 	<div id="collapseParent" class="price">
 		@for($i = 0; $i < $posting['num_images']; $i++)
-			<img src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
+			<img id="thumb{{$i}}" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
 		@endfor
 		<p><b>Suggested Price:</b><br/> {{$posting['suggested_price']}}</p>
-		
+
 		@if(Session::has('message'))
 			{{ Session::get('message') }}
 		@endif
@@ -62,14 +62,14 @@
 					<div class='panel-collapse collapse' id="contactPanel">
 							<p>
 							<p id="confirmText">Send Email to {{$posting['user']}}</p>
-								
+
 								{{ Form::open(array('action'=>'EmailController@emailContact')) }}
 								<br>
 
 
 								<div class="detail">
 								  <span id="textareaLabel" class="input-group-addon textareaLabel">{{Form::label('Email')}}</span>
-								  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I am interested in buying your ' . $posting['title'] . '         -'.Session::get("user") , 
+								  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I am interested in buying your ' . $posting['title'] . '         -'.Session::get("user") ,
 								  	['id' => 'contactInput', 'class' => 'form-control description'])}}
 								</div>
 
@@ -155,6 +155,16 @@ $('#finishBtn').click(function(){
 	$(this).addClass('positive-active');
 
 	$('#buyerName').focus();
+});
+
+$('img').click(function(){
+	image_id = event.target.id;
+	if(image_id.indexOf("thumb") > -1)
+	{
+		var match = image_id.match(/\d+/);
+		var src = "{{asset('media/post_images')}}/{{$posting['posting_id']}}_"+match+".jpg";
+		$('#image_main').attr("src", src);
+	}
 });
 </script>
 @stop

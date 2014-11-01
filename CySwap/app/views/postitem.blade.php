@@ -115,7 +115,16 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 
 <div class="col-md-8">
 	Upload Picture
-	<input type="file" name="picture">
+	<input id="picture1" type="file" name="picture1">
+	<input id="picture2" type="file" name="picture2" style="display:none;">
+	<input id="picture3" type="file" name="picture3" style="display:none;">
+	<input id="picture4" type="file" name="picture4" style="display:none;">
+	<input id="picture5" type="file" name="picture5" style="display:none;">
+	<input id="picture6" type="file" name="picture6" style="display:none;">
+	<input id="picture7" type="file" name="picture7" style="display:none;">
+	<input id="picture8" type="file" name="picture8" style="display:none;">
+	<input id="picture9" type="file" name="picture9" style="display:none;">
+	<input id="picture10" type="file" name="picture10" style="display:none;">
 	<br />
 </div>
 
@@ -147,7 +156,7 @@ $('#miscButton').click(function(){
 
 $('#isbnPopBtn').click(function(){
 	value = $('#isbnInput').attr("value");
-	//window.location.href="../app/controllers/AJAX/isbndb_request.php?isbn="+value;
+
 	$.ajax ({
 		type: 'GET',
 		url: "../app/controllers/AJAX/isbndb_request.php?isbn="+value,
@@ -171,10 +180,70 @@ $('#isbnPopBtn').click(function(){
 			}
 		}
 	});
-
-	//window.location.href="{{URL::to('postItem')}}/" + $('#isbnInput').attr("value");
-	//e.preventDefault();
 });
+
+$('#picture1').change(function(){
+	if($('#picture1').val().indexOf("fakepath") > -1)
+	{
+		$('#picture2').css('display', 'block');
+	}
+})
+
+$('#picture2').change(function(){
+	if($('#picture2').val().indexOf("fakepath") > -1)
+	{
+		$('#picture3').css('display', 'block');
+	}
+})
+
+$('#picture3').change(function(){
+	if($('#picture3').val().indexOf("fakepath") > -1)
+	{
+		$('#picture4').css('display', 'block');
+	}
+})
+
+$('#picture4').change(function(){
+	if($('#picture4').val().indexOf("fakepath") > -1)
+	{
+		$('#picture5').css('display', 'block');
+	}
+})
+
+$('#picture5').change(function(){
+	if($('#picture5').val().indexOf("fakepath") > -1)
+	{
+		$('#picture6').css('display', 'block');
+	}
+})
+
+$('#picture6').change(function(){
+	if($('#picture6').val().indexOf("fakepath") > -1)
+	{
+		$('#picture7').css('display', 'block');
+	}
+})
+
+$('#picture7').change(function(){
+	if($('#picture7').val().indexOf("fakepath") > -1)
+	{
+		$('#picture8').css('display', 'block');
+	}
+})
+
+$('#picture8').change(function(){
+	if($('#picture8').val().indexOf("fakepath") > -1)
+	{
+		$('#picture9').css('display', 'block');
+	}
+})
+
+$('#picture9').change(function(){
+	if($('#picture9').val().indexOf("fakepath") > -1)
+	{
+		$('#picture10').css('display', 'block');
+	}
+})
 
 </script>
 @stop

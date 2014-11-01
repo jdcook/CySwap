@@ -39,7 +39,7 @@ class Post extends Eloquent {
 				$postingidstr = $postingIdObj->posting_id;
 				//$postingLites[$postingidstr] = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'")[0];
 				$result = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'");
-				
+
 				//check to make sure something came back
 				if(count($result)){
 					$postingLites[$postingidstr] = $result[0];
@@ -56,7 +56,7 @@ class Post extends Eloquent {
 			foreach($postingids as $postingIdObj) {
 				$postingidstr = $postingIdObj->posting_id;
 				$result = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id = '."'".$postingidstr."'");
-				
+
 				//check to make sure something came back
 				if(count($result)){
 					$postingLites[$postingidstr] = $result[0];
@@ -92,8 +92,12 @@ class Post extends Eloquent {
 		//if an image was provided move it to the correct location in file system
 		if(isset($image))
 		{
-			$image->move("./media/post_images", $postid."_0.jpg");
-			$num_images++;
+			foreach($image as $index => $imageToStore)
+			{
+				$i = $index - 1;
+				$imageToStore->move("./media/post_images", $postid."_".$i.".jpg");
+				$num_images++;
+			}
 		}
 
 		//insert posting lite into table

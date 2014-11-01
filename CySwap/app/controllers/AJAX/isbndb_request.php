@@ -57,13 +57,6 @@
 				$edition = null;
 				echo "NULL";
 			}
-
-			// //insert parsed data into index ret array
-			// $ret = array("isbn" => $isbn, "isbn13" => $isbn13, "title" => $title, "authors" => $authors, "publisher"
-			// 	=> $publisher, "edition" => $edition);
-
-			// //return successfully
-			// echo $ret["isbn13"];
 		}
 		else
 		{
