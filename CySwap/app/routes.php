@@ -73,7 +73,7 @@ Route::get('copyright', function()
 	return View::make('Info/copyright');
 });
 
-Route::get('legaljargon', function()
+Route::get('termsofuse', function()
 {
 	return View::make('Info/termsofuse');
 });
