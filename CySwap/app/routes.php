@@ -87,7 +87,12 @@ Route::get('contact', function()
 /* report */
 Route::get('report/{postId}', function($postId)
 {
-	return View::make('report')-> with('postId',$postId);
+	if(Session::has('user'))
+	{
+		return View::make('report')-> with('postId',$postId);
+	}
+	else
+		return View::make('Account/login');
 });
 
 /* categories */

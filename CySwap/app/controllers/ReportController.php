@@ -5,11 +5,11 @@ class ReportController extends BaseController {
 
 public function reportPost() {
 	$report_params = Input::get();
-	
+
 	App::make('Report')->reportPost($report_params);
-	
+
 	$msg = 'The following report has been submitted.<br/>';
 	return Redirect::to('/outputMessage')->with('message', $msg . Input::get('reportDescription'));
-	
+
 	}
 }
