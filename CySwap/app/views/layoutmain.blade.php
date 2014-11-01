@@ -79,7 +79,7 @@
 
 <br /><br />
 <!-- footer -->
-<div class="footer row">
+<div id="footer" class="row">
 	<!--<div class="col-md-3"><a href="{{URL::to('/copyright')}}">Copyright</a></div>-->
 	<div class="col-md-4"><a href="{{URL::to('/termsofuse')}}">Terms of Use</a></div>
 	<div class="col-md-4"><a href="{{URL::to('/about')}}">About Us</a></div>
@@ -116,7 +116,7 @@ $('.cliptext').each(function(){
 	if(text.length > maxTextLength){
 		text = text.slice(0, maxTextLength);
 		text += "...";
-		$(this).html(text);	
+		$(this).html(text);
 	}
 
 });
