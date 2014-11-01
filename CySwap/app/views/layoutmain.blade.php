@@ -13,7 +13,7 @@
 
 
 	<!-- header -->
-	<div id="header" class="jumbotron">
+	<div class="jumbotron">
 		<div class="row">
 			<div class="col-md-2">
 				<img id="logo" src="{{asset('media/logo.jpg')}}" style="width:14em; height:10em" />
@@ -66,9 +66,6 @@
 					<li>
 						<a href="{{URL::to('safety')}}">Safety</a>
 					</li>
-					<li>
-						<a href="{{URL::to('about')}}">About Us</a>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -82,11 +79,11 @@
 
 <br /><br />
 <!-- footer -->
-<div id="footer" class="row">
-	<div class="col-md-3"><a href="{{URL::to('/copyright')}}">Copyright</a></div>
-	<div class="col-md-3"><a href="{{URL::to('/legaljargon')}}">Terms of Use</a></div>
-	<div class="col-md-3"><a href="{{URL::to('/report')}}">Report</a></div>
-	<div class="col-md-3"><a href="{{URL::to('/contact')}}">Contact Us</a></div>
+<div class="footer row">
+	<!--<div class="col-md-3"><a href="{{URL::to('/copyright')}}">Copyright</a></div>-->
+	<div class="col-md-4"><a href="{{URL::to('/termsofuse')}}">Terms of Use</a></div>
+	<div class="col-md-4"><a href="{{URL::to('/about')}}">About Us</a></div>
+	<div class="col-md-4"><a href="{{URL::to('/contact')}}">Contact Us</a></div>
 </div>
 <!-- end footer -->
 
@@ -111,6 +108,17 @@ $('#nav').affix({
 
 $('.entry').click(function(){
 	window.location.href="{{URL::to('viewpost')}}" + "/" + $(this).attr("data-postid");
+});
+
+var maxTextLength = 375;
+$('.cliptext').each(function(){
+	var text = $(this).html();
+	if(text.length > maxTextLength){
+		text = text.slice(0, maxTextLength);
+		text += "...";
+		$(this).html(text);	
+	}
+
 });
 
 </script>

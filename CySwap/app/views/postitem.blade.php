@@ -116,7 +116,7 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 
 
 <div class="col-md-12">
-	<a> {{ Form::submit('Submit Post', ['id' => 'postButton', 'class' => 'btn btn-default', 'role' => 'button']) }} </a>
+	<a> {{ Form::submit('Submit Post', ['class' => 'btn btn-default btn-hugeSubmit', 'role' => 'button']) }} </a>
 </div>
 
 {{ Form::token().Form::close() }}
