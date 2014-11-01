@@ -29,7 +29,7 @@ class PostController extends BaseController {
 			{
 				$extension_supported = true;
 			}
-			if(Input::file('picture')->isValid() && $size < 5242880 /*5MB*/ && isset($extension_supported))
+			if(Input::file('picture')->isValid() && $size < 15728640 /*15MB*/ && isset($extension_supported))
 			{
 				$image = Input::file('picture');
 			}
