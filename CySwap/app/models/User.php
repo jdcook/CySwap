@@ -5,24 +5,27 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User {
 
-	public function thumbsUp($username){
+	public function thumbsUp($username, $posting_id, $seller_or_buyer){
+
 		$user=DB::select("SELECT * from CySwap.users where username = ? limit 0,1", array($username));
 		if(count($user)){
 			$num = $user[0]->positive;
 			$num = $num + 1;
 			DB::update("UPDATE CySwap.users set positive = ? where username = ?", array($num, $username));
+			DB::update("UPDATE CySwap.postings set $seller_or_buyer" . "_has_rated = '1' where posting_id = '$posting_id'");
 		}
 		else{
 			DB::insert("INSERT into CySwap.users (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 0, 1, 0));
 		}
 	}
 
-	public function thumbsDown($username){
+	public function thumbsDown($username, $posting_id, $seller_or_buyer){
 		$user=DB::select("SELECT * from CySwap.users where username = ? limit 0,1", array($username));
 		if(count($user)){
 			$num = $user[0]->negative;
 			$num = $num + 1;
 			DB::update("UPDATE CySwap.users set negative = ? where username = ?", array($num, $username));
+			DB::update("UPDATE CySwap.postings set $seller_or_buyer" . "_has_rated = '1' where posting_id = '$posting_id'");
 		}
 		else{
 			DB::insert("INSERT into CySwap.users (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 0, 1, 0));
@@ -81,5 +84,10 @@ class User {
 		else{
 			DB::insert("INSERT into CySwap.users (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 1, 0, 0));
 		}
+	}
+
+	public function getSellerAndFlags($posting_id){
+
+		return DB::select("SELECT user, seller_has_rated, buyer_has_rated, hide_post from CySwap.postings where posting_id = '$posting_id'");
 	}
 }

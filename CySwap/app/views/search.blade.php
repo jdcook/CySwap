@@ -1,11 +1,6 @@
 @extends('layoutmain')
 
 @section('content')
-<h4>
-keyword: {{$keyword}}
-<br/>
-matches: {{$matches}}
-</h4>
 
 	<h1>Search Results</h1>
 	<hr>

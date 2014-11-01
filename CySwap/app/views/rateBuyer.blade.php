@@ -8,6 +8,7 @@
 	{{ Form::open(array('action'=>'RateController@rateBuyer')) }}
 	<br>
 	{{Form::hidden('username', $data['user'])}}
+	{{Form::hidden('posting_id', $data['postid'])}}
 
 	<div class="toggleBtn">
 		<p>Rate {{$data['user']}}</p>

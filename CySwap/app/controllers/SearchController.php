@@ -26,7 +26,7 @@ class SearchController extends BaseController {
 		//get posting ids corresponding to keyword
 		$posting_ids = App::make('Tags')->getPostingIds($search_keyword);
 
-		var_dump($posting_ids);
+		//var_dump($posting_ids);
 		//var_dump($posting_ids[0]->posting_id);
 
 		//get posts corresponding to posting_ids
@@ -47,8 +47,7 @@ class SearchController extends BaseController {
 		$results->appends('keyword',$keyword);
 
 		//pass results to view search
-		return View::make('search',compact('results'))->with('keyword',$keyword)
-		->with('matches',$matches);
+		return View::make('search',compact('results'))->with('keyword',$keyword);
 	}
 
 }
