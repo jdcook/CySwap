@@ -13,10 +13,6 @@ class RateController extends BaseController {
         $loggedin_user = Session::get('user');
 
         $posting_info = App::make('User')->getSellerAndFlags($posting_id);
-        var_dump($posting_info);
-        var_dump($loggedin_user);
-
-        //return View::make('terms');
 
         //if logged in user is seller and seller_has_rated flag is set, don't rate  again!
         //if logged in user isn't seller and buyer_has_rated flag is set, also don't rate
