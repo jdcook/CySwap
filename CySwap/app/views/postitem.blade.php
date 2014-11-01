@@ -2,6 +2,8 @@
 
 @section('content')
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <div class="col-md-12">
 	<h1>Post An Item</h1>
 	<hr>
@@ -48,11 +50,14 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 		  @endif
 		</div>
 
+		<div id="isbnLookupFailedDiv">
+		</div>
+
 		<div class="input-group detail">
 		  <span class="input-group-addon">{{Form::label('ISBN')}}</span>
 		  <input id="isbnInput" type="text" class="form-control"
 		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data['isbn']}}@endif">
-		  <a id="isbnPopBtn" class="input-group-addon" href="#">Auto Populate</a>
+		  <a id="isbnPopBtn" class="input-group-addon">Auto Populate</a>
 		</div>
 
 		<div class="input-group detail">
@@ -140,9 +145,35 @@ $('#miscButton').click(function(){
 	$('#textbookDetails').hide();
 });
 
-$('#isbnPopBtn').click(function(e){
-	window.location.href="{{URL::to('postItem')}}/" + $('#isbnInput').attr("value");
-	e.preventDefault();
+$('#isbnPopBtn').click(function(){
+	value = $('#isbnInput').attr("value");
+	//window.location.href="../app/controllers/AJAX/isbndb_request.php?isbn="+value;
+	$.ajax ({
+		type: 'GET',
+		url: "../app/controllers/AJAX/isbndb_request.php?isbn="+value,
+		data: value,
+		success: function(result)
+		{
+			if(result.indexOf(value) > -1)
+			{
+				$('#isbnLookupFailedDiv').html("");
+				var isbn_data = result.split(',');
+				$('#isbnInput').val(isbn_data[0]);
+				$('#ISBN13').val(isbn_data[1]);
+				$('#Title').val(isbn_data[2]);
+				$('#Author').val(isbn_data[3]);
+				$('#Publisher').val(isbn_data[4]);
+				$('#Edition').val(isbn_data[5]);
+			}
+			else
+			{
+				$('#isbnLookupFailedDiv').html("<p class=\"alert\">ISBN Lookup Failed: invalid isbn</p>");
+			}
+		}
+	});
+
+	//window.location.href="{{URL::to('postItem')}}/" + $('#isbnInput').attr("value");
+	//e.preventDefault();
 });
 
 </script>
