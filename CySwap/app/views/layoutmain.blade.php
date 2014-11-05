@@ -109,20 +109,22 @@ $('#nav').affix({
 $('.entry').click(function(){
 	window.location.href="{{URL::to('viewpost')}}" + "/" + $(this).attr("data-postid");
 });
-/*
-function clipText(){
-	$('.cliptext').each(function(){
-		var text = $(this).html();
-		if(text.length > maxTextLength){
-			text = text.slice(0, maxTextLength);
-			text += "[...]";
-			$(this).html(text);
-		}
 
-	});
-}
+var clipTextLen = 30;
+$('.cliptext').each(function(){
+	var entry = $(this).parent().parent();
+	if(entry[0].scrollHeight > entry.outerHeight()){
+		//element is overflowing, so ellipse the text
 
-clipText();*/
+		//get description field
+		var description = $(this).children().last();
+		//clip to 30 characters
+		var text = description.html();
+		text = text.slice(0, clipTextLen);
+		text += "(...)";
+		description.html(text);
+	}
+});
 
 </script>
 
