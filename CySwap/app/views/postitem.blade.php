@@ -57,8 +57,9 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 		  <span class="input-group-addon">{{Form::label('ISBN')}}</span>
 		  <input id="isbnInput" type="text" class="form-control"
 		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data['isbn']}}@endif">
-		  <a id="isbnPopBtn" class="input-group-addon">Auto Populate</a>
+		  <a id="isbnPopBtn" class="input-group-addon btn" data-loading-text="Loading...">Auto Populate</a>
 		</div>
+
 
 		<div class="input-group detail">
 		  <span class="input-group-addon">{{Form::label('ISBN13')}}</span>
@@ -155,6 +156,7 @@ $('#miscButton').click(function(){
 });
 
 $('#isbnPopBtn').click(function(){
+	$(this).button('loading');
 	value = $('#isbnInput').attr("value");
 
 	$.ajax ({
@@ -163,6 +165,7 @@ $('#isbnPopBtn').click(function(){
 		data: value,
 		success: function(result)
 		{
+			$('#isbnPopBtn').button('reset');
 			if(result.indexOf(value) > -1)
 			{
 				$('#isbnLookupFailedDiv').html("");
