@@ -23,6 +23,8 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 @else
 
 <div class="col-md-4">
+</div>
+<div class="col-md-4">
 	Category:<br/>
 	<div class="btn-group categoryButton" data-toggle="buttons">
 	  <label id="textbookButton" class="btn btn-primary">
@@ -41,6 +43,22 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 	{{ Form::open(array('action' => array('PostController@postItem'), 'files'=>true)) }}
 
 	<div id="textbookDetails">
+
+		Upload Picture
+		<input id="picture1" type="file" name="picture1">
+		<input id="picture2" type="file" name="picture2" style="display:none;">
+		<input id="picture3" type="file" name="picture3" style="display:none;">
+		<input id="picture4" type="file" name="picture4" style="display:none;">
+		<input id="picture5" type="file" name="picture5" style="display:none;">
+		<input id="picture6" type="file" name="picture6" style="display:none;">
+		<input id="picture7" type="file" name="picture7" style="display:none;">
+		<input id="picture8" type="file" name="picture8" style="display:none;">
+		<input id="picture9" type="file" name="picture9" style="display:none;">
+		<input id="picture10" type="file" name="picture10" style="display:none;">
+		<br />
+		<br />
+
+
 		<div class="input-group detail">
 		  <span class="input-group-addon">{{Form::label('Title')}}</span>
 		  @if(isset($isbn_data) and $isbn_data != null)
@@ -57,7 +75,7 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 		  <span class="input-group-addon">{{Form::label('ISBN')}}</span>
 		  <input id="isbnInput" type="text" class="form-control"
 		  value="@if(isset($isbn_data) and $isbn_data != null){{$isbn_data['isbn']}}@endif">
-		  <a id="isbnPopBtn" class="input-group-addon btn" data-loading-text="Loading...">Auto Populate</a>
+		  <a id="isbnPopBtn" class="input-group-addon btn" data-loading-text="Loading...">Look Up</a>
 		</div>
 
 
@@ -112,29 +130,21 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 		<span class="input-group-addon textareaLabel">{{Form::label('Description')}}</span>
 		{{Form::textarea('Description', '', ['class' => 'form-control description'])}}
 	</div>
+
+	<br/>
+	<a> {{ Form::submit('Submit Post', ['class' => 'btn btn-default btn-hugeSubmit', 'role' => 'button']) }} </a>
+
+	{{ Form::token().Form::close() }}
 </div>
 
-<div class="col-md-8">
-	Upload Picture
-	<input id="picture1" type="file" name="picture1">
-	<input id="picture2" type="file" name="picture2" style="display:none;">
-	<input id="picture3" type="file" name="picture3" style="display:none;">
-	<input id="picture4" type="file" name="picture4" style="display:none;">
-	<input id="picture5" type="file" name="picture5" style="display:none;">
-	<input id="picture6" type="file" name="picture6" style="display:none;">
-	<input id="picture7" type="file" name="picture7" style="display:none;">
-	<input id="picture8" type="file" name="picture8" style="display:none;">
-	<input id="picture9" type="file" name="picture9" style="display:none;">
-	<input id="picture10" type="file" name="picture10" style="display:none;">
-	<br />
+<div class="col-md-4">
 </div>
 
 
 <div class="col-md-12">
-	<a> {{ Form::submit('Submit Post', ['class' => 'btn btn-default btn-hugeSubmit', 'role' => 'button']) }} </a>
+	
 </div>
 
-{{ Form::token().Form::close() }}
 
 @endif
 
