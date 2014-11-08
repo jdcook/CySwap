@@ -104,7 +104,8 @@ Route::get('category/{category}', function($category)
 
 Route::get('categories', function()
 {
-	return View::make('categories');
+	$categoryOptions = App::make('CategoryController')->getCategories();
+	return View::make('categories')->with('categoryOptions', $categoryOptions);
 });
 
 /* Posts */
