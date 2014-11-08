@@ -64,7 +64,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<a href="{{URL::to('safety')}}">Safety</a>
+						<a href="{{URL::to('safety')}}">Safety and Tips</a>
 					</li>
 				</ul>
 			</div>
