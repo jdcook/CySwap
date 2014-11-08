@@ -7,43 +7,43 @@ class User {
 
 	public function thumbsUp($username, $posting_id, $seller_or_buyer){
 
-		$user=DB::select("SELECT * from CySwap.users where username = ? limit 0,1", array($username));
+		$user=DB::select("SELECT * from CySwap2.user where username = ? limit 0,1", array($username));
 		if(count($user)){
 			$num = $user[0]->positive;
 			$num = $num + 1;
-			DB::update("UPDATE CySwap.users set positive = ? where username = ?", array($num, $username));
-			DB::update("UPDATE CySwap.postings set $seller_or_buyer" . "_has_rated = '1' where posting_id = '$posting_id'");
+			DB::update("UPDATE CySwap2.user set positive = ? where username = ?", array($num, $username));
+			DB::update("UPDATE CySwap2.posting set $seller_or_buyer" . "_has_rated = '1' where posting_id = '$posting_id'");
 		}
 		else{
-			DB::insert("INSERT into CySwap.users (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 0, 1, 0));
+			DB::insert("INSERT into CySwap2.user (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 0, 1, 0));
 		}
 	}
 
 	public function thumbsDown($username, $posting_id, $seller_or_buyer){
-		$user=DB::select("SELECT * from CySwap.users where username = ? limit 0,1", array($username));
+		$user=DB::select("SELECT * from CySwap2.user where username = ? limit 0,1", array($username));
 		if(count($user)){
 			$num = $user[0]->negative;
 			$num = $num + 1;
-			DB::update("UPDATE CySwap.users set negative = ? where username = ?", array($num, $username));
-			DB::update("UPDATE CySwap.postings set $seller_or_buyer" . "_has_rated = '1' where posting_id = '$posting_id'");
+			DB::update("UPDATE CySwap2.user set negative = ? where username = ?", array($num, $username));
+			DB::update("UPDATE CySwap2.posting set $seller_or_buyer" . "_has_rated = '1' where posting_id = '$posting_id'");
 		}
 		else{
-			DB::insert("INSERT into CySwap.users (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 0, 1, 0));
+			DB::insert("INSERT into CySwap2.user (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 0, 1, 0));
 		}
 	}
 
 	public function getProfileInfo($username, $pagenum){
 		$data = array();
-		$postingids = DB::select("SELECT posting_id, category, date from CySwap.postings where user = ? order by date ASC", array($username));
+		$postingids = DB::select("SELECT posting_id, category, date from CySwap2.posting where username = ? order by date ASC", array($username));
 		$topaginate = array();
 
 		$i = 0;
 		foreach($postingids as $id){
 			if($id->category == "textbook"){
-				$topaginate[$i] = DB::select("SELECT title, posting_id, num_images from CySwap.category_textbook where posting_id = ?", array($id->posting_id))[0];
+				$topaginate[$i] = DB::select("SELECT title, posting_id, num_images from CySwap2.category_textbook where posting_id = ?", array($id->posting_id))[0];
 			}
 			else{
-				$topaginate[$i] = DB::select("SELECT title, posting_id, num_images from CySwap.category_miscellaneous where posting_id = ?", array($id->posting_id))[0];
+				$topaginate[$i] = DB::select("SELECT title, posting_id, num_images from CySwap2.category_miscellaneous where posting_id = ?", array($id->posting_id))[0];
 			}
 			$topaginate[$i]->category = $id->category;
 			$i++;
@@ -52,7 +52,7 @@ class User {
 		$total = count($topaginate);
 		$data['posts'] = Paginator::make(array_slice($topaginate, (Input::get("page", 1) - 1) * 3, 3), $total, 3);
 
-		$queryObj = DB::select("SELECT * from CySwap.users where username = ?", array($username));
+		$queryObj = DB::select("SELECT * from CySwap2.user where username = ?", array($username));
 
 		if(count($queryObj)){
 			$data['positive'] = $queryObj[0]->positive;
@@ -68,7 +68,7 @@ class User {
 	}
 
 	public function hasAccepted($username){
-		$result = DB::select("SELECT * from CySwap.users where username = ?", array($username));
+		$result = DB::select("SELECT * from CySwap2.user where username = ?", array($username));
 		if(!count($result)){
 			return 0;
 		}
@@ -77,17 +77,17 @@ class User {
 	}
 
 	public function acceptTerms($username){
-		$user=DB::select("SELECT * from CySwap.users where username = ? limit 0,1", array($username));	
+		$user=DB::select("SELECT * from CySwap2.user where username = ? limit 0,1", array($username));	
 		if(count($user)){
-			DB::update("UPDATE CySwap.users set accepted_terms = 1 where username = ?", array($username));
+			DB::update("UPDATE CySwap2.user set accepted_terms = 1 where username = ?", array($username));
 		}
 		else{
-			DB::insert("INSERT into CySwap.users (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 1, 0, 0));
+			DB::insert("INSERT into CySwap2.user (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 1, 0, 0));
 		}
 	}
 
 	public function getSellerAndFlags($posting_id){
 
-		return DB::select("SELECT user, seller_has_rated, buyer_has_rated, hide_post from CySwap.postings where posting_id = '$posting_id'");
+		return DB::select("SELECT username, seller_has_rated, buyer_has_rated, hide_post from CySwap2.posting where posting_id = '$posting_id'");
 	}
 }

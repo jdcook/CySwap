@@ -18,7 +18,7 @@ class RateController extends BaseController {
         //if logged in user isn't seller and buyer_has_rated flag is set, also don't rate
         $seller_or_buyer = 'buyer';
 
-        if ($loggedin_user == $posting_info[0]->user) {
+        if ($loggedin_user == $posting_info[0]->username) {
             $seller_or_buyer = 'seller';
         }
 

@@ -35,8 +35,8 @@
 				<a class="btn btn-default accept termsBtn" href="{{URL::to('terms')}}">Terms of Use</a>
 			@else
 				<!-- if the poster is the same as the current user, let them mark as complete -->
-				@if(Session::get('user') == $posting['user'])
-					<p><b>Poster:</b><br/> {{$posting['user']}} (me)</p><br/>
+				@if(Session::get('user') == $posting['username'])
+					<p><b>Poster:</b><br/> {{$posting['username']}} (me)</p><br/>
 					<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
 					<div class='panel-collapse collapse wrapper' id="markCompletePanel">
 						{{ Form::open(array('action'=>'EmailController@emailBuyer')) }}
@@ -56,12 +56,12 @@
 
 				<!-- otherwise, show contact seller button -->
 				@else
-					<p><b>Poster:</b><br/> {{$posting['user']}}</p><br/>
+					<p><b>Poster:</b><br/> {{$posting['username']}}</p><br/>
 					<p><a id="contactSellerBtn" data-toggle="collapse" data-target='#contactPanel' class="btn btn-default" role="button">Contact Seller</a></p>
 
 					<div class='panel-collapse collapse' id="contactPanel">
 							<p>
-							<p id="confirmText">Send Email to {{$posting['user']}}</p>
+							<p id="confirmText">Send Email to {{$posting['username']}}</p>
 
 								{{ Form::open(array('action'=>'EmailController@emailContact')) }}
 								<br>
@@ -69,11 +69,11 @@
 
 								<div class="detail">
 								  <span id="textareaLabel" class="input-group-addon textareaLabel">{{Form::label('Email')}}</span>
-								  	{{Form::textarea('emailText', 'Hi ' . $posting['user'] . ', I am interested in buying your ' . $posting['title'] . '         -'.Session::get("user") ,
+								  	{{Form::textarea('emailText', 'Hi ' . $posting['username'] . ', I am interested in buying your ' . $posting['title'] . '         -'.Session::get("user") ,
 								  	['id' => 'contactInput', 'class' => 'form-control description'])}}
 								</div>
 
-								{{Form::hidden('posterName', ''.$posting['user'])}}
+								{{Form::hidden('posterName', ''.$posting['username'])}}
 
 
 								<br />
@@ -98,8 +98,8 @@
 		<h2>Details</h2>
 		<hr />
 			@foreach($posting as $key => $value)
-			@if($key != "posting_id" and $key != "tags" and $key != "able_to_delete" and $key != "hide_post" and $key != "title"
-				and $key != "description" and $key != 'user' and $key != "suggested_price" and $key != 'num_images' and
+			@if($key != "posting_id" and $key != "tags" and $key != "hide_post" and $key != "title"
+				and $key != "description" and $key != 'username' and $key != "suggested_price" and $key != 'num_images' and
 				!is_null($value))
 				<p><b class="detailHeading">{{$key}}:</b> {{$value}}</p>
 			@endif
@@ -133,7 +133,7 @@ function formatDetailHeading(string)
 }
 
 $('#cancelBtn').click(function(){
-	$('#contactInput').val("{{'Hi ' . $posting['user'] . ', I would like to buy ' . $posting['title'] . ' (' . $posting['posting_id'] . ')'}}");
+	$('#contactInput').val("{{'Hi ' . $posting['username'] . ', I would like to buy ' . $posting['title'] . ' (' . $posting['posting_id'] . ')'}}");
 });
 
 $('#deleteBtn').click(function(){
@@ -158,7 +158,7 @@ $('#finishBtn').click(function(){
 });
 
 $('img').click(function(){
-	image_id = event.target.id;
+	var image_id = $(this).attr('id');
 	if(image_id.indexOf("thumb") > -1)
 	{
 		var match = image_id.match(/\d+/);

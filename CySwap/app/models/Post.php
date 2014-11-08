@@ -12,13 +12,13 @@ class Post extends Eloquent {
 	public function getPost($postid)
 	{
 		// select post with matching id from database
-		$post = DB::select('select * from cyswap.postings where posting_id = \''.$postid.'\' limit 0,1');
+		$post = DB::select('select * from cyswap2.posting where posting_id = \''.$postid.'\' limit 0,1');
 
 		// save category of post to find extra fields
 		$category = $post[0]->category;
 
 		// get full posting
-		$category_info = DB::select('select * from cyswap.category_'.$category.' where posting_id = \''.$postid.
+		$category_info = DB::select('select * from cyswap2.category_'.$category.' where posting_id = \''.$postid.
 			'\' limit 0,1');
 
 		// cast data to array for easy processing
@@ -33,12 +33,12 @@ class Post extends Eloquent {
 	{
 		$postingLites = array();
 		if($category == "textbooks") {
-			$postingids = DB::select('select posting_id from cyswap.postings where category = \'textbook\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
+			$postingids = DB::select('select posting_id from cyswap2.posting where category = \'textbook\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
 
 			foreach($postingids as $postingIdObj) {
 				$postingidstr = $postingIdObj->posting_id;
 				//$postingLites[$postingidstr] = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'")[0];
-				$result = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'");
+				$result = DB::select('select posting_id, title, author, isbn_10, isbn_13, item_condition, num_images from cyswap2.category_textbook where posting_id = '."'".$postingidstr."'");
 
 				//check to make sure something came back
 				if(count($result)){
@@ -46,16 +46,16 @@ class Post extends Eloquent {
 				}
 				else{
 					//didn't find a post with that id in that category, so delete that id
-					DB::delete('DELETE from CySwap.postings where posting_id = ?', array($postingidstr));
+					DB::delete('DELETE from CySwap2.posting where posting_id = ?', array($postingidstr));
 				}
 			}
 
 		} elseif($category == "miscellaneous") {
-			$postingids = DB::select('select posting_id from cyswap.postings where category = \'miscellaneous\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
+			$postingids = DB::select('select posting_id from cyswap2.posting where category = \'miscellaneous\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
 
 			foreach($postingids as $postingIdObj) {
 				$postingidstr = $postingIdObj->posting_id;
-				$result = DB::select('select posting_id, title, cyswap.category_miscellaneous.condition, description, num_images from cyswap.category_miscellaneous where posting_id = '."'".$postingidstr."'");
+				$result = DB::select('select posting_id, title, item_condition, description, num_images from cyswap2.category_miscellaneous where posting_id = '."'".$postingidstr."'");
 
 				//check to make sure something came back
 				if(count($result)){
@@ -63,7 +63,7 @@ class Post extends Eloquent {
 				}
 				else{
 					//didn't find a post with that id in that category, so delete that id
-					DB::delete('DELETE from CySwap.postings where posting_id = ?', array($postingidstr));
+					DB::delete('DELETE from CySwap2.posting where posting_id = ?', array($postingidstr));
 				}
 			}
 		}
@@ -101,31 +101,25 @@ class Post extends Eloquent {
 		}
 
 		//insert posting lite into table
-		DB::insert('insert into CySwap.postings (posting_id, user, date, category, able_to_delete, hide_post) values (?, ?, ?, ?, ?, ?)',
-			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 1, 0));
+		DB::insert('insert into CySwap2.posting (posting_id, username, date, category, hide_post) values (?, ?, ?, ?, ?)',
+			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 0));
 
 		//insert posting into table
-		DB::insert('insert into CySwap.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, CySwap.category_textbook.condition, tags, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], null, $post_params['Suggested_Price'], $num_images));
+		DB::insert('insert into CySwap2.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, item_condition, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], $post_params['Suggested_Price'], $num_images));
 
 		//return the randomly generated post id
 		return $postid;
 	}
 
 	private function checkIdConflict($id){
-		$result = DB::select("SELECT * from CySwap.postings where posting_id = ?", array($id));
+		$result = DB::select("SELECT * from CySwap2.posting where posting_id = ?", array($id));
 		return count($result);
-	}
-
-	public function hidePost($postid)
-	{
-        DB::update('update cyswap.postings set hide_post = 1 where posting_id = ?', array($postid));
 	}
 
 	public function deletePost($postid)
 	{
-		DB::delete('delete from cyswap.category_miscellaneous where posting_id = ?', array($postid));
-		DB::delete('delete from cyswap.category_textbook where posting_id = ?', array($postid));
-		DB::delete('delete from cyswap.postings where posting_id = ?', array($postid));
+		DB::delete('delete from cyswap2.tags where posting_id = ?', array($postid));
+		DB::update('update cyswap2.posting set hide_post = ? where posting_id = ?', array(1, $postid));
 	}
 }

@@ -72,7 +72,7 @@ class LoginController extends BaseController {
 	    	if($msg == 'valid') {
 
 				//check for ban
-				$result = DB::select("SELECT * from CySwap.blacklist where user = ?", array($data['netid']));
+				$result = DB::select("SELECT * from CySwap2.blacklist where username = ?", array($data['netid']));
 				if(count($result)){
 					$baninfo = $result[0];
 
@@ -81,7 +81,7 @@ class LoginController extends BaseController {
 				}
 
 				//check for suspension
-				$result = DB::select("SELECT * from CySwap.suspended where user = ?", array($data['netid']));
+				$result = DB::select("SELECT * from CySwap2.suspend where username = ?", array($data['netid']));
 				if(count($result)){
 					$info = $result[0];
 
