@@ -28,7 +28,7 @@ class EmailController extends BaseController {
         try{
             if(Input::get('isFinishing') == 'y'){
                 $postid = Input::get('postid');
-                App::make('Post')->hidePost($postid);
+                App::make('Post')->deletePost($postid);
                 $username = Session::get('user');
                 Mail::send('emails.rate', array('postid'=>$postid, 'poster'=>$username), function($message)
                 {
