@@ -5,16 +5,10 @@
 <h1>Categories</h1>
 <hr>
 <div id="categories">
+@foreach($categoryOptions as $category)
 	<div class="col-md-4">
-          <a class="btn btn-default" href="{{URL::to('category/textbooks')}}" role="button">Textbooks »</a>
+          <a class="btn btn-default" href="{{URL::to('category/'.$category)}}" role="button"><?php $category = ucfirst($category);?> {{$category}} »</a>
     </div>
-
-	<!--<div class="col-md-4">
-          <a class="btn btn-default" href="{{URL::to('category/tickets')}}" role="button">Tickets »</a>
-    </div>
--->
-	<div class="col-md-4">
-          <a class="btn btn-default" href="{{URL::to('category/miscellaneous')}}" role="button">Miscellaneous »</a>
-    </div>
+@endforeach
 </div>
 @stop

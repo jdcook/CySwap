@@ -13,7 +13,7 @@ class Tags extends Eloquent {
 		$columns = 'tag1,tag2,tag3,tag4,tag5,tag6,tag7,tag8,tag9,tag10';
 		$order_by = 'score,category';
 		$query = "select posting_id, MATCH ($columns) AGAINST('$keyword' IN BOOLEAN MODE) as score 
-			FROM tags WHERE MATCH ($columns) AGAINST('$keyword' IN BOOLEAN MODE) 
+			FROM cyswap2.tags WHERE MATCH ($columns) AGAINST('$keyword' IN BOOLEAN MODE) 
 			ORDER BY $order_by DESC";
 
 		return $query;
