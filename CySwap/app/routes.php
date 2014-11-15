@@ -178,3 +178,7 @@ Route::get('/removeCategory', function(){
 Route::get('/updateContent', function(){
 	return View::make('updateContent');
 });
+
+Route::get('/manageUsers', function(){
+	return View::make('manageUsers');
+});
