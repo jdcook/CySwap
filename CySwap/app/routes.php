@@ -118,10 +118,23 @@ Route::get('viewpost/{postid}', function($postid)
 Route::get('postItem', function()
 {
 	if(Session::has('user'))
-		return View::make('postitem');
+	{
+		$categories = App::make('CategoryController')->getCategories();
+		return View::make('postitem')->with('categories', $categories);
+	}
 	else
 		return View::make('Account/login');
 
+});
+
+Route::get('category_fields', function()
+{
+	$category = $_GET['category'];
+	if(Request::ajax())
+	{
+		App::make('CategoryController')->getCategoryFields_AJAX($category);
+		return;
+	}
 });
 
 Route::get('postItem/{isbn}', function($isbn)
