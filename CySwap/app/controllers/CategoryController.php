@@ -35,10 +35,12 @@ class CategoryController extends BaseController {
 
 		foreach($fields as $field)
 		{
+			$field->field_name = str_replace('_', ' ', $field->field_name);
+			$field->field_name = ucwords($field->field_name);
 			echo "<div class=\"input-group detail\">";
 			echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">".$field->field_name."</label></span>";
 			echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\" \" id=\"".$field->field_name."\">";
-			if($field->field_name == "isbn_10")
+			if($field->field_name == "Isbn 10")
 			{
 				echo "<a id=\"isbnPopBtn\" class=\"input-group-addon btn\" data-loading-text=\"Loading...\">Look Up</a>";
 			}
