@@ -32,6 +32,9 @@
 				{{Form::close()}}
 				@if(Session::has('user'))
 					<a href="{{URL::to('myaccount')}}">{{Session::get('user')}}</a> (<a href="{{URL::route('logout')}}">logout</a>)
+					@if(Session::has('usertype') and Session::get('usertype') == "admin")
+						<br/><a href="{{URL::to('adminArea')}}">Admin Area</a>
+					@endif
 				@else
 					<a href="{{URL::route('login')}}">login</a>
 				@endif
@@ -59,7 +62,7 @@
 						<a href="{{URL::to('categories')}}">Categories</a>
 					</li>
 					<li>
-						<a href="{{URL::to('postItem')}}">Post an item</a>
+						<a href="{{URL::to('postItem')}}">Post an Item</a>
 					</li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

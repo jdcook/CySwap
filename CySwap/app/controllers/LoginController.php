@@ -90,13 +90,19 @@ class LoginController extends BaseController {
 						return Redirect::route('login')
 						->with('message', 'Login unsuccessful<br/><p class="alert">'.$data['netid'].' has been suspended until '.$info->suspended_until_date.' for this reason:<br/><br/>"'.$info->reason.'"</p>');
 					}
-
 				}
 
 	    		//set valid message, set session info
 	    		$msg = 'Login succesful!';
 				Session::put('user', $data['netid']);
 
+				//look up user
+				$hasAcceptedTerms = 0;
+				$result = DB::select("SELECT * from CySwap2.user where username = ?", array($username));
+				if(count($result)){
+					$hasAcceptedTerms = $result[0]->accepted_terms;
+					Session::put('usertype', $result[0]->role);
+				}
 
 				//check for terms of use
 				if(!App::make('User')->hasAccepted($data['netid'])){
