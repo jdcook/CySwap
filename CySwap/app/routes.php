@@ -158,3 +158,23 @@ Route::get('/rateBuyer/{user}/{postid}', function($user, $postid){
 	$data = array('user'=>$user, 'postid'=>$postid);
 	return View::make('rateBuyer')->with('data', $data);
 });
+
+Route::get('/adminArea', function(){
+	return View::make('adminArea');
+});
+
+Route::get('/viewReports', function(){
+	return View::make('viewReports');
+});
+
+Route::get('/addCategory', function(){
+	return View::make('addCategory');
+});
+
+Route::get('/removeCategory', function(){
+	return View::make('removeCategory');
+});
+
+Route::get('/updateContent', function(){
+	return View::make('updateContent');
+});

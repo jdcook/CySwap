@@ -98,7 +98,7 @@ class LoginController extends BaseController {
 
 				//look up user
 				$hasAcceptedTerms = 0;
-				$result = DB::select("SELECT * from CySwap2.user where username = ?", array($username));
+				$result = DB::select("SELECT * from CySwap2.user where username = ?", array($data['netid']));
 				if(count($result)){
 					$hasAcceptedTerms = $result[0]->accepted_terms;
 					Session::put('usertype', $result[0]->role);

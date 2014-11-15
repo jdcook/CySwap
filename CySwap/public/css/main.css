@@ -38,12 +38,12 @@
 }
 
 /* posting item */
-#isbnPopBtn{
+.btn-blue{
 	background-color: rgb(45, 45, 75);
 	color: white;
 }
 
-#isbnPopBtn:hover{
+.btn-blue:hover{
 	background-color:rgb(225, 225, 225);
 	text-decoration: none;
 	color: rgb(45, 45, 75);
@@ -260,4 +260,8 @@ hr{
 .alert{
 	color: red;
 	font-weight: bold;
+}
+
+.adminLink{
+	color: blue;
 }
