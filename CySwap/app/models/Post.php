@@ -100,13 +100,42 @@ class Post extends Eloquent {
 			}
 		}
 
+		$db_string = "insert into Cyswap2.category_".$post_params['Category']." (posting_id, ";
+		$db_tailer = "?, ";
+		$db_array = array();
+		$db_array[0] = $postid;
+
+		$i = 1;
+		foreach($post_params as $param=>$value)
+		{
+			$param = strtolower($param);
+			$param = str_replace(' ', '_', $param);
+
+			if($param == "_token" || $param == "category")
+			{
+				continue;
+			}
+			if($i > 1)
+			{
+				$db_string = $db_string.", ";
+				$db_tailer = $db_tailer.", ";
+			}
+
+			$db_string = $db_string.$param;
+			$db_tailer = $db_tailer."?";
+			$db_array[$i] = $value;
+			$i++;
+		}
+
+		$db_array[$i] = $num_images;
+		$db_string = $db_string.", num_images) values (".$db_tailer.", ?)";
+
 		//insert posting lite into table
 		DB::insert('insert into CySwap2.posting (posting_id, username, date, category, hide_post) values (?, ?, ?, ?, ?)',
-			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 0));
+			array($postid, Session::get('user'), date('Y-m-d'), $post_params['Category'], 0));
 
 		//insert posting into table
-		DB::insert('insert into CySwap2.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, item_condition, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], $post_params['Suggested_Price'], $num_images));
+		DB::insert($db_string, $db_array);
 
 		//return the randomly generated post id
 		return $postid;

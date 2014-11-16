@@ -37,6 +37,10 @@ class CategoryController extends BaseController {
 		{
 			$field->field_name = str_replace('_', ' ', $field->field_name);
 			$field->field_name = ucwords($field->field_name);
+			if($field->field_name == "Description")
+			{
+				continue;
+			}
 			echo "<div class=\"input-group detail\">";
 			echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">".$field->field_name."</label></span>";
 			echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\" \" id=\"".$field->field_name."\">";
@@ -46,6 +50,13 @@ class CategoryController extends BaseController {
 			}
 			echo "</div>";
 		}
+
+		echo "<div class=\"detail\">";
+		echo "<span class=\"input-group-addon textareaLabel\"><label for=\""."Description"."\">"."Description"."</label></span>";
+		echo "<input class=\"form-control description\" name=\""."Description"."\" type=\"text\" value=\" \" id=\""."Description"."\">";
+		echo "</div>";
+
+		echo "<input class=\"form-control\" name=\""."Category"."\" type=\"hidden\" value=\"".$category."\" id=\""."Category"."\">";
 
 		echo "<a> <input class=\"btn btn-default btn-hugeSubmit\" role=\"button\" type=\"submit\" value=\"Submit Post\"> </a>";
 
