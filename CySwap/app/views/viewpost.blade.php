@@ -98,7 +98,8 @@
 		<h2>Details</h2>
 		<hr />
 			@foreach($posting as $key => $value)
-			@if($key != "posting_id" and $key != "tags" and $key != "hide_post" and $key != "title"
+			@if($key != "posting_id" and $key != "seller_has_rated" and $key != "buyer_has_rated" and $key != "tags"
+				and $key != "hide_post" and $key != "title"
 				and $key != "description" and $key != 'username' and $key != "suggested_price" and $key != 'num_images' and
 				!is_null($value))
 				<p><b class="detailHeading">{{$key}}:</b> {{$value}}</p>
