@@ -28,7 +28,7 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 	Category:<br/>
 	<div class="btn-group categoryButton" data-toggle="buttons">
 
-		<select id="categorySelect" name="categoryDropdown">
+		<select id="categorySelect" class="form-control" name="categoryDropdown">
 			<option name="none">---</option>
 			@for($i = 0; $i < count($categories); $i++)
 				<option name="{{$categories[$i]}}">{{$categories[$i]}}</option>
@@ -72,106 +72,105 @@ $('#categorySelect').change(function() {
 		success: function(result)
 		{
 			$('#form').html(result);
+			setHooks();
 		}
 	})
 });
 
-$('#isbnPopBtn').click(function(){
-	value = $('#isbn_10').attr('value');
-	alert(value);
-
-	$.ajax ({
-		type: 'GET',
-		url: "../app/controllers/AJAX/isbndb_request.php?isbn="+value,
-		data: value,
-		success: function(result)
-		{
-			if(result.indexOf(value) > -1)
+function setHooks(){
+	$('#isbnPopBtn').click(function(){
+		$(this).button('loading');
+		var value = $('#isbn_10').val();
+					$('#failureMsg').html("");
+		$.ajax ({
+			type: 'GET',
+			url: "../app/controllers/AJAX/isbndb_request.php?isbn="+value,
+			data: value,
+			success: function(result)
 			{
-				alert(result);
-				$('#isbnLookupFailedDiv').html("");
-				var isbn_data = result.split(',');
-				$('#isbn_10').val(isbn_data[0]);
-				$('#isbn_13').val(isbn_data[1]);
-				$('#title').val(isbn_data[2]);
-				$('#author').val(isbn_data[3]);
-				$('#publisher').val(isbn_data[4]);
-				$('#edition').val(isbn_data[5]);
+				$('#isbnPopBtn').button('reset');
+				$('#failureMsg').html(result);
+				if(result.indexOf(value) > -1)
+				{
+					var isbn_data = result.split(',');
+					$('#isbn_10').val(isbn_data[0]);
+					$('#isbn_13').val(isbn_data[1]);
+					$('#title').val(isbn_data[2]);
+					$('#author').val(isbn_data[3]);
+					$('#publisher').val(isbn_data[4]);
+					$('#edition').val(isbn_data[5]);
+				}
+				else
+				{
+					//$('#failureMsg').html("<p class=\"alert\">ISBN Lookup Failed: invalid isbn</p>");
+				}
 			}
-			else
-			{
-				$('#isbnLookupFailedDiv').html("<p class=\"alert\">ISBN Lookup Failed: invalid isbn</p>");
-			}
-		}
+		});
 	});
-});
 
-$('body').on('click', '.a', function (){
-        alert('click!');
-    });
+	$('#picture1').change(function(){
+		if($('#picture1').val().indexOf("fakepath") > -1)
+		{
+			$('#picture2').css('display', 'block');
+		}
+	})
 
-$('#picture1').change(function(){
-	if($('#picture1').val().indexOf("fakepath") > -1)
-	{
-		$('#picture2').css('display', 'block');
-	}
-})
+	$('#picture2').change(function(){
+		if($('#picture2').val().indexOf("fakepath") > -1)
+		{
+			$('#picture3').css('display', 'block');
+		}
+	})
 
-$('#picture2').change(function(){
-	if($('#picture2').val().indexOf("fakepath") > -1)
-	{
-		$('#picture3').css('display', 'block');
-	}
-})
+	$('#picture3').change(function(){
+		if($('#picture3').val().indexOf("fakepath") > -1)
+		{
+			$('#picture4').css('display', 'block');
+		}
+	})
 
-$('#picture3').change(function(){
-	if($('#picture3').val().indexOf("fakepath") > -1)
-	{
-		$('#picture4').css('display', 'block');
-	}
-})
+	$('#picture4').change(function(){
+		if($('#picture4').val().indexOf("fakepath") > -1)
+		{
+			$('#picture5').css('display', 'block');
+		}
+	})
 
-$('#picture4').change(function(){
-	if($('#picture4').val().indexOf("fakepath") > -1)
-	{
-		$('#picture5').css('display', 'block');
-	}
-})
+	$('#picture5').change(function(){
+		if($('#picture5').val().indexOf("fakepath") > -1)
+		{
+			$('#picture6').css('display', 'block');
+		}
+	})
 
-$('#picture5').change(function(){
-	if($('#picture5').val().indexOf("fakepath") > -1)
-	{
-		$('#picture6').css('display', 'block');
-	}
-})
+	$('#picture6').change(function(){
+		if($('#picture6').val().indexOf("fakepath") > -1)
+		{
+			$('#picture7').css('display', 'block');
+		}
+	})
 
-$('#picture6').change(function(){
-	if($('#picture6').val().indexOf("fakepath") > -1)
-	{
-		$('#picture7').css('display', 'block');
-	}
-})
+	$('#picture7').change(function(){
+		if($('#picture7').val().indexOf("fakepath") > -1)
+		{
+			$('#picture8').css('display', 'block');
+		}
+	})
 
-$('#picture7').change(function(){
-	if($('#picture7').val().indexOf("fakepath") > -1)
-	{
-		$('#picture8').css('display', 'block');
-	}
-})
+	$('#picture8').change(function(){
+		if($('#picture8').val().indexOf("fakepath") > -1)
+		{
+			$('#picture9').css('display', 'block');
+		}
+	})
 
-$('#picture8').change(function(){
-	if($('#picture8').val().indexOf("fakepath") > -1)
-	{
-		$('#picture9').css('display', 'block');
-	}
-})
-
-$('#picture9').change(function(){
-	if($('#picture9').val().indexOf("fakepath") > -1)
-	{
-		$('#picture10').css('display', 'block');
-	}
-})
+	$('#picture9').change(function(){
+		if($('#picture9').val().indexOf("fakepath") > -1)
+		{
+			$('#picture10').css('display', 'block');
+		}
+	})
+}
 
 </script>
 @stop
