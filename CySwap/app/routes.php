@@ -145,8 +145,8 @@ Route::get('postItem/{isbn}', function($isbn)
 
 Route::post('acceptTerms', 'LoginController@acceptTerms');
 Route::post('postItem', 'PostController@postItem');
-Route::post('emailContact', 'EmailController@emailContact');
-Route::post('emailBuyer', 'EmailController@emailBuyer');
+Route::post('beginTransaction', 'TransactionController@beginTransaction');
+Route::post('completeTransaction', 'TransactionController@completeTransaction');
 Route::post('rateBuyer', 'RateController@rateBuyer');
 Route::post('reportPost', 'ReportController@reportPost');
 

@@ -39,7 +39,7 @@
 					<p><b>Poster:</b><br/> {{$posting['username']}} (me)</p><br/>
 					<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
 					<div class='panel-collapse collapse wrapper' id="markCompletePanel">
-						{{ Form::open(array('action'=>'EmailController@emailBuyer')) }}
+						{{ Form::open(array('action'=>'TransactionController@completeTransaction')) }}
 						{{Form::hidden('postid', $posting['posting_id'])}}
 						{{Form::hidden('isFinishing', 'y', ['id'=>'isFinishing'])}}
 						<a id='deleteBtn' class='btn btn-default center-block switch-inactive switch' role='button'>Delete Post</a>
@@ -63,7 +63,7 @@
 							<p>
 							<p id="confirmText">Send Email to {{$posting['username']}}</p>
 
-								{{ Form::open(array('action'=>'EmailController@emailContact')) }}
+								{{ Form::open(array('action'=>'TransactionController@beginTransaction')) }}
 								<br>
 
 
