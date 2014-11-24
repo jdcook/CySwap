@@ -48,7 +48,7 @@ class CategoryController extends BaseController {
 			}
 			echo "<div class=\"input-group detail\">";
 			echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">".$field->field_name."</label></span>";
-			echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\" \" id=\"".$fieldID."\">";
+			echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\">";
 			if($field->field_name == "Isbn 10")
 			{
 				echo "<a id=\"isbnPopBtn\" class=\"input-group-addon btn btn-blue\" data-loading-text=\"Loading...\">Look Up</a>";

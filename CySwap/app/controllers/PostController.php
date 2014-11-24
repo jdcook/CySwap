@@ -53,7 +53,7 @@ class PostController extends BaseController {
 		}
 
 		//use get post controller function to get the created post
-		$posting = App::make('PostController')->getPost($postid);
+		//$posting = App::make('PostController')->getPost($postid);
 
 		//make the view for newly posted item
 		//return View::make('viewpost')->with('posting', $posting);

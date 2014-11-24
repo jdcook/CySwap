@@ -112,8 +112,9 @@ class Post extends Eloquent {
 		$tag_array[0] = $postid;
 		$tag_array[1] = $post_params['Category'];
 
+		$tableName = "Cyswap2.category_".$post_params['Category']."_config";
 		//query for searchable categories
-		$searchable = DB::select("select field_name from Cyswap2.category_".$post_params['Category']."_config where is_searchable = '1'");
+		$searchable = DB::select("select field_name from ".$tableName." where is_searchable = '1'");
 		$searchable_array = array();
 
 		foreach($searchable as $index=>$object)
@@ -130,6 +131,25 @@ class Post extends Eloquent {
 			$param = strtolower($param);
 			$param = str_replace(' ', '_', $param);
 
+
+			//get character limit; chop off characters that exceed it
+			//(assuming there was client-side prevention; this is just in case the user is tricksy)
+			$charLimitQuery = DB::select("select character_limit from ".$tableName." where field_name = ?", array($param));
+			$characterLimit = 16;
+			if(count($charLimitQuery))
+			{
+				$characterLimit = $charLimitQuery[0]->character_limit;
+			}
+			if($characterLimit && strlen($value) > $characterLimit)
+			{
+				$value = substr($value, 0, $characterLimit);
+			}
+
+			//lazy profanity filter- looked through/grabbed most common words from https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/blob/master/en
+			//not sure how strict to be, could get pretty involved
+			$value = preg_replace("(fuck|shit|anal|anus|asshole|bdsm|bestiality|bitch|blowjob|faggot|pussy)", "#$@%", $value);
+
+			//
 			if($param == "_token" || $param == "category")
 			{
 				continue;
@@ -147,12 +167,6 @@ class Post extends Eloquent {
 			{
 				$db_string = $db_string.", ";
 				$db_tailer = $db_tailer.", ";
-
-				if($isSearchable)
-				{
-					$tag_string = $tag_string.", ";
-					$tag_tailer = $tag_tailer.", ";
-				}
 			}
 
 			$db_string = $db_string.$param;
@@ -169,6 +183,13 @@ class Post extends Eloquent {
 						$isSearchable = false;
 						continue;
 					}
+
+					if($i > 1)
+					{
+						$tag_string = $tag_string.", ";
+						$tag_tailer = $tag_tailer.", ";
+					}
+
 					$tag_string = $tag_string."tag".($tagCount-1);
 					$tag_tailer = $tag_tailer."?";
 					$tag_array[$tagCount++] = $value;

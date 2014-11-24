@@ -89,7 +89,7 @@ function setHooks(){
 			success: function(result)
 			{
 				$('#isbnPopBtn').button('reset');
-				$('#failureMsg').html(result);
+				//$('#failureMsg').html(result);
 				if(result.indexOf(value) > -1)
 				{
 					var isbn_data = result.split(',');
@@ -102,7 +102,7 @@ function setHooks(){
 				}
 				else
 				{
-					//$('#failureMsg').html("<p class=\"alert\">ISBN Lookup Failed: invalid isbn</p>");
+					$('#failureMsg').html("<p class=\"alert\">ISBN Lookup Failed: invalid isbn</p>");
 				}
 			}
 		});

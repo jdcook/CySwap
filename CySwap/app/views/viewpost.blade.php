@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="col-md-12">
-	<h1>{{$posting['title']}}</h1>
+	<h1>{{htmlentities($posting['title'])}}</h1>
 	<hr />
 </div>
 
@@ -18,7 +18,7 @@
 		@for($i = 0; $i < $posting['num_images']; $i++)
 			<img id="thumb{{$i}}" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
 		@endfor
-		<p><b>Suggested Price:</b><br/> {{$posting['suggested_price']}}</p>
+		<p><b>Suggested Price:</b><br/> {{htmlentities($posting['suggested_price'])}}</p>
 
 		@if(Session::has('message'))
 			{{ Session::get('message') }}
@@ -102,11 +102,11 @@
 				and $key != "hide_post" and $key != "title"
 				and $key != "description" and $key != 'username' and $key != "suggested_price" and $key != 'num_images' and
 				!is_null($value))
-				<p><b class="detailHeading">{{$key}}:</b> {{$value}}</p>
+				<p><b class="detailHeading">{{$key}}:</b> {{htmlentities($value)}}</p>
 			@endif
 			@endforeach
 			<br/>
-			<p><b>Description:</b><br/>{{$posting['description']}}</p>
+			<p><b>Description:</b><br/>{{htmlentities($posting['description'])}}</p>
 			<a style="color:red" href="{{URL::to('/report/'.$posting['posting_id'])}}">Report </a>
 	</div>
 </div>
@@ -134,7 +134,7 @@ function formatDetailHeading(string)
 }
 
 $('#cancelBtn').click(function(){
-	$('#contactInput').val("{{'Hi ' . $posting['username'] . ', I would like to buy ' . $posting['title'] . ' (' . $posting['posting_id'] . ')'}}");
+	$('#contactInput').val("{{'Hi ' . $posting['username'] . ', I would like to buy ' . htmlentities($posting['title']) . ' (' . $posting['posting_id'] . ')'}}");
 });
 
 $('#deleteBtn').click(function(){
