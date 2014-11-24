@@ -58,7 +58,7 @@ class CategoryController extends BaseController {
 
 		echo "<div class=\"detail\">";
 		echo "<span class=\"input-group-addon textareaLabel\"><label for=\""."Description"."\">"."Description"."</label></span>";
-		echo "<input class=\"form-control description\" name=\""."Description"."\" type=\"text\" value=\" \" id=\""."Description"."\">";
+		echo "<textarea class=\"form-control description\" name=\""."Description"."\" type=\"text\" value=\" \" id=\""."Description"."\"></textarea>";
 		echo "</div>";
 
 		echo "<input class=\"form-control\" name=\""."Category"."\" type=\"hidden\" value=\"".$category."\" id=\""."Category"."\">";
