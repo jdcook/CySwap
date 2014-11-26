@@ -34,18 +34,12 @@ class User {
 
 	public function getProfileInfo($username, $pagenum){
 		$data = array();
-		$postingids = DB::select("SELECT posting_id, category, date from CySwap2.posting where username = ? order by date ASC", array($username));
+		$postingids = DB::select("SELECT posting_id, category, date from CySwap2.posting where username = ? order by date DESC", array($username));
 		$topaginate = array();
 
 		$i = 0;
 		foreach($postingids as $id){
-			$queryData = array();
-			if($id->category == "textbook"){
-				$queryData = DB::select("SELECT title, posting_id, num_images from CySwap2.category_textbook where posting_id = ?", array($id->posting_id));
-			}
-			else{
-				$queryData = DB::select("SELECT title, posting_id, num_images from CySwap2.category_miscellaneous where posting_id = ?", array($id->posting_id));
-			}
+			$queryData = DB::select("SELECT title, posting_id, num_images from CySwap2.category_".$id->category." where posting_id = ?", array($id->posting_id));
 
 			if(count($queryData))
 			{
