@@ -47,8 +47,22 @@ class CategoryController extends BaseController {
 				echo "<div id=\"failureMsg\"></div>";
 			}
 			echo "<div class=\"input-group detail\">";
-			echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">".$field->field_name."</label></span>";
-			echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\">";
+				echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">".$field->field_name."</label></span>";
+			if($field->field_name == "Item Condition")
+			{
+
+				echo "<select class=\"form-control\" name=\"".$field->field_name."\">";
+				echo "<option name=\"none\">--</option>";
+				echo "<option name=\"poor\">Poor</option>";
+				echo "<option name=\"used\">Used</option>";
+				echo "<option name=\"good\">Good</option>";
+				echo "<option name=\"new\">New</option>";
+				echo "</select>";
+			}
+			else
+			{
+				echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\">";
+			}
 			if($field->field_name == "Isbn 10")
 			{
 				echo "<a id=\"isbnPopBtn\" class=\"input-group-addon btn btn-blue\" data-loading-text=\"Loading...\">Look Up</a>";

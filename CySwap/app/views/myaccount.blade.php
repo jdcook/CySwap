@@ -39,7 +39,7 @@ if(!count($data['posts'])){
 @foreach($data['posts'] as $posting)
     <div class="entry" data-postid="{{$posting->posting_id}}">
         <div class="row">
-            <h4>{{$posting->title}}</h4>
+            <h4>{{htmlentities($posting->title)}}</h4>
             <br>
             <p><b>Category:</b> {{$posting->category}}</p>
         </div>

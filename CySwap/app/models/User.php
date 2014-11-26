@@ -39,11 +39,22 @@ class User {
 
 		$i = 0;
 		foreach($postingids as $id){
+			$queryData = array();
 			if($id->category == "textbook"){
-				$topaginate[$i] = DB::select("SELECT title, posting_id, num_images from CySwap2.category_textbook where posting_id = ?", array($id->posting_id))[0];
+				$queryData = DB::select("SELECT title, posting_id, num_images from CySwap2.category_textbook where posting_id = ?", array($id->posting_id));
 			}
 			else{
-				$topaginate[$i] = DB::select("SELECT title, posting_id, num_images from CySwap2.category_miscellaneous where posting_id = ?", array($id->posting_id))[0];
+				$queryData = DB::select("SELECT title, posting_id, num_images from CySwap2.category_miscellaneous where posting_id = ?", array($id->posting_id));
+			}
+
+			if(count($queryData))
+			{
+				$topaginate[$i] = $queryData[0];
+			}
+			else
+			{
+				DB::delete("DELETE from CySwap2.posting where username = ? and posting_id = ?", array($username, $id->posting_id));
+				continue;
 			}
 			$topaginate[$i]->category = $id->category;
 			$i++;

@@ -147,7 +147,7 @@ class Post extends Eloquent {
 
 			//lazy profanity filter- looked through/grabbed most common words from https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/blob/master/en
 			//not sure how strict to be, could get pretty involved
-			$value = preg_replace("(fuck|shit|anal|anus|asshole|bdsm|bestiality|bitch|blowjob|faggot|pussy)", "#$@%", $value);
+			$value = preg_replace("(fuck|shit|anal|asshole|bitch|faggot|pussy)", "#$@%", $value);
 
 			//
 			if($param == "_token" || $param == "category")
