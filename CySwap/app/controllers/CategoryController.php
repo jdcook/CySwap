@@ -47,7 +47,7 @@ class CategoryController extends BaseController {
 				echo "<div id=\"failureMsg\"></div>";
 			}
 			echo "<div class=\"input-group detail\">";
-				echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">".$field->field_name."</label></span>";
+			echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">".$field->field_name."</label></span>";
 			if($field->field_name == "Item Condition")
 			{
 
@@ -61,7 +61,7 @@ class CategoryController extends BaseController {
 			}
 			else
 			{
-				echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\">";
+				echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\" maxlength=\"".$field->character_limit."\">";
 			}
 			if($field->field_name == "Isbn 10")
 			{

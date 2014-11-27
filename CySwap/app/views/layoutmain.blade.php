@@ -30,18 +30,6 @@
 					{{Form::text('keyword', null, array('placeholder'=>'Search'))}}
 					{{Form::submit('search')}}
 				{{Form::close()}}
-				@if(Session::has('user'))
-					<a href="{{URL::to('myaccount')}}">{{Session::get('user')}}</a> (<a href="{{URL::route('logout')}}">logout</a>)
-					@if(Session::has('usertype'))
-						@if(Session::get('usertype') == "admin"))
-							<br/><a href="{{URL::to('adminArea')}}">Admin Area</a>
-						@elseif(Session::get('usertype') == "moderator")
-							<br/><a href="{{URL::to('viewReports')}}">View Reports</a>
-						@endif
-					@endif
-				@else
-					<a href="{{URL::route('login')}}">login</a>
-				@endif
 			</div>
 		</div>
 	</div>
@@ -58,7 +46,7 @@
             	</button>
 			</div>
 			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav navbar-left centered">
 					<li>
 						<a href="{{URL::to('/')}}">Home</a>
 					</li>
@@ -69,10 +57,31 @@
 						<a href="{{URL::to('postItem')}}">Post an Item</a>
 					</li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li>
-						<a href="{{URL::to('safety')}}">Safety and Tips</a>
-					</li>
+				<ul class="nav navbar-nav navbar-right centered">
+					@if(Session::has('user'))
+						<li>
+							<p class="navbar-text">Logged In: <b>{{Session::get('user')}}</b></p>
+						</li>
+						<li>
+							<a href="{{URL::to('myaccount')}}">Profile</a>
+						</li>
+						@if(Session::get('usertype') == "admin")
+						<li>
+							<a href="{{URL::to('adminArea')}}">Admin Area</a>
+						</li>
+						@elseif(Session::get('usertype') == "moderator")
+						<li>
+							<a href="{{URL::to('viewReports')}}">View Reports</a>
+						</li>
+						@endif
+						<li>
+							<a href="{{URL::route('logout')}}">Logout</a>
+						</li>
+					@else
+						<li>
+							<a href="{{URL::route('login')}}">login</a>
+						</li>
+					@endif
 				</ul>
 			</div>
 		</div>
@@ -88,9 +97,10 @@
 <!-- footer -->
 <div class="footer row">
 	<!--<div class="col-md-3"><a href="{{URL::to('/copyright')}}">Copyright</a></div>-->
-	<div class="col-md-4"><a href="{{URL::to('/termsofuse')}}">Terms of Use</a></div>
-	<div class="col-md-4"><a href="{{URL::to('/about')}}">About Us</a></div>
-	<div class="col-md-4"><a href="{{URL::to('/contact')}}">Contact Us</a></div>
+	<div class="col-md-3"><a href="{{URL::to('/termsofuse')}}">Terms of Use</a></div>
+	<div class="col-md-3"><a href="{{URL::to('/about')}}">About Us</a></div>
+	<div class="col-md-3"><a href="{{URL::to('/contact')}}">Contact Us</a></div>
+	<div class="col-md-3"><a href="{{URL::to('safety')}}">Safety and Tips</a></div>
 </div>
 <!-- end footer -->
 

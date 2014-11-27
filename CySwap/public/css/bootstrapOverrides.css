@@ -52,12 +52,35 @@ input{
     z-index: 10;
 }
 
+.navbar > .container-fluid{
+	padding-left: 0;
+}
+
+.navbar > .container-fluid > .navbar-collapse{
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.navbar-default .navbar-nav > li > a{
+	border-right: 1px solid black;
+}
+
+.navbar-default .navbar-right > li > a{
+	border-left: 1px solid black;
+	border-right: none;
+}
+
 .navbar-default .navbar-nav > li > a {
 	color:white;
 }
 
 .navbar-default .navbar-nav > li > a:hover {
 	color: #000;
+	background-color: rgb(163, 0, 14);
+}
+
+.navbar-default .navbar-text{
+	color: white;
 }
 
 #nav.affix {
