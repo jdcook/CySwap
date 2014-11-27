@@ -34,7 +34,7 @@ class User {
 
 	public function getProfileInfo($username, $pagenum){
 		$data = array();
-		$postingids = DB::select("SELECT posting_id, category, date from CySwap2.posting where username = ? order by date ASC", array($username));
+		$postingids = DB::select("SELECT posting_id, category, date from CySwap2.posting where username = ? and hide_post = '0' order by date ASC", array($username));
 		$topaginate = array();
 
 		$i = 0;
