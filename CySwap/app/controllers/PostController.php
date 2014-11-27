@@ -41,6 +41,7 @@ class PostController extends BaseController {
 			}
 		}
 
+		$postid = 0;
 		//use model to make post (checking if valid image was provided)
 		if(isset($image))
 		{
@@ -52,9 +53,10 @@ class PostController extends BaseController {
 		}
 
 		//use get post controller function to get the created post
-		$posting = App::make('PostController')->getPost($postid);
+		//$posting = App::make('PostController')->getPost($postid);
 
 		//make the view for newly posted item
-		return View::make('viewpost')->with('posting', $posting);
+		//return View::make('viewpost')->with('posting', $posting);
+		return Redirect::to('/viewpost/'.$postid);
 	}
 }

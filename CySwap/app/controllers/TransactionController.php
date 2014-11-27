@@ -1,9 +1,9 @@
 <?php
 
 
-class EmailController extends BaseController {
+class TransactionController extends BaseController {
 
-    public function emailContact () {
+    public function beginTransaction () {
         $msg = 'The email has been sent.<br/>';
         try{
             Mail::send('emails.contact', array('emailText'=>Input::get('emailText')), function($message)
@@ -24,7 +24,7 @@ class EmailController extends BaseController {
     }
 
 
-    public function emailBuyer(){
+    public function completeTransaction(){
         try{
             if(Input::get('isFinishing') == 'y'){
                 $postid = Input::get('postid');

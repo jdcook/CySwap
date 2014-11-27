@@ -12,7 +12,7 @@
 
 		<div class="input-group detail">
 		  <span class="input-group-addon">Net-Id</span>
-			<input class="form-control" type="text" name="netid"{{ (Input::old('netid')) ? ' value="' . e(Input::old('netid')) . '"' : ''}}>
+			<input class="form-control" type="text" name="netid"{{ (Input::old('netid')) ? ' value="' . e(Input::old('netid')) . '"' : ''}} autofocus>
 			@if($errors->has('netid'))
 				{{$errors->first('netid')}}
 			@endif

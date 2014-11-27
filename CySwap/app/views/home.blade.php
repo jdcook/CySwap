@@ -14,7 +14,7 @@
 		@foreach($category as $posting)
 			<div class="entry" data-postid="{{$posting['posting_id']}}">
 				<div class="row">
-					<h4>{{$posting['title']}}</h4>
+					<h4>{{htmlentities($posting['title'])}}</h4>
 				</div>
 				<br />
 				<div class="row">
@@ -30,7 +30,7 @@
 					<div class="col-lg-9 details cliptext">
 						@foreach($posting as $key => $field)
 							@if(!is_null($field) and $key != "posting_id" and $key != "num_images")
-								<p><b>{{ucfirst($key)}}:</b> {{$field}}</p>
+								<p><b>{{ucfirst($key)}}:</b> {{htmlentities($field)}}</p>
 							@endif
 						@endforeach
 					</div>

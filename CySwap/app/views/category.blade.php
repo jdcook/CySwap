@@ -17,7 +17,7 @@
 <div class="col-md-4 container-fluid">
 		@endif
 		<div class="entry" data-postid="{{$posting['posting_id']}}">
-			<h4>{{$posting['title']}}</h4>
+			<h4>{{htmlentities($posting['title'])}}</h4>
 			<div class="row">
 				<div class="col-md-3">	
 					@if($posting['num_images'] == 0)
@@ -29,7 +29,7 @@
 				<div class="col-md-9 details cliptext">
 					@foreach($posting as $key => $field)
 						@if(!is_null($field) and $key != "posting_id" and $key != "num_images")
-							<p><b>{{ucfirst($key)}}:</b> {{$field}}</p>
+							<p><b>{{ucfirst($key)}}:</b> {{htmlentities($field)}}</p>
 						@endif
 					@endforeach
 				</div>

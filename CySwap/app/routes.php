@@ -145,8 +145,8 @@ Route::get('postItem/{isbn}', function($isbn)
 
 Route::post('acceptTerms', 'LoginController@acceptTerms');
 Route::post('postItem', 'PostController@postItem');
-Route::post('emailContact', 'EmailController@emailContact');
-Route::post('emailBuyer', 'EmailController@emailBuyer');
+Route::post('beginTransaction', 'TransactionController@beginTransaction');
+Route::post('completeTransaction', 'TransactionController@completeTransaction');
 Route::post('rateBuyer', 'RateController@rateBuyer');
 Route::post('reportPost', 'ReportController@reportPost');
 
@@ -157,4 +157,28 @@ Route::get('/outputMessage', function(){
 Route::get('/rateBuyer/{user}/{postid}', function($user, $postid){
 	$data = array('user'=>$user, 'postid'=>$postid);
 	return View::make('rateBuyer')->with('data', $data);
+});
+
+Route::get('/adminArea', function(){
+	return View::make('adminArea');
+});
+
+Route::get('/viewReports', function(){
+	return View::make('viewReports');
+});
+
+Route::get('/addCategory', function(){
+	return View::make('addCategory');
+});
+
+Route::get('/removeCategory', function(){
+	return View::make('removeCategory');
+});
+
+Route::get('/updateContent', function(){
+	return View::make('updateContent');
+});
+
+Route::get('/manageUsers', function(){
+	return View::make('manageUsers');
 });

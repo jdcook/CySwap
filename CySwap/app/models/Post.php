@@ -100,13 +100,120 @@ class Post extends Eloquent {
 			}
 		}
 
+		//variables to construct database arguments (query string and array of values)
+		$db_string = "insert into Cyswap2.category_".$post_params['Category']." (posting_id, ";
+		$db_tailer = "?, ";
+		$db_array = array();
+		$db_array[0] = $postid;
+
+		$tag_string = "insert into Cyswap2.tags (posting_id, category, ";
+		$tag_tailer = "?, ?, ";
+		$tag_array = array();
+		$tag_array[0] = $postid;
+		$tag_array[1] = $post_params['Category'];
+
+		$tableName = "Cyswap2.category_".$post_params['Category']."_config";
+		//query for searchable categories
+		$searchable = DB::select("select field_name from ".$tableName." where is_searchable = '1'");
+		$searchable_array = array();
+
+		foreach($searchable as $index=>$object)
+		{
+			$searchable_array[$index] = $object->field_name;
+		}
+
+		//loop through post parameters and construct database parameters
+		$i = 1;
+		$tagCount = 2;
+		$isSearchable = false;
+		foreach($post_params as $param=>$value)
+		{
+			$param = strtolower($param);
+			$param = str_replace(' ', '_', $param);
+
+
+			//get character limit; chop off characters that exceed it
+			//(assuming there was client-side prevention; this is just in case the user is tricksy)
+			$charLimitQuery = DB::select("select character_limit from ".$tableName." where field_name = ?", array($param));
+			$characterLimit = 16;
+			if(count($charLimitQuery))
+			{
+				$characterLimit = $charLimitQuery[0]->character_limit;
+			}
+			if($characterLimit && strlen($value) > $characterLimit)
+			{
+				$value = substr($value, 0, $characterLimit);
+			}
+
+			//lazy profanity filter- looked through/grabbed most common words from https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/blob/master/en
+			//not sure how strict to be, could get pretty involved
+			$value = preg_replace("(fuck|shit|anal|asshole|bitch|faggot|pussy)", "#$@%", $value);
+
+			//
+			if($param == "_token" || $param == "category")
+			{
+				continue;
+			}
+
+			foreach($searchable_array as $field_name)
+			{
+				if($field_name == $param)
+				{
+					$isSearchable = true;
+				}
+			}
+
+			if($i > 1)
+			{
+				$db_string = $db_string.", ";
+				$db_tailer = $db_tailer.", ";
+			}
+
+			$db_string = $db_string.$param;
+			$db_tailer = $db_tailer."?";
+			$db_array[$i] = $value;
+
+			if($isSearchable)
+			{
+				if($value != "")
+				{
+					if($tagCount == 12)
+					{
+						$i++;
+						$isSearchable = false;
+						continue;
+					}
+
+					if($i > 1)
+					{
+						$tag_string = $tag_string.", ";
+						$tag_tailer = $tag_tailer.", ";
+					}
+
+					$tag_string = $tag_string."tag".($tagCount-1);
+					$tag_tailer = $tag_tailer."?";
+					$tag_array[$tagCount++] = $value;
+				}
+			}
+
+			$i++;
+			$isSearchable = false;
+		}
+
+		$db_array[$i] = $num_images;
+		$db_string = $db_string.", num_images) values (".$db_tailer.", ?)";
+
+		$tag_string = $tag_string.") values (".$tag_tailer.")";
+
 		//insert posting lite into table
 		DB::insert('insert into CySwap2.posting (posting_id, username, date, category, hide_post) values (?, ?, ?, ?, ?)',
-			array($postid, Session::get('user'), date('Y-m-d'), 'textbook', 0));
+			array($postid, Session::get('user'), date('Y-m-d'), $post_params['Category'], 0));
 
 		//insert posting into table
-		DB::insert('insert into CySwap2.category_textbook (posting_id, title, isbn_10, isbn_13, author, publisher, edition, subject, description, item_condition, suggested_price, num_images) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			array($postid, $post_params['Title'], substr($post_params['ISBN13'], 3, 10), $post_params['ISBN13'], $post_params['Author'], $post_params['Publisher'], $post_params['Edition'], 'Math', $post_params['Description'], $post_params['Condition'], $post_params['Suggested_Price'], $num_images));
+		DB::insert($db_string, $db_array);
+
+		//insert tags
+		DB::insert($tag_string, $tag_array);
 
 		//return the randomly generated post id
 		return $postid;
