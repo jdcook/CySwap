@@ -32,7 +32,7 @@
 							<p><b>Condition:</b> {{$post['item_condition']}}</p>
 						@else
 							<p><b>Title:</b> {{$post['title']}}</p>
-							<p><b>Condition:</b> {{$post['condition']}}</p>
+							<p><b>Condition:</b> {{$post['item_condition']}}</p>
 							<p><b>Description:</b> {{$post['description']}}</p>
 						@endif
 					</div>
