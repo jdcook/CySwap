@@ -95,4 +95,34 @@ class User {
 
 		return DB::select("SELECT username, seller_has_rated, buyer_has_rated, hide_post from CySwap2.posting where posting_id = '$posting_id'");
 	}
+
+	public function getUsernames($user){
+		return DB::select("SELECT * from CySwap2.user where username = ?", array($user));
+	}
+
+	public function suspendUser($user, $suspendDate, $reason){
+		//see if there is already a suspension entry for this user
+		$dbResult = DB::select("SELECT * from CySwap2.suspend where username = ?", array($user));
+		if(count($dbResult)){
+			DB::update("UPDATE CySwap2.suspend set suspended_until_date = ?", array($suspendDate));
+		}
+
+		//increment suspend id
+		$suspendID = 1;
+		$dbResult = DB::select("SELECT * from CySwap2.suspend order by suspend_id DESC limit 0, 5");
+		if(count($dbResult)){
+			$suspendID = $dbResult[0]->suspend_id + 1;
+		}
+		DB::insert("INSERT into CySwap2.suspend VALUES(?, ?, ?, ?, ?, ?)", array($suspendID, $user, Session::get('user'), Date('Y-m-d'), $suspendDate, $reason));
+
+	}
+
+	public function banUser($user, $reason){
+		DB::insert("INSERT into CySwap2.blacklist VALUES(?, ?, ?, ?)", array($user, Session::get('user'), date('Y-m-d'), $reason));
+	}
+
+	public function unBanUser($user){
+		DB::delete("DELETE from CySwap2.blacklist where username = ?", array($user));
+		DB::delete("DELETE from CySwap2.suspend where username = ?", array($user));
+	}
 }

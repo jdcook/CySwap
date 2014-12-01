@@ -27,8 +27,12 @@
 			<div class="col-md-2">
 				<br/>
 				{{Form::open(array('url'=>'/search_results', 'method' => 'get'))}}
-					{{Form::text('keyword', null, array('placeholder'=>'Search'))}}
-					{{Form::submit('search')}}
+					<div class="col-sm-9">
+					{{Form::text('keyword', null, array('placeholder'=>'Search', 'class'=>'form-control'))}}
+					</div>
+					<div class="col-sm-3">
+					{{Form::submit('search', array('class'=>'btn btn-default'))}}
+					</div>
 				{{Form::close()}}
 			</div>
 		</div>
@@ -60,7 +64,7 @@
 				<ul class="nav navbar-nav navbar-right centered">
 					@if(Session::has('user'))
 						<li>
-							<p class="navbar-text">Logged In: <b>{{Session::get('user')}}</b></p>
+							<p class="navbar-text unclickable"><em>Logged In: {{Session::get('user')}}</em></p>
 						</li>
 						<li>
 							<a href="{{URL::to('myaccount')}}">Profile</a>

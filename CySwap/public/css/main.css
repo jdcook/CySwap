@@ -217,6 +217,10 @@ hr{
 	border: 1px solid rgb(180, 180, 180);
 }
 
+.margined{
+	margin: 1em;
+}
+
 .wrapper-padded{
 	border: 1px solid rgb(180, 180, 180);
 	padding: 1em;
@@ -253,8 +257,12 @@ hr{
 	border-color: green;
 }
 
-.decline{
+.btn-negative{
 	border-color: red;
+}
+
+.btn-positive{
+	border-color: green;
 }
 
 .alert{
@@ -265,3 +273,4 @@ hr{
 .adminLink{
 	color: blue;
 }
+

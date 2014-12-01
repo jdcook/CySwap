@@ -51,7 +51,6 @@ input{
 	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(transparent), to(rgba(0, 0, 0, 0.278431)));
     z-index: 10;
 }
-
 .navbar > .container-fluid{
 	padding-left: 0;
 }
@@ -80,7 +79,7 @@ input{
 }
 
 .navbar-default .navbar-text{
-	color: white;
+	color: rgb(255, 200, 200);
 }
 
 #nav.affix {

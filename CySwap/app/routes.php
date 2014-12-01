@@ -137,6 +137,15 @@ Route::get('category_fields', function()
 	}
 });
 
+Route::get('get_users', function()
+{
+	$user = $_GET['user'];
+	if(Request::ajax())
+	{
+		App::make('UserController')->getUsers($user);
+	}
+});
+
 Route::get('postItem/{isbn}', function($isbn)
 {
 	$isbn_data = App::make('IsbnController')->isbndb_request($isbn);
@@ -149,6 +158,9 @@ Route::post('beginTransaction', 'TransactionController@beginTransaction');
 Route::post('completeTransaction', 'TransactionController@completeTransaction');
 Route::post('rateBuyer', 'RateController@rateBuyer');
 Route::post('reportPost', 'ReportController@reportPost');
+Route::post('suspendUser', 'UserController@suspendUser');
+Route::post('banUser', 'UserController@banUser');
+Route::post('unBanUser', 'UserController@unBanUser');
 
 Route::get('/outputMessage', function(){
 	return View::make('outputMessage');

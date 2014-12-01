@@ -71,7 +71,7 @@
     <a> {{ Form::submit('Agree', ['class' => 'btn btn-default termsBtn accept', 'role' => 'button']) }} </a>
 </div>
 <div class="col-md-6">
-    <a class="btn btn-default termsBtn decline" href="{{URL::route('logout')}}">Decline</a>
+    <a class="btn btn-default termsBtn btn-negative" href="{{URL::route('logout')}}">Decline</a>
 </div>
 {{ Form::close() }}
 {{Form::close() }}
