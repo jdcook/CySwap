@@ -5,9 +5,36 @@ class UserController extends BaseController {
 
 	public function getUsers($user)
 	{
-		$dbResult = App::make('User')->getUsernames($user);
+		echo "<br/><br/><h2 class='centered'>Results</h2><br/>";
 
-		echo View::make('manageUserResults')->with('dbResult', $dbResult);
+
+
+		$dbResult = App::make('User')->getUsernames($user);
+		for($i=0; $i<count($dbResult); ++$i){
+			$data = array();
+			$data['username']=$dbResult[$i]->username;
+			$data['role']=$dbResult[$i]->role;
+			$data['positive']=$dbResult[$i]->positive;
+			$data['negative']=$dbResult[$i]->negative;
+
+			$banInfo = App::make('User')->getBanInfo($user);
+			if($banInfo){
+				$data['banned']="<span class='alert'><b>Banned on ".$banInfo->banned_date." by ".$banInfo->moderator.".</b> <br/>reason: " .$banInfo->reason."</span><br/>";
+			}
+			else{
+				$data['banned']="<b>Not currently banned</b>";
+			}
+
+			$suspensionInfo = App::make('User')->getSuspensionInfo($user);
+			if($suspensionInfo){
+				$data['suspended']="<span class='alert'><b>Suspended from ".$suspensionInfo->suspended_on_date." until ".$suspensionInfo->suspended_until_date." by ".$suspensionInfo->moderator.".</b> <br/>reason: ".$suspensionInfo->reason."</span>";
+			}
+			else{
+				$data['suspended']="<b>Not currently suspended</b>";
+			}
+			echo View::make('manageUserResults')->with('result', $data);
+		}
+
 	}
 
 	public function suspendUser(){

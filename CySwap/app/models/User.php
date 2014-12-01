@@ -100,6 +100,22 @@ class User {
 		return DB::select("SELECT * from CySwap2.user where username = ?", array($user));
 	}
 
+	public function getSuspensionInfo($user){
+		$info = DB::select("SELECT * from CySwap2.suspend where username = ?", array($user));
+		if(count($info)){
+			return $info[0];
+		}
+		return null;
+	}
+
+	public function getBanInfo($user){
+		$info = DB::select("SELECT * from CySwap2.blacklist where username = ?", array($user));
+		if(count($info)){
+			return $info[0];
+		}
+		return null;
+	}
+
 	public function suspendUser($user, $suspendDate, $reason){
 		//see if there is already a suspension entry for this user
 		$dbResult = DB::select("SELECT * from CySwap2.suspend where username = ?", array($user));

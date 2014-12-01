@@ -72,19 +72,15 @@ class LoginController extends BaseController {
 	    	if($msg == 'valid') {
 
 				//check for ban
-				$result = DB::select("SELECT * from CySwap2.blacklist where username = ?", array($data['netid']));
-				if(count($result)){
-					$baninfo = $result[0];
-
+				$baninfo = App::make('User')->getBanInfo($data['netid']);
+				if($baninfo){
 					return Redirect::route('login')
 					->with('message', 'Login unsuccessful<br/><p class="alert">'.$data['netid'].' has been banned on '.$baninfo->banned_date.' for this reason:<br/><br/>"'.$baninfo->reason.'"</p>');
 				}
 
 				//check for suspension
-				$result = DB::select("SELECT * from CySwap2.suspend where username = ?", array($data['netid']));
-				if(count($result)){
-					$info = $result[0];
-
+				$info = App::make('User')->getSuspensionInfo($data['netid']);
+				if($info){
 					//check to see if the suspension time is up
 					if($info->suspended_until_date > date("Y-m-d")){
 						return Redirect::route('login')
