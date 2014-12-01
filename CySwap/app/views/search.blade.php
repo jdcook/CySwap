@@ -14,7 +14,7 @@
 						<h2>{{$post['title']}}</h2>
 					</div>
 
-					<div class="col-sm-3">	
+					<div class="col-sm-3">
 						@if($post['num_images'] == 0)
 							<img class="entryimg" src="{{asset('media/notAvailable.jpg')}}" />
 						@else
@@ -29,10 +29,10 @@
 							<p><b>Author:</b> {{$post['author']}}</p>
 							<p><b>ISBN_10:</b> {{$post['isbn_10']}}</p>
 							<p><b>ISBN_13:</b> {{$post['isbn_13']}}</p>
-							<p><b>Condition:</b> {{$post['condition']}}</p>
+							<p><b>Condition:</b> {{$post['item_condition']}}</p>
 						@else
 							<p><b>Title:</b> {{$post['title']}}</p>
-							<p><b>Condition:</b> {{$post['condition']}}</p>
+							<p><b>Condition:</b> {{$post['item_condition']}}</p>
 							<p><b>Description:</b> {{$post['description']}}</p>
 						@endif
 					</div>
