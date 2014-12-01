@@ -226,7 +226,18 @@ class Post extends Eloquent {
 
 	public function deletePost($postid)
 	{
+		$category = DB::select("SELECT category from CySwap2.posting where posting_id = ?", array($postid));
+		$num_images = DB::select("SELECT num_images from CySwap2.category_".$category[0]->category." where posting_id = ?", array($postid));
 		DB::delete('delete from cyswap2.tags where posting_id = ?', array($postid));
 		DB::update('update cyswap2.posting set hide_post = ? where posting_id = ?', array(1, $postid));
+
+		//remove images from server
+		for($i = 0; $i < $num_images[0]->num_images; $i++)
+		{
+			$filename = "./media/post_images/".$postid."_".$i.".jpg";
+			if (File::exists($filename)) {
+    			File::delete($filename);
+			}
+		}
 	}
 }
