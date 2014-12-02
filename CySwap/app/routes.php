@@ -97,7 +97,7 @@ Route::get('report/{postId}', function($postId)
 /* categories */
 Route::get('category/{category}', function($category)
 {
-	$postingLites = App::make('CategoryController')->showCategoryData($category);
+	$postingLites = App::make('CategoryController')->showCategoryData(htmlentities($category));
 	return View::make('category')->with('postingLites', $postingLites)->with('category', $category);
 });
 

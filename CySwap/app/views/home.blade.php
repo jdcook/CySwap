@@ -7,7 +7,6 @@
 <hr>
 
 <div class="row">
-
 @foreach($postingLites as $categoryname => $category)
 	<div class="col-lg-4 col-md-6 container-fluid">
 		<h2 class="categoryTitle">{{ucfirst($categoryname)}}</h2>
@@ -28,11 +27,9 @@
 						<br/>
 					</div>
 					<div class="col-lg-9 details cliptext">
-						@foreach($posting as $key => $field)
-							@if(!is_null($field) and $key != "posting_id" and $key != "num_images")
-								<p><b>{{ucfirst($key)}}:</b> {{htmlentities($field)}}</p>
-							@endif
-						@endforeach
+						@if(array_key_exists('description', $posting))
+							<p><b>Description:</b> {{htmlentities($posting['description'])}}</p>
+						@endif
 					</div>
 				</div>
 			</div>

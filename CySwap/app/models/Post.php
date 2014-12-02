@@ -32,41 +32,25 @@ class Post extends Eloquent {
 	public function getPostingLites($category, $number_of_postings)
 	{
 		$postingLites = array();
-		if($category == "textbooks") {
-			$postingids = DB::select('select posting_id from cyswap2.posting where category = \'textbook\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
 
-			foreach($postingids as $postingIdObj) {
-				$postingidstr = $postingIdObj->posting_id;
-				//$postingLites[$postingidstr] = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'")[0];
-				$result = DB::select('select posting_id, title, author, isbn_10, isbn_13, item_condition, num_images from cyswap2.category_textbook where posting_id = '."'".$postingidstr."'");
+		$postingids = DB::select("SELECT posting_id from CySwap2.posting where category = '".$category."' and hide_post = 0 order by date DESC limit ".intval($number_of_postings));
 
-				//check to make sure something came back
-				if(count($result)){
-					$postingLites[$postingidstr] = $result[0];
-				}
-				else{
-					//didn't find a post with that id in that category, so delete that id
-					DB::delete('DELETE from CySwap2.posting where posting_id = ?', array($postingidstr));
-				}
+
+		foreach($postingids as $postingIdObj) {
+			$postingidstr = $postingIdObj->posting_id;
+			//$postingLites[$postingidstr] = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'")[0];
+			$result = DB::select("SELECT * from CySwap2.category_".$category." where posting_id = ?", array($postingidstr));
+
+			//check to make sure something came back
+			if(count($result)){
+				$postingLites[$postingidstr] = $result[0];
 			}
-
-		} elseif($category == "miscellaneous") {
-			$postingids = DB::select('select posting_id from cyswap2.posting where category = \'miscellaneous\' and hide_post = 0 order by date DESC limit '.$number_of_postings);
-
-			foreach($postingids as $postingIdObj) {
-				$postingidstr = $postingIdObj->posting_id;
-				$result = DB::select('select posting_id, title, item_condition, description, num_images from cyswap2.category_miscellaneous where posting_id = '."'".$postingidstr."'");
-
-				//check to make sure something came back
-				if(count($result)){
-					$postingLites[$postingidstr] = $result[0];
-				}
-				else{
-					//didn't find a post with that id in that category, so delete that id
-					DB::delete('DELETE from CySwap2.posting where posting_id = ?', array($postingidstr));
-				}
+			else{
+				//didn't find a post with that id in that category, so delete that posting
+				DB::delete('DELETE from CySwap2.posting where posting_id = ?', array($postingidstr));
 			}
 		}
+
 		foreach ($postingLites as  $key => $value) {
 			$postingLites[$key] = (array) $value;
 		}
