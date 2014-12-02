@@ -13,8 +13,7 @@ Route::get('Account/logout', array(
 ));
 
 Route::get('myaccount', function(){
-	$numpages = Input::get("page", 1);
-	$data = App::make('User')->getProfileInfo(Session::get('user'), $numpages);
+	$data = App::make('User')->getProfileInfo(Session::get('user'));
 	return View::make('myaccount')->with('data', $data);
 });
 
@@ -146,6 +145,18 @@ Route::get('get_users', function()
 	}
 });
 
+Route::get('close_issue', function()
+{
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			App::make('ReportController')->closeReport(Input::get('id'));
+		}
+	}
+	echo "done";
+});
+
+
 Route::get('postItem/{isbn}', function($isbn)
 {
 	$isbn_data = App::make('IsbnController')->isbndb_request($isbn);
@@ -162,6 +173,7 @@ Route::post('suspendUser', 'UserController@suspendUser');
 Route::post('banUser', 'UserController@banUser');
 Route::post('unBanUser', 'UserController@unBanUser');
 
+
 Route::get('/outputMessage', function(){
 	return View::make('outputMessage');
 });
@@ -172,25 +184,61 @@ Route::get('/rateBuyer/{user}/{postid}', function($user, $postid){
 });
 
 Route::get('/adminArea', function(){
-	return View::make('adminArea');
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			return View::make('adminArea');
+		}
+	}
+	return Redirect::to('/');
 });
 
 Route::get('/viewReports', function(){
-	return View::make('viewReports');
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			return View::make('viewReports')->with('reports', App::make('Report')->getReports());
+		}
+	}
+	return Redirect::to('/');
 });
 
 Route::get('/addCategory', function(){
-	return View::make('addCategory');
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			return View::make('addCategory');
+		}
+	}
+	return Redirect::to('/');
 });
 
 Route::get('/removeCategory', function(){
-	return View::make('removeCategory');
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			return View::make('removeCategory');
+		}
+	}
+	return Redirect::to('/');
 });
 
 Route::get('/updateContent', function(){
-	return View::make('updateContent');
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			return View::make('updateContent');
+		}
+	}
+	return Redirect::to('/');
 });
 
 Route::get('/manageUsers', function(){
-	return View::make('manageUsers');
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			return View::make('manageUsers');
+		}
+	}
+	return Redirect::to('/');
 });

@@ -32,11 +32,10 @@ class User {
 		}
 	}
 
-	public function getProfileInfo($username, $pagenum){
+	public function getProfileInfo($username){
 		$data = array();
 		$postingids = DB::select("SELECT posting_id, category, date from CySwap2.posting where username = ? and hide_post = '0' order by date ASC", array($username));
 		$topaginate = array();
-
 		$i = 0;
 		foreach($postingids as $id){
 			$queryData = DB::select("SELECT title, posting_id, num_images from CySwap2.category_".$id->category." where posting_id = ?", array($id->posting_id));

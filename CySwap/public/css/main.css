@@ -213,12 +213,18 @@ hr{
 	border-top-color: rgb(150, 150, 150);
 }
 
+.darkened{
+	background-color: rgb(245, 245, 245);
+}
+
 .wrapper{
 	border: 1px solid rgb(180, 180, 180);
 }
 
-.margined{
+.wrapper-cushy{
+	border: 1px solid rgb(180, 180, 180);
 	margin: 1em;
+	padding: 1em;
 }
 
 .wrapper-padded{

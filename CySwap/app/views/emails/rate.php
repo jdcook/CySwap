@@ -3,9 +3,9 @@
 
 <?php
 
-echo "<a href='http://localhost/Github/CySwap/CySwap/public/rateBuyer/".$poster."/".$postid
+echo "<a href='".URL::to('rateBuyer/'.$poster.'/'.$postid)
 ."'>Click Here</a> to rate your interaction with ".$poster
-." for <a href='http://localhost/Github/CySwap/CySwap/public/viewpost/".$postid."'>this item.</a>";
+." for <a href='"URL::to('viewpost/'.$postid)."'>this item.</a>";
 
 
 ?>
