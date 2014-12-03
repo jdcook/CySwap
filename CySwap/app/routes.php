@@ -156,6 +156,11 @@ Route::get('close_issue', function()
 	echo "done";
 });
 
+Route::post('alter_post', function(){
+	if(Request::ajax()){
+		App::make('PostController')->updatePost();
+	}
+});
 
 Route::get('postItem/{isbn}', function($isbn)
 {
@@ -242,3 +247,9 @@ Route::get('/manageUsers', function(){
 	}
 	return Redirect::to('/');
 });
+
+/*
+Route::get('/cleanDB', function(){
+	App::make('PostController')->cleanDB();
+	echo "done";
+});*/

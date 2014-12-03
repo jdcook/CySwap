@@ -280,3 +280,14 @@ hr{
 	color: blue;
 }
 
+.link-edit{
+	padding: .25em .5em;
+	color: rgb(115, 115, 255);
+	font-size: .75em;
+}
+
+.link-edit:hover{
+	text-decoration: underline;
+	color: black;
+	cursor: hand;
+}

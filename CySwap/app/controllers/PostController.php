@@ -59,4 +59,24 @@ class PostController extends BaseController {
 		//return View::make('viewpost')->with('posting', $posting);
 		return Redirect::to('/viewpost/'.$postid);
 	}
+
+	public function updatePost(){
+		//echo "UPDATE CySwap2.category_".htmlentities(Input::get('category'))." set ".Input::get('key')." = ".Input::get('value')." where posting_id = ".Input::get('postid');
+		DB::update("UPDATE CySwap2.category_".htmlentities(Input::get('category'))." set ".Input::get('key')." = ? where posting_id = ?", array(Input::get('value'), Input::get('postid')));
+	}
+
+
+
+
+/*
+	public function cleanDB(){
+		$dbResult = DB::select("SELECT posting_id, category from CySwap2.posting where hide_post = '1'");
+
+		foreach($dbResult as $post){
+			DB::delete("DELETE from CySwap2.category_".$post->category." where posting_id = ?", array($post->posting_id));
+			DB::delete("DELETE from CySwap2.posting where posting_id = ?", array($post->posting_id));
+		}
+	}
+*/
+
 }

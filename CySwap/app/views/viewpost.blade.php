@@ -1,10 +1,32 @@
 @extends('layoutmain')
 
 @section('content')
-
-<div class="col-md-12">
-	<h1>{{htmlentities($posting['title'])}}</h1>
+<?php
+$canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || Session::get('usertype') == 'moderator') 
+		   || Session::has('user') && Session::get('user') == $posting['username'];
+?>
+<div class="col-md-12 centered">
+	<div id="titleHide">
+		<h1 id="titleStatic">{{htmlentities($posting['title'])}}</h1>
+	</div>
+	@if($canEdit)
+	<a class="link-edit" data-edit="title">Edit</a>
+	<div id="titleEdit" style="display:none">
+		<br/>
+		<div class="col-md-4"></div>
+		<div class="input-group col-md-4">
+			<span class="input-group-addon">Title</span>
+			<input class="form-control" type="text" value="{{htmlentities($posting['title'])}}"/>
+		</div>
+		<div class="col-md-4"></div>
+		<a class="link-edit" data-save="title" data-loading-text="Saving...">Save</a>
+	</div>
+	@endif
 	<hr />
+
+	@if($canEdit)
+	<div id="errorDiv"></div>
+	@endif
 </div>
 
 <div id="postImages" class="col-md-4">
@@ -97,16 +119,55 @@
 	<div class="detailContainer">
 		<h2>Details</h2>
 		<hr />
+
+		@if(array_key_exists("date", $posting))
+			<p>
+				<b class="detailHeading">Date Posted:</b>{{htmlentities($posting['date'])}} 
+				@if(array_key_exists("category", $posting))
+				<br/><b class="detailHeading">Category:</b>{{htmlentities($posting['category'])}}
+				<br/><br/>
+				@endif
+			</p>
+		@endif
 			@foreach($posting as $key => $value)
 			@if($key != "posting_id" and $key != "seller_has_rated" and $key != "buyer_has_rated" and $key != "tags"
 				and $key != "hide_post" and $key != "title"
-				and $key != "description" and $key != 'username' and $key != "suggested_price" and $key != 'num_images' and
+				and $key != "description" and $key != 'username' and $key != "suggested_price" 
+				and $key != 'num_images' and $key != 'date' and $key != 'category' and
 				!is_null($value))
-				<p><b class="detailHeading">{{$key}}:</b> {{htmlentities($value)}}</p>
+				
+				@if($canEdit)
+				<a class="link-edit" data-edit="{{$key}}">Edit</a>
+				<div id="{{$key}}Edit" class="wrapper-cushy" style="display:none">
+					<a class="link-edit" data-save="{{$key}}" data-loading-text="Saving...">Save</a>
+					<div class="input-group">
+						<span class="input-group-addon">{{$key}}</span>
+						<input class="form-control" type="text" value="{{htmlentities($value)}}"/>
+					</div>
+				</div>
+				@endif
+				<div id="{{$key}}Hide">
+					<p><b class="detailHeading">{{$key}}:</b> <span id="{{$key}}Static">{{htmlentities($value)}}</span></p>
+				</div>
 			@endif
 			@endforeach
 			<br/>
-			<p><b>Description:</b><br/>{{htmlentities($posting['description'])}}</p>
+
+
+			@if(array_key_exists("description", $posting))
+				@if($canEdit)
+				<a class="link-edit" data-edit="description">Edit</a>
+				<div id="descriptionEdit" style="display:none">
+					<a class="link-edit" data-save="description" data-loading-text="Saving...">Save</a>
+					<textarea class="form-control description">{{htmlentities($posting['description'])}}</textarea>
+				</div>
+				@endif
+
+				<div id="{{$key}}Hide">
+					<p><b>Description:</b><br/><span id="descriptionStatic">{{htmlentities($posting['description'])}}</span></p>
+				</div>
+			@endif
+
 			<a style="color:red" href="{{URL::to('/report/'.$posting['posting_id'])}}">Report </a>
 	</div>
 </div>
@@ -165,6 +226,54 @@ $('img').click(function(){
 		var match = image_id.match(/\d+/);
 		var src = "{{asset('media/post_images')}}/{{$posting['posting_id']}}_"+match+".jpg";
 		$('#image_main').attr("src", src);
+	}
+});
+
+$('[data-edit]').click(function(){
+	$(this).hide();
+	$('#'+$(this).data('edit')+'Edit').show();
+	$('#'+$(this).data('edit')+'Hide').hide();
+
+});
+
+$('[data-save]').click(function(){
+	var me = $(this);
+
+	if(!me.attr('disabled')){
+		me.button('loading');
+		$('#errorDiv').html('');
+
+		var fieldName = me.data('save');
+		var staticElement = $('#'+fieldName+'Static');
+		var editElement = $('#'+fieldName+'Edit');
+		var hiddenElement = $('#'+fieldName+'Hide');
+
+		var input = "";
+		var inputElement = editElement.children().find('input');
+		if(!inputElement.length){
+			inputElement = editElement.children('textarea');
+		}
+
+		input = inputElement.val();
+
+		$.ajax({
+			type:'POST',
+			url:'{{URL::to("alter_post")}}',
+			data: {postid: '{{$posting["posting_id"]}}', category: '{{$posting["category"]}}', key: fieldName, value: input}
+		})
+		.done(function(result){
+			$('[data-edit="'+fieldName+'"]').show();
+			editElement.hide();
+			hiddenElement.show();
+			staticElement.html(input);
+			//alert(result);
+		})
+		.fail(function(){
+			$('#errorDiv').html('<b class="alert">Error saving changes</b><br/>');
+		})
+		.always(function(){
+			me.button('reset');
+		});
 	}
 });
 </script>
