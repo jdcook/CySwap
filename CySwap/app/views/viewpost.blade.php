@@ -16,7 +16,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 		<div class="col-md-4"></div>
 		<div class="input-group col-md-4">
 			<span class="input-group-addon">Title</span>
-			<input class="form-control" type="text" value="{{htmlentities($posting['title'])}}"/>
+			<input class="form-control" type="text" maxlength="{{$posting['config']['title']->character_limit}}" value="{{htmlentities($posting['title'])}}"/>
 		</div>
 		<div class="col-md-4"></div>
 		<a class="link-edit" data-save="title" data-loading-text="Saving...">Save</a>
@@ -40,7 +40,21 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 		@for($i = 0; $i < $posting['num_images']; $i++)
 			<img id="thumb{{$i}}" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
 		@endfor
-		<p><b>Suggested Price:</b><br/> {{htmlentities($posting['suggested_price'])}}</p>
+
+		@if($canEdit)
+		<br/>
+		<br/>
+		<a class="link-edit" data-edit="suggested_price">Edit</a>
+		<div id="suggested_priceEdit" class="wrapper-cushy" style="display:none">
+			<a class="link-edit" data-save="suggested_price" data-loading-text="Saving...">Save</a>
+			<div class="input-group">
+				<input class="form-control" type="text" maxlength="{{$posting['config']['suggested_price']->character_limit}}" value="{{htmlentities($posting['suggested_price'])}}"/>
+			</div>
+		</div>
+		@endif
+		<div id="suggested_priceHide">
+			<p><b>Suggested Price:</b> <span id="suggested_priceStatic">{{htmlentities($posting['suggested_price'])}}</span></p>
+		</div>
 
 		@if(Session::has('message'))
 			{{ Session::get('message') }}
@@ -130,26 +144,43 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 			</p>
 		@endif
 			@foreach($posting as $key => $value)
-			@if($key != "posting_id" and $key != "seller_has_rated" and $key != "buyer_has_rated" and $key != "tags"
-				and $key != "hide_post" and $key != "title"
-				and $key != "description" and $key != 'username' and $key != "suggested_price" 
-				and $key != 'num_images' and $key != 'date' and $key != 'category' and
-				!is_null($value))
-				
-				@if($canEdit)
-				<a class="link-edit" data-edit="{{$key}}">Edit</a>
-				<div id="{{$key}}Edit" class="wrapper-cushy" style="display:none">
-					<a class="link-edit" data-save="{{$key}}" data-loading-text="Saving...">Save</a>
-					<div class="input-group">
-						<span class="input-group-addon">{{$key}}</span>
-						<input class="form-control" type="text" value="{{htmlentities($value)}}"/>
+				@if($key != "posting_id" and $key != "seller_has_rated" and $key != "buyer_has_rated" and $key != "tags"
+					and $key != "hide_post" and $key != "title"
+					and $key != "description" and $key != 'username' and $key != "suggested_price" 
+					and $key != 'num_images' and $key != 'date' and $key != 'category' and $key != 'config' and
+					!is_null($value))
+					
+					@if($canEdit)
+						@if($key == 'item_condition')
+						<a class="link-edit" data-edit="{{$key}}">Edit</a>
+						<div id="{{$key}}Edit" class="wrapper-cushy" style="display:none">
+							<a class="link-edit" data-save="{{$key}}" data-loading-text="Saving...">Save</a>
+							<div class="input-group">
+								<span class="input-group-addon">{{$key}}</span>
+								<select class="form-control">
+									<option name="none">--</option>
+									<option name="poor">Poor</option>
+									<option name="used">Used</option>
+									<option name="good">Good</option>
+									<option name="new">New</option>
+								</select>
+							</div>
+						</div>
+						@else
+						<a class="link-edit" data-edit="{{$key}}">Edit</a>
+						<div id="{{$key}}Edit" class="wrapper-cushy" style="display:none">
+							<a class="link-edit" data-save="{{$key}}" data-loading-text="Saving...">Save</a>
+							<div class="input-group">
+								<span class="input-group-addon">{{$key}}</span>
+								<input class="form-control" type="text" maxlength="{{$posting['config'][$key]->character_limit}}" value="{{htmlentities($value)}}"/>
+							</div>
+						</div>
+						@endif
+					@endif
+					<div id="{{$key}}Hide">
+						<p><b class="detailHeading">{{$key}}:</b> <span id="{{$key}}Static">{{htmlentities($value)}}</span></p>
 					</div>
-				</div>
 				@endif
-				<div id="{{$key}}Hide">
-					<p><b class="detailHeading">{{$key}}:</b> <span id="{{$key}}Static">{{htmlentities($value)}}</span></p>
-				</div>
-			@endif
 			@endforeach
 			<br/>
 
@@ -163,7 +194,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 				</div>
 				@endif
 
-				<div id="{{$key}}Hide">
+				<div id="descriptionHide">
 					<p><b>Description:</b><br/><span id="descriptionStatic">{{htmlentities($posting['description'])}}</span></p>
 				</div>
 			@endif
@@ -233,7 +264,6 @@ $('[data-edit]').click(function(){
 	$(this).hide();
 	$('#'+$(this).data('edit')+'Edit').show();
 	$('#'+$(this).data('edit')+'Hide').hide();
-
 });
 
 $('[data-save]').click(function(){
@@ -253,8 +283,14 @@ $('[data-save]').click(function(){
 		if(!inputElement.length){
 			inputElement = editElement.children('textarea');
 		}
+		if(!inputElement.length){
+			inputElement = editElement.children().find('select');
+		}
 
 		input = inputElement.val();
+		if(!input){
+			input = "derp";
+		}
 
 		$.ajax({
 			type:'POST',
