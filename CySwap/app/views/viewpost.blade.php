@@ -36,7 +36,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 	@endif
 	<div class="price">
 		@if($canEdit)
-		<a id="imageEditBtn" class="link-edit">Delete pictures and upload new ones</a>
+		<a id="imageEditBtn" class="link-edit">Replace current pictures</a>
 		<div id="imageEdit" style="display:none">
 			{{ Form::open(array('action' => array('PostController@replaceImages'), 'files'=>true)) }}
 				{{Form::hidden('postid', $posting['posting_id'])}}

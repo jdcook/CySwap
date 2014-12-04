@@ -153,6 +153,7 @@
 	padding: .25em 0;
 	margin: 2em 0;
 	min-height: 15em;
+	max-height: 30em;
 	overflow: hidden;
 }
 
@@ -179,6 +180,10 @@
 	height: auto;
 	margin-right: 2em;
 	max-width: 15em;
+}
+
+.liteimg{
+	max-height: 8em;
 }
 
 .thumb{

@@ -23,7 +23,7 @@
 					@if($posting['num_images'] == 0)
 						<span class="entryimg notfound glyphicon glyphicon-picture"></span>
 					@else
-						<img class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
+						<img class="entryimg liteimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 					@endif
 				</div>
 				<div class="col-md-9 details cliptext">

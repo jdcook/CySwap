@@ -6,9 +6,8 @@
 <h1>Home</h1>
 <hr>
 
-<div class="row">
 @foreach($postingLites as $categoryname => $category)
-	<div class="col-lg-4 col-md-6 container-fluid">
+	<div class="col-lg-4 col-md-6 container-fluid wrapper-cushy">
 		<h2 class="categoryTitle">{{ucfirst($categoryname)}}</h2>
 		@foreach($category as $posting)
 			<div class="entry" data-postid="{{$posting['posting_id']}}">
@@ -21,7 +20,7 @@
 						@if($posting['num_images'] == 0)
 							<span class="entryimg notfound glyphicon glyphicon-picture"></span>
 						@else
-							<img class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
+							<img class="entryimg liteimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 						@endif
 						<br/>
 						<br/>
@@ -36,6 +35,5 @@
 		@endforeach
 	</div>
 @endforeach
-</div> 
 
 @stop
