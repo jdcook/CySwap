@@ -140,4 +140,20 @@ class User {
 		DB::delete("DELETE from CySwap2.blacklist where username = ?", array($user));
 		DB::delete("DELETE from CySwap2.suspend where username = ?", array($user));
 	}
+
+	public function canUserEdit($postid){
+		$canEdit = false;
+		if(Session::has("usertype") && Session::get("usertype") == "admin" || Session::get("usertype") == "moderator"){
+			$canEdit = true;
+		}
+
+		if(!$canEdit){
+			$user = DB::select("SELECT username from CySwap2.posting where posting_id = ?", array($postid));	
+			if(count($user) && $user[0]->username == Session::get("user")){
+				$canEdit = true;
+			}
+		}
+
+		return $canEdit;
+	}
 }

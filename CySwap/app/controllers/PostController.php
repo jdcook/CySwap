@@ -68,57 +68,50 @@ class PostController extends BaseController {
 
 	public function updatePost(){
 		//echo "UPDATE CySwap2.category_".htmlentities(Input::get('category'))." set ".Input::get('key')." = ".Input::get('value')." where posting_id = ".Input::get('postid');\
-		$canEdit = false;
-		if(Session::has("usertype") && Session::get("usertype") == "admin" || Session::get("usertype") == "moderator"){
-			$canEdit = true;
-		}
+		$postid = Input::get('postid');
 
-		if(!$canEdit){
-			$user = DB::select("SELECT username from CySwap2.posting where posting_id = ?", array(Input::get("postid")));	
-			if(count($user) && $user[0]->username == Session::get("user")){
-				$canEdit = true;
-			}
-		}
-
-		if($canEdit){
-			DB::update("UPDATE CySwap2.category_".htmlentities(Input::get('category'))." set ".Input::get('key')." = ? where posting_id = ?", array(Input::get('value'), Input::get('postid')));
+		if(App::make('User')->canUserEdit($postid)){
+			DB::update("UPDATE CySwap2.category_".htmlentities(Input::get('category'))." set ".Input::get('key')." = ? where posting_id = ?", array(Input::get('value'), $postid));
 		}
 	}
 
 	public function replaceImages(){
 
 		$postid = Input::get('postid');
-		$category = Input::get('category');
-		//remove images from server
-		App::make('Post')->deletePostImages($postid, $category);
+		if(App::make('User')->canUserEdit($postid)){
 
-		$image = array();
-		//upload new
-		for($i = 1; $i < 11; $i++)
-		{
-			$laravel_file_name = "picture".$i;
-			if(Input::hasFile($laravel_file_name))
+			$category = Input::get('category');
+			//remove images from server
+			App::make('Post')->deletePostImages($postid, $category);
+
+			$image = array();
+			//upload new
+			for($i = 1; $i < 11; $i++)
 			{
-				//validate files
-				$size = Input::file($laravel_file_name)->getSize();
-				$extension = strtolower(Input::file($laravel_file_name)->getClientOriginalExtension());
-				if($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "bmp")
+				$laravel_file_name = "picture".$i;
+				if(Input::hasFile($laravel_file_name))
 				{
-					$extension_supported = true;
+					//validate files
+					$size = Input::file($laravel_file_name)->getSize();
+					$extension = strtolower(Input::file($laravel_file_name)->getClientOriginalExtension());
+					if($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "bmp")
+					{
+						$extension_supported = true;
+					}
+					if(Input::file($laravel_file_name)->isValid() && $size < 15728640 /*15MB*/ && isset($extension_supported))
+					{
+						$image[$i] = Input::file($laravel_file_name);
+					}
 				}
-				if(Input::file($laravel_file_name)->isValid() && $size < 15728640 /*15MB*/ && isset($extension_supported))
+				else
 				{
-					$image[$i] = Input::file($laravel_file_name);
+					break;
 				}
 			}
-			else
-			{
-				break;
-			}
+
+			$num_images = App::make('Post')->uploadImages($postid, $image);
+			DB::update("UPDATE CySwap2.category_".$category." set num_images = ? where posting_id = ?", array($num_images, $postid));
 		}
-
-		$num_images = App::make('Post')->uploadImages($postid, $image);
-		DB::update("UPDATE CySwap2.category_".$category." set num_images = ? where posting_id = ?", array($num_images, $postid));
 		return Redirect::to('/viewpost/'.$postid);
 	}
 
