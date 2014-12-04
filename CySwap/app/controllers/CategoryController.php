@@ -25,7 +25,7 @@ class CategoryController extends BaseController {
 
 		for($i = 1; $i <= 10; $i++)
 		{
-			echo "<input id=\"picture".$i."\" type=\"file\" name=\"picture".$i."\"";
+			echo "<input class=\"form-control\" id=\"picture".$i."\" type=\"file\" name=\"picture".$i."\"";
 			if($i != 1)
 			{
 				echo " style=\"display:none;\"";

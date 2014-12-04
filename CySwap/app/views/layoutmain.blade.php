@@ -131,7 +131,7 @@ $('.entry').click(function(){
 	window.location.href="{{URL::to('viewpost')}}" + "/" + $(this).attr("data-postid");
 });
 
-var clipTextLen = 30;
+var clipTextLen = 280;
 $('.cliptext').each(function(){
 	var entry = $(this).parent().parent();
 	if(entry[0].scrollHeight > entry.outerHeight()){

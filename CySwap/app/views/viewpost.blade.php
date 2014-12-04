@@ -31,16 +31,30 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 
 <div id="postImages" class="col-md-4">
 	@if($posting['num_images'] == 0)
-		<span style="text-align: center" class="entryimg notfound glyphicon glyphicon-picture"></span>
+		<span style="text-align: center" class="entryimg-glyph notfound glyphicon glyphicon-picture"></span>
 		<br/><br/>
-	@else
-		<img id="image_main" class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 	@endif
-	<div id="collapseParent" class="price">
-		@for($i = 0; $i < $posting['num_images']; $i++)
-			<img id="thumb{{$i}}" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
-		@endfor
+	<div class="price">
+		@if($canEdit)
+		<a id="imageEditBtn" class="link-edit">Delete pictures and upload new ones</a>
+		<div id="imageEdit" style="display:none">
+			{{ Form::open(array('action' => array('PostController@replaceImages'), 'files'=>true)) }}
+				{{Form::hidden('postid', $posting['posting_id'])}}
+				{{Form::hidden('category', $posting['category'])}}
+				<input id="imageFile1" data-image-edit="1" class="form-control" type="file" name="picture1"/>
+				<a><input id="imageSave" class="link-edit" role="button" type="submit" value="Save (Replace current pictures)" /></a>
+			{{ Form::token().Form::close() }}
+		</div>
+		@endif
+		<div id="imageStatic">
+			@if($posting['num_images'] > 0)
+				<img id="image_main" class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
+			@endif
 
+			@for($i = 0; $i < $posting['num_images']; $i++)
+				<img class="thumb" id="thumb{{$i}}" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
+			@endfor
+		</div>
 		@if($canEdit)
 		<br/>
 		<br/>
@@ -312,5 +326,25 @@ $('[data-save]').click(function(){
 		});
 	}
 });
+
+$('#imageEditBtn').click(function(){
+	$(this).hide();
+	$('#imageEdit').show();
+	$('#imageStatic').hide();
+});
+
+var maxPictures = 10;
+function updatePictureForm(){
+	$('[data-image-edit]').on('change', function(){
+		var me = $(this);
+		var nextIndex = parseInt(me.data('image-edit')) + 1;
+		if(nextIndex < maxPictures){
+			me.after('<input id="imageFile'+nextIndex+'" data-image-edit="'+nextIndex+'" class="form-control" type="file" name="picture'+nextIndex+'"/>');
+			updatePictureForm();
+		}
+	});
+}
+
+updatePictureForm();
 </script>
 @stop

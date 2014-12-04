@@ -62,7 +62,6 @@ class Post extends Eloquent {
 	{
 		//generate random postid
 		$postid = str_random(10);
-		$num_images = 0;
 
 		//while we don't have a unique id, generate a new one
 		//if we have 1 million posts, there is a 10% chance of conflict
@@ -73,16 +72,7 @@ class Post extends Eloquent {
 			$idConflict = $this->checkIdConflict($postid);
 		}
 
-		//if an image was provided move it to the correct location in file system
-		if(isset($image))
-		{
-			foreach($image as $index => $imageToStore)
-			{
-				$i = $index - 1;
-				$imageToStore->move("./media/post_images", $postid."_".$i.".jpg");
-				$num_images++;
-			}
-		}
+		$num_images = $this->uploadImages($postid, $image);
 
 		//variables to construct database arguments (query string and array of values)
 		$db_string = "insert into Cyswap2.category_".$post_params['Category']." (posting_id, ";
@@ -203,6 +193,36 @@ class Post extends Eloquent {
 		return $postid;
 	}
 
+	public function uploadImages($postid, $image){
+		$num_images = 0;
+		//if an image was provided move it to the correct location in file system
+		if(isset($image))
+		{
+			foreach($image as $index => $imageToStore)
+			{
+				$i = $index - 1;
+				$imageToStore->move("./media/post_images", $postid."_".$i.".jpg");
+				$num_images++;
+			}
+		}
+		return $num_images;
+	}
+
+	public function deletePostImages($postid, $category){
+		$num_images = DB::select("SELECT num_images from CySwap2.category_".$category." where posting_id = ?", array($postid));
+
+		if(count($num_images)){
+			//remove images from server
+			for($i = 0; $i < $num_images[0]->num_images; $i++)
+			{
+				$filename = "./media/post_images/".$postid."_".$i.".jpg";
+				if (File::exists($filename)) {
+	    			File::delete($filename);
+				}
+			}
+		}
+	}
+
 	private function checkIdConflict($id){
 		$result = DB::select("SELECT * from CySwap2.posting where posting_id = ?", array($id));
 		return count($result);
@@ -210,18 +230,16 @@ class Post extends Eloquent {
 
 	public function deletePost($postid)
 	{
+		if(!ctype_alnum($postid)){
+			echo "invalid post id";
+			return;
+		}
 		$category = DB::select("SELECT category from CySwap2.posting where posting_id = ?", array($postid));
-		$num_images = DB::select("SELECT num_images from CySwap2.category_".$category[0]->category." where posting_id = ?", array($postid));
-		DB::delete('delete from cyswap2.tags where posting_id = ?', array($postid));
-		DB::update('update cyswap2.posting set hide_post = ? where posting_id = ?', array(1, $postid));
+		if(count($category)){
+			DB::delete('delete from cyswap2.tags where posting_id = ?', array($postid));
+			DB::update('update cyswap2.posting set hide_post = ? where posting_id = ?', array(1, $postid));
 
-		//remove images from server
-		for($i = 0; $i < $num_images[0]->num_images; $i++)
-		{
-			$filename = "./media/post_images/".$postid."_".$i.".jpg";
-			if (File::exists($filename)) {
-    			File::delete($filename);
-			}
+			$this->deletePostImages($postid, $category[0]->category);
 		}
 	}
 }

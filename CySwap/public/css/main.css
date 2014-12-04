@@ -152,13 +152,13 @@
 	color: black;
 	padding: .25em 0;
 	margin: 2em 0;
-	min-height: 20em;
+	min-height: 15em;
 	overflow: hidden;
 }
 
 @media (min-width: 992px){
 	.entry{
-		max-height: 20em;
+		max-height: 15em;
 	}
 }
 
@@ -167,11 +167,22 @@
 	background-color: rgb(245, 245, 245);
 }
 
-.entryimg{
+.entryimg-glyph{
 	width: 100%;
 	max-width: 6em;
 	height: auto;
 	max-height: 6em;
+}
+
+.entryimg{
+	width: 100%;
+	height: auto;
+	margin-right: 2em;
+	max-width: 15em;
+}
+
+.thumb{
+	cursor: hand;
 }
 
 .notfound{
@@ -290,4 +301,8 @@ hr{
 	text-decoration: underline;
 	color: black;
 	cursor: hand;
+}
+
+.ui-dialog{
+	z-index: 12;
 }

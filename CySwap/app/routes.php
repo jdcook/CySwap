@@ -177,6 +177,7 @@ Route::post('reportPost', 'ReportController@reportPost');
 Route::post('suspendUser', 'UserController@suspendUser');
 Route::post('banUser', 'UserController@banUser');
 Route::post('unBanUser', 'UserController@unBanUser');
+Route::post('replaceImages', 'PostController@replaceImages');
 
 
 Route::get('/outputMessage', function(){
