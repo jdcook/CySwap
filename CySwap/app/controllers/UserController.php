@@ -38,17 +38,24 @@ class UserController extends BaseController {
 	}
 
 	public function suspendUser(){
-		$msg = "<a class='btn btn-default' href='".URL::to('manageUsers')."'>Return to User Management</a><br/>";
+		$msg = "<a class='btn btn-default' href='".URL::to('manageUsers')."'>Return to User Management</a><br/><br/>";
 		if(Session::has('user') && Session::has('usertype') && Session::get('usertype') != 'user'){
 			try{
 				$suspendDateTime = new DateTime(Input::get('suspendDate'));
+			}
+			catch(Exception $ex)
+			{
+				$msg = $msg."<b class='alert'>Error suspending user:</b> Invalid date input";
+				return Redirect::to('/outputMessage')->with('message', $msg);
+			}
 
+			try{
 				App::make('User')->suspendUser(Input::get('suspendUser'), $suspendDateTime, Input::get('reason'));
 
 				$msg = $msg."User has been suspended";
 			}
 			catch(Exception $ex){
-				$msg = $msg."Error suspending user: <br/>".$ex->getMessage();
+				$msg = $msg."<b class='alert'>Error suspending user:</b> <br/>".$ex->getMessage();
 			}
 		}
 

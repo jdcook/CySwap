@@ -123,7 +123,7 @@ class PostController extends BaseController {
 
 
 
-/*
+
 	public function cleanDB(){
 		$dbResult = DB::select("SELECT posting_id, category from CySwap2.posting where hide_post = '1'");
 
@@ -132,6 +132,6 @@ class PostController extends BaseController {
 			DB::delete("DELETE from CySwap2.posting where posting_id = ?", array($post->posting_id));
 		}
 	}
-*/
+
 
 }
