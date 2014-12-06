@@ -88,10 +88,15 @@ Route::get('report/{postId}', function($postId)
 {
 	if(Session::has('user'))
 	{
-		return View::make('report')-> with('postId',$postId);
+		$data = array();
+		$data['postuser'] = App::make('Post')->getPostUser($postId);
+		$data['postId'] = $postId;
+		return View::make('report')-> with('data',$data);
 	}
 	else
+	{
 		return View::make('Account/login');
+	}
 });
 
 /* categories */

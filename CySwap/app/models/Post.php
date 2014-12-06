@@ -245,4 +245,12 @@ class Post extends Eloquent {
 			$this->deletePostImages($postid, $category[0]->category);
 		}
 	}
+
+	public function getPostUser($postid){
+		$dbResult = DB::select("SELECT username from CySwap2.posting where posting_id = ?", array($postid));
+		if(count($dbResult)){
+			return $dbResult[0]->username;
+		}
+		return "";
+	}
 }
