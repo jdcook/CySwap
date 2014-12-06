@@ -243,6 +243,11 @@ hr{
 	padding: 1em;
 }
 
+.cushy{
+	margin: 1em;
+	padding: 1em;
+}
+
 .wrapper-padded{
 	border: 1px solid rgb(180, 180, 180);
 	padding: 1em;
@@ -333,4 +338,12 @@ hr{
 .categoryTitle a:visited{
 	text-decoration: none;
 	color: #000;
+}
+
+.half{
+	width: 50%;
+}
+
+.bigger{
+	font-size: 1.15em;
 }
