@@ -8,7 +8,9 @@
 
 @foreach($postingLites as $categoryname => $category)
 	<div class="col-lg-4 col-md-6 container-fluid wrapper-cushy">
-		<h2 class="categoryTitle">{{ucfirst($categoryname)}}</h2>
+		<h2 class="categoryTitle">
+			<a href="{{URL::to('category/'.$categoryname)}}">{{ucfirst($categoryname)}}</a>
+		</h2>
 		@foreach($category as $posting)
 			<div class="entry" data-postid="{{$posting['posting_id']}}">
 				<div class="row">
@@ -16,7 +18,7 @@
 				</div>
 				<br />
 				<div class="row">
-					<div class="col-lg-3">	
+					<div class="col-lg-3">
 						@if($posting['num_images'] == 0)
 							<span class="entryimg notfound glyphicon glyphicon-picture"></span>
 						@else
