@@ -249,6 +249,16 @@ Route::get('/manageUsers', function(){
 	return Redirect::to('/');
 });
 
+//Routes for updating content
+/*Route::post('/updateTermsOfUse', array(
+			'as' => 'update_termsofuse',
+			'uses' => 'UpdateContentController@updateTermsOfUse'
+		));*/
+Route::post('/updateTermsOfUse', 'UpdateContentController@updateTermsOfUse');
+Route::post('/updateContactUs', 'UpdateContentController@updateContactUs');
+Route::post('/updateAboutUs', 'UpdateContentController@updateAboutUs');
+Route::post('/updateSafety', 'UpdateContentController@updateSafety');
+
 /*
 Route::get('/cleanDB', function(){
 	App::make('PostController')->cleanDB();
