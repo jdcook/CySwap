@@ -312,6 +312,9 @@ hr{
 	z-index: 12;
 }
 
+.upload-form-control{
+	height:auto;
+}
 .categoryTitle a:link{
 	text-decoration: none;
 	color: #000;

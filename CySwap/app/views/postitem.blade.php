@@ -108,67 +108,43 @@ function setHooks(){
 		});
 	});
 
+//we used to have this line if($('#picture2').val().indexOf("fakepath") > -1)
+//we don't know what it fixed but removing it we cannot recreate any issue
+
 	$('#picture1').change(function(){
-		if($('#picture1').val().indexOf("fakepath") > -1)
-		{
-			$('#picture2').css('display', 'block');
-		}
+		$('#picture2').css('display', 'block');
 	})
 
 	$('#picture2').change(function(){
-		if($('#picture2').val().indexOf("fakepath") > -1)
-		{
-			$('#picture3').css('display', 'block');
-		}
+		$('#picture3').css('display', 'block');
 	})
 
 	$('#picture3').change(function(){
-		if($('#picture3').val().indexOf("fakepath") > -1)
-		{
-			$('#picture4').css('display', 'block');
-		}
+		$('#picture4').css('display', 'block');
 	})
 
 	$('#picture4').change(function(){
-		if($('#picture4').val().indexOf("fakepath") > -1)
-		{
-			$('#picture5').css('display', 'block');
-		}
+		$('#picture5').css('display', 'block');
 	})
 
 	$('#picture5').change(function(){
-		if($('#picture5').val().indexOf("fakepath") > -1)
-		{
-			$('#picture6').css('display', 'block');
-		}
+		$('#picture6').css('display', 'block');
 	})
 
 	$('#picture6').change(function(){
-		if($('#picture6').val().indexOf("fakepath") > -1)
-		{
-			$('#picture7').css('display', 'block');
-		}
+		$('#picture7').css('display', 'block');
 	})
 
 	$('#picture7').change(function(){
-		if($('#picture7').val().indexOf("fakepath") > -1)
-		{
-			$('#picture8').css('display', 'block');
-		}
+		$('#picture8').css('display', 'block');
 	})
 
 	$('#picture8').change(function(){
-		if($('#picture8').val().indexOf("fakepath") > -1)
-		{
-			$('#picture9').css('display', 'block');
-		}
+		$('#picture9').css('display', 'block');
 	})
 
 	$('#picture9').change(function(){
-		if($('#picture9').val().indexOf("fakepath") > -1)
-		{
-			$('#picture10').css('display', 'block');
-		}
+		$('#picture10').css('display', 'block');
 	})
 }
 
