@@ -84,6 +84,20 @@ class CategoryController extends BaseController {
 	/**END AJAX**/
 
 	public function createCategory(){
-		echo "weeeeeeeeee";
+		$post_params = Input::get();
+
+		//check is post size limit was exceeded
+		if(count($post_params) <= 1)
+		{
+			return View::make('error');
+		}
+
+		$result = App::make('Category')->createCategory($post_params);
+		if ($result) {
+			$msg = 'The category has been created successfully.';
+		} else {
+			$msg = 'The category has NOT been created. Please ensure that the category doesn\'t already exist.';	
+		}
+		return Redirect::to('/outputMessage')->with('message', $msg);
 	}
 }
