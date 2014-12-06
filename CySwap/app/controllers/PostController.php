@@ -25,6 +25,12 @@ class PostController extends BaseController {
 		//get form input
 		$post_params = Input::get();
 
+		//check is post size limit was exceeded
+		if(empty($post_params))
+		{
+			return View::make('postsize');
+		}
+
 		$image = array();
 
 		//check for file
