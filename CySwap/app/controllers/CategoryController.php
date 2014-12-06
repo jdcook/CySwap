@@ -82,4 +82,8 @@ class CategoryController extends BaseController {
 		return;
 	}
 	/**END AJAX**/
+
+	public function createCategory(){
+		echo "weeeeeeeeee";
+	}
 }

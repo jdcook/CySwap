@@ -125,8 +125,6 @@ class PostController extends BaseController {
 	}
 
 
-
-
 	public function cleanDB(){
 		$dbResult = DB::select("SELECT posting_id, category from CySwap2.posting where hide_post = '1'");
 
@@ -136,5 +134,13 @@ class PostController extends BaseController {
 		}
 	}
 
+	/*public function purgeDB(){
+		$dbResult = DB::select("SELECT posting_id, category from CySwap2.posting");
+
+		foreach($dbResult as $post){
+			DB::delete("DELETE from CySwap2.category_".$post->category." where posting_id = ?", array($post->posting_id));
+			DB::delete("DELETE from CySwap2.posting where posting_id = ?", array($post->posting_id));
+		}
+	}*/
 
 }

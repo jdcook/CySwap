@@ -185,6 +185,7 @@ Route::post('suspendUser', 'UserController@suspendUser');
 Route::post('banUser', 'UserController@banUser');
 Route::post('unBanUser', 'UserController@unBanUser');
 Route::post('replaceImages', 'PostController@replaceImages');
+Route::post('addCategory', 'CategoryController@createCategory');
 
 
 Route::get('/outputMessage', function(){
