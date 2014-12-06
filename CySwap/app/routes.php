@@ -88,10 +88,15 @@ Route::get('report/{postId}', function($postId)
 {
 	if(Session::has('user'))
 	{
-		return View::make('report')-> with('postId',$postId);
+		$data = array();
+		$data['postuser'] = App::make('Post')->getPostUser($postId);
+		$data['postId'] = $postId;
+		return View::make('report')-> with('data',$data);
 	}
 	else
+	{
 		return View::make('Account/login');
+	}
 });
 
 /* categories */
@@ -111,7 +116,14 @@ Route::get('categories', function()
 Route::get('viewpost/{postid}', function($postid)
 {
 	$posting = App::make('PostController')->getPost($postid);
+	if(!$posting){
+		return Redirect::to('postNotFound');
+	}
 	return View::make('viewpost')->with('posting', $posting);
+});
+
+Route::get('postNotFound', function(){
+	return View::make('postNotFound');
 });
 
 Route::get('postItem', function()
@@ -178,6 +190,7 @@ Route::post('suspendUser', 'UserController@suspendUser');
 Route::post('banUser', 'UserController@banUser');
 Route::post('unBanUser', 'UserController@unBanUser');
 Route::post('replaceImages', 'PostController@replaceImages');
+Route::post('createCategory', 'CategoryController@createCategory');
 
 
 Route::get('/outputMessage', function(){
@@ -212,7 +225,7 @@ Route::get('/viewReports', function(){
 Route::get('/addCategory', function(){
 	if(Session::has('usertype')){
 		$usertype = Session::get('usertype');
-		if($usertype == "admin" || $usertype == "moderator"){
+		if($usertype == "admin"){
 			return View::make('addCategory');
 		}
 	}
@@ -222,7 +235,7 @@ Route::get('/addCategory', function(){
 Route::get('/removeCategory', function(){
 	if(Session::has('usertype')){
 		$usertype = Session::get('usertype');
-		if($usertype == "admin" || $usertype == "moderator"){
+		if($usertype == "admin"){
 			return View::make('removeCategory');
 		}
 	}
@@ -232,7 +245,7 @@ Route::get('/removeCategory', function(){
 Route::get('/updateContent', function(){
 	if(Session::has('usertype')){
 		$usertype = Session::get('usertype');
-		if($usertype == "admin" || $usertype == "moderator"){
+		if($usertype == "admin"){
 			return View::make('updateContent');
 		}
 	}
@@ -249,18 +262,13 @@ Route::get('/manageUsers', function(){
 	return Redirect::to('/');
 });
 
-//Routes for updating content
-/*Route::post('/updateTermsOfUse', array(
-			'as' => 'update_termsofuse',
-			'uses' => 'UpdateContentController@updateTermsOfUse'
-		));*/
-Route::post('/updateTermsOfUse', 'UpdateContentController@updateTermsOfUse');
-Route::post('/updateContactUs', 'UpdateContentController@updateContactUs');
-Route::post('/updateAboutUs', 'UpdateContentController@updateAboutUs');
-Route::post('/updateSafety', 'UpdateContentController@updateSafety');
 
-/*
 Route::get('/cleanDB', function(){
-	App::make('PostController')->cleanDB();
-	echo "done";
-});*/
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			App::make('PostController')->cleanDB();
+			echo "done";
+		}
+	}
+});

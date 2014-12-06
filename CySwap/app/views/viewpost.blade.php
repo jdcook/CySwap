@@ -160,9 +160,8 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 			@foreach($posting as $key => $value)
 				@if($key != "posting_id" and $key != "seller_has_rated" and $key != "buyer_has_rated" and $key != "tags"
 					and $key != "hide_post" and $key != "title"
-					and $key != "description" and $key != 'username' and $key != "suggested_price" 
-					and $key != 'num_images' and $key != 'date' and $key != 'category' and $key != 'config' and
-					!is_null($value))
+					and $key != "description" and $key != 'username' and $key != "suggested_price")
+				@if($key != 'num_images' and $key != 'date' and $key != 'category' and $key != 'config' and !is_null($value))
 					
 					@if($canEdit)
 						@if($key == 'item_condition')
@@ -194,6 +193,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 					<div id="{{$key}}Hide">
 						<p><b class="detailHeading">{{$key}}:</b> <span id="{{$key}}Static">{{htmlentities($value)}}</span></p>
 					</div>
+				@endif
 				@endif
 			@endforeach
 			<br/>

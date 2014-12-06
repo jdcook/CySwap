@@ -13,7 +13,10 @@ class Post extends Eloquent {
 	{
 		// select post with matching id from database
 		$post = DB::select('select * from cyswap2.posting where posting_id = \''.$postid.'\' limit 0,1');
-
+		if(!count($post))
+		{
+			return null;
+		}
 		// save category of post to find extra fields
 		$category = $post[0]->category;
 
@@ -241,5 +244,13 @@ class Post extends Eloquent {
 
 			$this->deletePostImages($postid, $category[0]->category);
 		}
+	}
+
+	public function getPostUser($postid){
+		$dbResult = DB::select("SELECT username from CySwap2.posting where posting_id = ?", array($postid));
+		if(count($dbResult)){
+			return $dbResult[0]->username;
+		}
+		return "";
 	}
 }

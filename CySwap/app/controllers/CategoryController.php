@@ -25,7 +25,7 @@ class CategoryController extends BaseController {
 
 		for($i = 1; $i <= 10; $i++)
 		{
-			echo "<input class=\"form-control\" id=\"picture".$i."\" type=\"file\" name=\"picture".$i."\"";
+			echo "<input class=\"form-control upload-form-control\" id=\"picture".$i."\" type=\"file\" name=\"picture".$i."\"";
 			if($i != 1)
 			{
 				echo " style=\"display:none;\"";
@@ -53,10 +53,11 @@ class CategoryController extends BaseController {
 
 				echo "<select class=\"form-control\" name=\"".$field->field_name."\">";
 				echo "<option name=\"none\">--</option>";
-				echo "<option name=\"poor\">Poor</option>";
-				echo "<option name=\"used\">Used</option>";
+				echo "<option name=\"new\">Brand New</option>";
+				echo "<option name=\"likenew\">Like New</option>";
 				echo "<option name=\"good\">Good</option>";
-				echo "<option name=\"new\">New</option>";
+				echo "<option name=\"acceptable\">Acceptable</option>";
+				echo "<option name=\"poor\">Poor</option>";
 				echo "</select>";
 			}
 			else
@@ -82,4 +83,8 @@ class CategoryController extends BaseController {
 		return;
 	}
 	/**END AJAX**/
+
+	public function createCategory(){
+		echo "weeeeeeeeee";
+	}
 }

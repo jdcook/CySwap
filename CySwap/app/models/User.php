@@ -156,4 +156,14 @@ class User {
 
 		return $canEdit;
 	}
+
+	//can't ban admins
+	public function canBan($user){
+		$dbResult = DB::select("SELECT * from CySwap2.user where username = ?", array($user));
+		if(count($dbResult)){
+			return $dbResult[0]->role != 'admin';
+		}
+
+		return false;
+	}
 }

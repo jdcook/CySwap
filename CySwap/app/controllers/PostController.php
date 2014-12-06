@@ -9,6 +9,9 @@ class PostController extends BaseController {
 	public function getPost($postid)
 	{
 		$posting = App::make('Post')->getPost($postid);
+		if(!$posting){
+			return null;
+		}
 		$configData = DB::select("SELECT * from CySwap2.category_".$posting['category']."_config where character_limit != '0'");
 		$config = array();
 		foreach($configData as $data){
@@ -24,6 +27,12 @@ class PostController extends BaseController {
 	{
 		//get form input
 		$post_params = Input::get();
+
+		//check is post size limit was exceeded
+		if(empty($post_params))
+		{
+			return View::make('postsize');
+		}
 
 		$image = array();
 
@@ -116,8 +125,6 @@ class PostController extends BaseController {
 	}
 
 
-
-/*
 	public function cleanDB(){
 		$dbResult = DB::select("SELECT posting_id, category from CySwap2.posting where hide_post = '1'");
 
@@ -126,6 +133,14 @@ class PostController extends BaseController {
 			DB::delete("DELETE from CySwap2.posting where posting_id = ?", array($post->posting_id));
 		}
 	}
-*/
+
+	/*public function purgeDB(){
+		$dbResult = DB::select("SELECT posting_id, category from CySwap2.posting");
+
+		foreach($dbResult as $post){
+			DB::delete("DELETE from CySwap2.category_".$post->category." where posting_id = ?", array($post->posting_id));
+			DB::delete("DELETE from CySwap2.posting where posting_id = ?", array($post->posting_id));
+		}
+	}*/
 
 }
