@@ -13,7 +13,10 @@ class Post extends Eloquent {
 	{
 		// select post with matching id from database
 		$post = DB::select('select * from cyswap2.posting where posting_id = \''.$postid.'\' limit 0,1');
-
+		if(!count($post))
+		{
+			return null;
+		}
 		// save category of post to find extra fields
 		$category = $post[0]->category;
 

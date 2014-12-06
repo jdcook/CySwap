@@ -9,6 +9,9 @@ class PostController extends BaseController {
 	public function getPost($postid)
 	{
 		$posting = App::make('Post')->getPost($postid);
+		if(!$posting){
+			return null;
+		}
 		$configData = DB::select("SELECT * from CySwap2.category_".$posting['category']."_config where character_limit != '0'");
 		$config = array();
 		foreach($configData as $data){

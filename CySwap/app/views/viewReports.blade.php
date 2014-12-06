@@ -6,9 +6,50 @@
 <div class="col-md-12">
 <h1><b>View Reports</b></h1>
 <hr/>
-</div>
+</div>	
 
-<div class="col-md-4"></div>
+<div class="col-md-4">
+	<div class="wrapper-cushy centered">
+		<h3>Filter By</h3>
+		<hr/>
+
+		<div class="wrapper-cushy">
+			<div class="input-group">
+				<span class="input-group-addon">Reporter</span>
+				<input id="searchreporter" class="form-control" type="text" placeholder="username" />
+			</div>
+			<a data-search="reporter" class="btn btn-default">Search</a>
+		</div>
+
+		<br/>
+
+		<div class="wrapper-cushy">
+			<div class="input-group">
+				<span class="input-group-addon">Offender</span>
+				<input id="searchoffender" class="form-control" type="text" placeholder="username" />
+			</div>
+			<a data-search="offender" class="btn btn-default">Search</a>
+		</div>
+		<br/>
+
+		<div class="wrapper-cushy">
+			<div class="input-group">
+				<span class="input-group-addon">Post ID</span>
+				<input id="searchpostid" class="form-control" type="text" placeholder="username" />
+			</div>
+			<a data-search="postid" class="btn btn-default">Search</a>
+		</div>
+		<br/>
+
+		<div class="wrapper-cushy">
+			<div class="input-group">
+				<span class="input-group-addon">Issue ID</span>
+				<input id="searchissueid" class="form-control" type="text" placeholder="username" />
+			</div>
+			<a data-search="issueid" class="btn btn-default">Search</a>
+		</div>
+	</div>
+</div>
 <div class="col-md-4">
 @foreach($reports as $report)
 	<div class="wrapper-cushy centered darkened">
@@ -23,9 +64,13 @@
 	<br/>
 @endforeach
 {{$reports->links();}}
+
+@if(count($reports) == 0)
+<br/><h3 class='faded'>--  No results found  --</h3><br/>
+
+@endif
 </div>
 <div class="col-md-4"></div>
-
 
 @stop
 
@@ -49,6 +94,11 @@ $('a[data-issue]').click(function(){
 	});
 });
 
+$('[data-search]').click(function(){
+	var searchType = $(this).data('search');
+	var searchData = $("#search"+searchType).val();
 
+	window.location.href = "{{URL::to('viewReports')}}?"+searchType+"="+searchData;
+})
 </script>
 @stop

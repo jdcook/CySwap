@@ -111,7 +111,14 @@ Route::get('categories', function()
 Route::get('viewpost/{postid}', function($postid)
 {
 	$posting = App::make('PostController')->getPost($postid);
+	if(!$posting){
+		return Redirect::to('postNotFound');
+	}
 	return View::make('viewpost')->with('posting', $posting);
+});
+
+Route::get('postNotFound', function(){
+	return View::make('postNotFound');
 });
 
 Route::get('postItem', function()
@@ -212,7 +219,7 @@ Route::get('/viewReports', function(){
 Route::get('/addCategory', function(){
 	if(Session::has('usertype')){
 		$usertype = Session::get('usertype');
-		if($usertype == "admin" || $usertype == "moderator"){
+		if($usertype == "admin"){
 			return View::make('addCategory');
 		}
 	}
@@ -222,7 +229,7 @@ Route::get('/addCategory', function(){
 Route::get('/removeCategory', function(){
 	if(Session::has('usertype')){
 		$usertype = Session::get('usertype');
-		if($usertype == "admin" || $usertype == "moderator"){
+		if($usertype == "admin"){
 			return View::make('removeCategory');
 		}
 	}
@@ -232,7 +239,7 @@ Route::get('/removeCategory', function(){
 Route::get('/updateContent', function(){
 	if(Session::has('usertype')){
 		$usertype = Session::get('usertype');
-		if($usertype == "admin" || $usertype == "moderator"){
+		if($usertype == "admin"){
 			return View::make('updateContent');
 		}
 	}
