@@ -249,8 +249,13 @@ Route::get('/manageUsers', function(){
 	return Redirect::to('/');
 });
 
-/*
+
 Route::get('/cleanDB', function(){
-	App::make('PostController')->cleanDB();
-	echo "done";
-});*/
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "admin" || $usertype == "moderator"){
+			App::make('PostController')->cleanDB();
+			echo "done";
+		}
+	}
+});
