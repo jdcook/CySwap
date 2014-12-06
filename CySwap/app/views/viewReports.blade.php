@@ -13,6 +13,8 @@
 		<h3>Filter By</h3>
 		<hr/>
 
+		<a class="btn btn-default btn-positive" href="{{URL::to('viewReports')}}">Clear Filter</a>
+
 		<div class="wrapper-cushy">
 			<div class="input-group">
 				<span class="input-group-addon">Reporter</span>
@@ -51,24 +53,24 @@
 	</div>
 </div>
 <div class="col-md-4">
-@foreach($reports as $report)
-	<div class="wrapper-cushy centered darkened">
-		<b>Issue ID:</b> {{$report->issue_number}}<br/>
-		<b>Reporter:</b> {{$report->reporter}}<br/>
-		<b>Offender:</b> {{$report->offender}}<br/>
-		<b>Post:</b> <a style="color:red" href="{{URL::to('viewpost/'.$report->posting_id)}}">link</a><br/>
-		<b>Description:</b><br/>
-		<div class="wrapper-padded">{{$report->description}}</div><br/>
-		<a class="btn btn-default btn-negative" data-issue="{{$report->issue_number}}" data-loading-text="Loading...">Close Issue</a>
-	</div>
-	<br/>
-@endforeach
-{{$reports->links();}}
-
 @if(count($reports) == 0)
-<br/><h3 class='faded'>--  No results found  --</h3><br/>
-
+	<br/><h3 class='faded'>--  No results found  --</h3><br/>
+@else
+	@foreach($reports as $report)
+		<div class="wrapper-cushy centered darkened">
+			<b>Issue ID:</b> {{$report->issue_number}}<br/>
+			<b>Reporter:</b> {{$report->reporter}}<br/>
+			<b>Offender:</b> {{$report->offender}}<br/>
+			<b>Post:</b> <a style="color:red" href="{{URL::to('viewpost/'.$report->posting_id)}}">link</a><br/>
+			<b>Description:</b><br/>
+			<div class="wrapper-padded">{{$report->description}}</div><br/>
+			<a class="btn btn-default btn-negative" data-issue="{{$report->issue_number}}" data-loading-text="Loading...">Close Issue</a>
+		</div>
+		<br/>
+	@endforeach
+	{{$reports->links();}}
 @endif
+
 </div>
 <div class="col-md-4"></div>
 
