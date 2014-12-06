@@ -8,7 +8,7 @@ class Category extends Eloquent {
 
 	public function getCategories()
 	{
-		$result = DB::select("select * from CySwap.category");
+		$result = DB::select("select * from CySwap.category order by category_name");
 		$categories = array();
 		$i = 0;
 		foreach($result as $category)

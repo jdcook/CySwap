@@ -2,6 +2,7 @@
 	if(isset($_GET['isbn']))
 	{
 		$query = $_GET['isbn'];
+
 		// ISU http proxy (COMMENT OUT IF WORKING ON LOCAL HOST...)
 		$Proxy = "tcp://proxy.its.iastate.edu:6969";
       	if (strlen($Proxy) > 1) {
