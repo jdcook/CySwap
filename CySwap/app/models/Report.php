@@ -26,16 +26,16 @@ class Report extends Eloquent {
 		$dbResult = null;
 		if(Input::has('reporter'))
 		{
-			$dbResult = DB::select("SELECT * from CySwap2.report where closed = '0' and reporter = ? order by issue_number ASC", array(Input::get('reporter')));
+			$dbResult = DB::select("SELECT * from CySwap2.report where reporter = ? order by issue_number ASC", array(Input::get('reporter')));
 		}
 		else if(Input::has('offender')){
-			$dbResult = DB::select("SELECT * from CySwap2.report where closed = '0' and offender = ? order by issue_number ASC", array(Input::get('offender')));
+			$dbResult = DB::select("SELECT * from CySwap2.report where offender = ? order by issue_number ASC", array(Input::get('offender')));
 		}
 		else if(Input::has('postid')){
-			$dbResult = DB::select("SELECT * from CySwap2.report where closed = '0' and posting_id = ? order by issue_number ASC", array(Input::get('postid')));
+			$dbResult = DB::select("SELECT * from CySwap2.report where posting_id = ? order by issue_number ASC", array(Input::get('postid')));
 		}
 		else if(Input::has('issueid')){
-			$dbResult = DB::select("SELECT * from CySwap2.report where closed = '0' and issue_number = ? order by issue_number ASC", array(Input::get('issueid')));
+			$dbResult = DB::select("SELECT * from CySwap2.report where issue_number = ? order by issue_number ASC", array(Input::get('issueid')));
 		}
 		else{
 			$dbResult = DB::select("SELECT * from CySwap2.report where closed = '0' order by issue_number ASC");

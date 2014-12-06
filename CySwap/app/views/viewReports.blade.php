@@ -37,7 +37,7 @@
 		<div class="wrapper-cushy">
 			<div class="input-group">
 				<span class="input-group-addon">Post ID</span>
-				<input id="searchpostid" class="form-control" type="text" placeholder="username" />
+				<input id="searchpostid" class="form-control" type="text" placeholder="postid" />
 			</div>
 			<a data-search="postid" class="btn btn-default">Search</a>
 		</div>
@@ -46,7 +46,7 @@
 		<div class="wrapper-cushy">
 			<div class="input-group">
 				<span class="input-group-addon">Issue ID</span>
-				<input id="searchissueid" class="form-control" type="text" placeholder="username" />
+				<input id="searchissueid" class="form-control" type="text" placeholder="issue number" />
 			</div>
 			<a data-search="issueid" class="btn btn-default">Search</a>
 		</div>
@@ -64,7 +64,11 @@
 			<b>Post:</b> <a style="color:red" href="{{URL::to('viewpost/'.$report->posting_id)}}">link</a><br/>
 			<b>Description:</b><br/>
 			<div class="wrapper-padded">{{$report->description}}</div><br/>
+			@if($report->closed)
+			<b>Post has already been closed.</b>
+			@else
 			<a class="btn btn-default btn-negative" data-issue="{{$report->issue_number}}" data-loading-text="Loading...">Close Issue</a>
+			@endif
 		</div>
 		<br/>
 	@endforeach
@@ -101,6 +105,26 @@ $('[data-search]').click(function(){
 	var searchData = $("#search"+searchType).val();
 
 	window.location.href = "{{URL::to('viewReports')}}?"+searchType+"="+searchData;
-})
+});
+
+$('.pagination > li > a').click(function(e){
+	window.location.href = $(this).attr('href')+addFirstURLParam();
+	e.preventDefault();
+});
+
+function addFirstURLParam()
+{
+    var curURL = window.location.search.substring(1);
+    var variables = curURL.split('&');
+    for (var i = 0; i < variables.length; ++i) 
+    {
+        var param = variables[i].split('=');
+        if (param[0] != 'page') 
+        {
+            return "&"+variables[i];
+        }
+    }
+    return "";
+}
 </script>
 @stop
