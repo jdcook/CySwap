@@ -53,10 +53,11 @@ class CategoryController extends BaseController {
 
 				echo "<select class=\"form-control\" name=\"".$field->field_name."\">";
 				echo "<option name=\"none\">--</option>";
-				echo "<option name=\"poor\">Poor</option>";
-				echo "<option name=\"used\">Used</option>";
+				echo "<option name=\"new\">Brand New</option>";
+				echo "<option name=\"likenew\">Like New</option>";
 				echo "<option name=\"good\">Good</option>";
-				echo "<option name=\"new\">New</option>";
+				echo "<option name=\"acceptable\">Acceptable</option>";
+				echo "<option name=\"poor\">Poor</option>";
 				echo "</select>";
 			}
 			else
