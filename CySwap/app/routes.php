@@ -88,10 +88,15 @@ Route::get('report/{postId}', function($postId)
 {
 	if(Session::has('user'))
 	{
-		return View::make('report')-> with('postId',$postId);
+		$data = array();
+		$data['postuser'] = App::make('Post')->getPostUser($postId);
+		$data['postId'] = $postId;
+		return View::make('report')-> with('data',$data);
 	}
 	else
+	{
 		return View::make('Account/login');
+	}
 });
 
 /* categories */
@@ -186,6 +191,13 @@ Route::post('banUser', 'UserController@banUser');
 Route::post('unBanUser', 'UserController@unBanUser');
 Route::post('replaceImages', 'PostController@replaceImages');
 Route::post('createCategory', 'CategoryController@createCategory');
+
+
+//update terms routes
+Route::post('/updateTermsOfUse', 'UpdateContentController@updateTermsOfUse');
+Route::post('/updateContactUs', 'UpdateContentController@updateContactUs');
+Route::post('/updateAboutUs', 'UpdateContentController@updateAboutUs');
+Route::post('/updateSafety', 'UpdateContentController@updateSafety');
 
 
 Route::get('/outputMessage', function(){
