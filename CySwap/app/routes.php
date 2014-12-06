@@ -193,6 +193,13 @@ Route::post('replaceImages', 'PostController@replaceImages');
 Route::post('createCategory', 'CategoryController@createCategory');
 
 
+//update terms routes
+Route::post('/updateTermsOfUse', 'UpdateContentController@updateTermsOfUse');
+Route::post('/updateContactUs', 'UpdateContentController@updateContactUs');
+Route::post('/updateAboutUs', 'UpdateContentController@updateAboutUs');
+Route::post('/updateSafety', 'UpdateContentController@updateSafety');
+
+
 Route::get('/outputMessage', function(){
 	return View::make('outputMessage');
 });
