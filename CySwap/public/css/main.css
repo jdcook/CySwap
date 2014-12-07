@@ -204,11 +204,14 @@
 
 /* categories */
 #categories > div{
-	margin: 7em 0;
+	margin: 3em 0;
 }
 #categories a{
-	padding: 3em 6em;
-	width: 20em;
+	width: 100%;
+	height: auto;
+	padding-top: 3em;
+	padding-bottom: 3em;
+	max-width: 20em;
 }
 
 .centered{
