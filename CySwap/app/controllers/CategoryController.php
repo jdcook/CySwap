@@ -62,7 +62,11 @@ class CategoryController extends BaseController {
 			}
 			else
 			{
-				echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\" maxlength=\"".$field->character_limit."\">";
+				$charLimit = $field->character_limit;
+				if ($charLimit == 0) {
+					$charLimit = "";
+				}
+				echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\" maxlength=\"".$charLimit."\">";
 			}
 			if($field->field_name == "Isbn 10")
 			{

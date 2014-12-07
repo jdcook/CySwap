@@ -12,7 +12,8 @@ class PostController extends BaseController {
 		if(!$posting){
 			return null;
 		}
-		$configData = DB::select("SELECT * from CySwap2.category_".$posting['category']."_config where character_limit != '0'");
+		//$configData = DB::select("SELECT * from CySwap2.category_".$posting['category']."_config where character_limit != '0'");
+		$configData = DB::select("SELECT * from CySwap2.category_".$posting['category']."_config");
 		$config = array();
 		foreach($configData as $data){
 			$config[$data->field_name] = $data;
@@ -80,7 +81,7 @@ class PostController extends BaseController {
 		$postid = Input::get('postid');
 
 		if(App::make('User')->canUserEdit($postid)){
-			DB::update("UPDATE CySwap2.category_".htmlentities(Input::get('category'))." set ".Input::get('key')." = ? where posting_id = ?", array(Input::get('value'), $postid));
+			DB::update("UPDATE CySwap2.category_".htmlentities(Input::get('category'))." set `".Input::get('key')."` = ? where posting_id = ?", array(Input::get('value'), $postid));
 		}
 	}
 

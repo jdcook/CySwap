@@ -344,6 +344,10 @@ hr{
 	width: 50%;
 }
 
+.one-fifth{
+	width: 20%;
+}
+
 .bigger{
 	font-size: 1.15em;
 }

@@ -185,7 +185,11 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 							<a class="link-edit" data-save="{{$key}}" data-loading-text="Saving...">Save</a>
 							<div class="input-group">
 								<span class="input-group-addon">{{$key}}</span>
-								<input class="form-control" type="text" maxlength="{{$posting['config'][$key]->character_limit}}" value="{{htmlentities($value)}}"/>
+								@if($posting['config'][$key]->character_limit == '0') 
+									<input class="form-control" type="text" value="{{htmlentities($value)}}"/>
+								@else
+									<input class="form-control" type="text" maxlength="{{$posting['config'][$key]->character_limit}}" value="{{htmlentities($value)}}"/>
+								@endif
 							</div>
 						</div>
 						@endif

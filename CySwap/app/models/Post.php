@@ -146,7 +146,7 @@ class Post extends Eloquent {
 				$db_tailer = $db_tailer.", ";
 			}
 
-			$db_string = $db_string.$param;
+			$db_string = $db_string."`".$param."`";
 			$db_tailer = $db_tailer."?";
 			$db_array[$i] = $value;
 

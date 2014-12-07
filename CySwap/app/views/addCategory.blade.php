@@ -5,6 +5,7 @@
 @section('content')
 <div class="col-sm-12">
     <h1><b>Add Category</b></h1>
+    <p>The following are required: Category Name, Field Name(s), and Order.<br/>Leaving the character limit empty means you do not wish there to be a character limit on this field.</p>
     <hr/>
 </div>
 <br/>
@@ -23,9 +24,19 @@
         <input class="form-control" type="text" name="categoryName" />
     </div>
 
-    <div class="wrapper-cushy">
-        <strong>Has Item Condition: </strong>
-        <input type="checkbox" name="hasCondition" />
+    <div class="row centered wrapper-cushy">
+    	<div class="col-sm-3">
+        	<strong>Has Item Condition: </strong>
+        	<input type="checkbox" name="hasCondition" />
+    	</div>
+    	<div class="col-sm-3">
+        	<strong>Item Condition is required: </strong>
+        	<input type="checkbox" name="fieldCondition_isRequired" />
+        </div>
+		<div class="col-sm-4">
+      		<strong>Item Condition's order: </strong>
+      		<input class="one-fifth" type="number" min="1" name="fieldCondition_order" />
+        </div>
     </div>
 </div>
 <br/>
