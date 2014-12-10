@@ -24,17 +24,8 @@
 
 					<br/>
 					<div class="col-sm-9 details">
-						@if(isset($post['author']))
-							<p><b>Title:</b> {{$post['title']}}</p>
-							<p><b>Author:</b> {{$post['author']}}</p>
-							<p><b>ISBN_10:</b> {{$post['isbn_10']}}</p>
-							<p><b>ISBN_13:</b> {{$post['isbn_13']}}</p>
-							<p><b>Condition:</b> {{$post['item_condition']}}</p>
-						@else
-							<p><b>Title:</b> {{$post['title']}}</p>
-							<p><b>Condition:</b> {{$post['item_condition']}}</p>
-							<p><b>Description:</b> {{$post['description']}}</p>
-						@endif
+						<p><b>Title:</b> {{$post['title']}}</p>
+						<p><b>Description:</b> {{$post['description']}}</p>
 					</div>
 				</div>
 			</div>
