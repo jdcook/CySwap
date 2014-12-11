@@ -18,7 +18,6 @@ class CategoryController extends BaseController {
 	public function getCategoryFields_AJAX($category)
 	{
 		$fields = App::make('Category')->getCategoryFields($category);
-
 		//echo form
 
 		echo "Upload Picture";
@@ -38,7 +37,7 @@ class CategoryController extends BaseController {
 			$fieldID = $field->field_name;
 			$field->field_name = str_replace('_', ' ', $field->field_name);
 			$field->field_name = ucwords($field->field_name);
-			if($field->field_name == "Description")
+			if($field->field_name == "Description" || $field->field_name == "Suggested Price")
 			{
 				continue;
 			}
@@ -90,6 +89,12 @@ class CategoryController extends BaseController {
 			}
 			echo "</div>";
 		}
+
+		echo "<div class=\"input-group detail\">";
+		echo "<span class=\"input-group-addon\"><label for=\"Suggested Price\">";
+		echo "Suggested Price</label></span>";
+		echo "<input class=\"form-control\" name=\"Suggested Price\" type=\"text\" value=\"\" id=\"suggested_price\" maxlength=\"10\">";
+		echo "</div>";
 
 		echo "<div class=\"detail\">";
 		echo "<span class=\"input-group-addon textareaLabel\"><label for=\""."Description"."\">"."Description"."</label></span>";
