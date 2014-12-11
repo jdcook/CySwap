@@ -24,19 +24,13 @@
         <input class="form-control" type="text" name="categoryName" />
     </div>
 
-    <div class="row centered wrapper-cushy">
+    <div id="itemCondition" class="row centered wrapper-cushy">
     	<div class="col-sm-3">
         	<strong>Has Item Condition: </strong>
-        	<input type="checkbox" name="hasCondition" />
+        	<input type="checkbox" name="hasCondition" id="hasCondition" />
     	</div>
-    	<div class="col-sm-3">
-        	<strong>Item Condition is required: </strong>
-        	<input type="checkbox" name="fieldCondition_isRequired" />
-        </div>
-		<div class="col-sm-4">
-      		<strong>Item Condition's order: </strong>
-      		<input class="one-fifth" type="number" min="1" name="fieldCondition_order" />
-        </div>
+        <div id="conditionQuestions">
+        </div>        
     </div>
 </div>
 <br/>
@@ -114,6 +108,23 @@
 @section('javascript')
 
 <script>
+$('#hasCondition').click(function() {
+    var $this = $(this);
+    // $this will contain a reference to the checkbox   
+    if ($this.is(':checked')) {
+        $('#conditionQuestions').html("<div class='col-sm-3'>"
+            +"<strong>Item Condition is required: </strong>"
+            +"<input type='checkbox' name='fieldCondition_isRequired' />"
+        +"</div>"
+        +"<div class='col-sm-4'>"
+            +"<strong>Item Condition's order: </strong>"
+            +"<input class='one-fifth' type='number' min='1' name='fieldCondition_order' />"
+        +"</div>");
+    } else {
+        $('#conditionQuestions').html("");
+    }
+});
+
 $('#addFieldBtn').click(function(){
     var counter = $('#fieldCounter');
     var counterVal = parseInt(counter.val());
