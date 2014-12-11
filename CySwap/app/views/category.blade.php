@@ -2,7 +2,9 @@
 
 @section('content')
 
-<h1>{{ucfirst($category)}}</h1>
+<h1>
+	<?php $category = str_replace("_"," ",$category);
+            $category = ucwords($category);?>{{$category}}</h1>
 <hr>
 <div class="col-md-4 container-fluid">
 	<?php 
