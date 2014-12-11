@@ -349,6 +349,17 @@ function updatePictureForm(){
 	});
 }
 
+$('#image_main').click(function(){
+	var dialog = $('#dialog');
+	if(dialog.length){
+		dialog.dialog("open");
+	}
+	else{
+		$(this).append("<div id='dialog' class='wrapper-cushy'><img style='width: 100%' src='"+$(this).attr("src")+"'></div>");
+		$('#dialog').dialog({title: 'Image', width: $(window).width() * .98, height: $(window).height() * .95});
+	}
+})
+
 updatePictureForm();
 </script>
 @stop
