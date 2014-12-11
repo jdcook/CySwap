@@ -1,9 +1,9 @@
 <html>
 <head>
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+	{{ HTML::style('css/bootstrap.min.css') }}
 	{{ HTML::style('css/bootstrapOverrides.css')}}
 	{{ HTML::style('css/main.css')}}
 	{{ HTML::style('css/jquery-ui.min.css')}}
@@ -116,10 +116,10 @@
 
 
 <!-- javascript includes -->
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+{{ HTML::script('js/jquery-1.11.1.min.js') }}
+{{ HTML::script('js/jquery-migrate-1.2.1.min.js') }}
+{{ HTML::script('js/jquery-ui.min.js') }}
+{{ HTML::script('js/bootstrap.min.js') }}
 <!-- end javascript includes -->
 
 <script>
