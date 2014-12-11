@@ -18,10 +18,12 @@ class HomeController extends BaseController {
 	public function showData()
 	{
 		$category1_name = 'textbook';
-		$category1 = App::make('Post')->getPostingLites($category1_name, 5);
-		$category2_name = 'miscellaneous';
-		$category2 = App::make('Post')->getPostingLites($category2_name, 5);
-		$postingLites =  array($category1_name=>$category1,$category2_name=>$category2);
+		$category1 = App::make('Post')->getPostingLites($category1_name, 3);
+		$category2_name = 'tickets';
+		$category2 = App::make('Post')->getPostingLites($category2_name, 3);
+		$category3_name = 'miscellaneous';
+		$category3 = App::make('Post')->getPostingLites($category3_name, 3);
+		$postingLites =  array($category1_name=>$category1,$category2_name=>$category2, $category3_name=>$category3);
 		return $postingLites;
 	}
 
