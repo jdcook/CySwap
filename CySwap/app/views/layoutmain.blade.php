@@ -22,11 +22,10 @@
 			<div class="col-md-2">
 				<img id="logo" src="{{asset('media/logo.jpg')}}" style="width:8em; border-style: outset;border-width: 7px" />
 			</div>
-			<div class="col-md-1"></div>
 			<div class="col-md-4">
 				<img id="logo" src="{{asset('media/cySwapTitle.png')}}" style="width:25em; padding-top:3em" />
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 			</div>
 			<div class="col-md-2">
 				<br/>
