@@ -31,7 +31,10 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 		<select id="categorySelect" class="form-control" name="categoryDropdown">
 			<option name="none">---</option>
 			@for($i = 0; $i < count($categories); $i++)
-				<option name="{{$categories[$i]}}">{{$categories[$i]}}</option>
+				<option name="{{$categories[$i]}}">
+					<?php $categories[$i] = str_replace("_"," ",$categories[$i]);
+            			$categories[$i] = ucwords($categories[$i]);?> 
+					{{$categories[$i]}}</option>
 			@endfor
 		</select>
 
@@ -59,7 +62,7 @@ if(Session::has('accepted_terms') && Session::get('accepted_terms')){
 <script>
 
 $('#categorySelect').change(function() {
-	selected_category = $("#categorySelect option:selected").text();
+	selected_category = $("#categorySelect option:selected").attr("name");
 	if(selected_category == "---")
 	{
 		$('#form').html("");
@@ -125,7 +128,7 @@ function setHooks(){
 
 		done = false;
 		$('[data-required=1]').each(function(){
-			if(!$(this).val() || $(this).val() == '--')
+			if(!$(this).val() || $(this).val() == 'none')
 			{
 				$(this).parent().before("<span class='alert requiredAlert'><br/><b>* Required Field</b></span>");
 				
