@@ -55,6 +55,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 				<img class="thumb" id="thumb{{$i}}" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_{{$i}}.jpg" width=20 height=20 alt="ERROR"/>
 			@endfor
 		</div>
+		<p><b class="detailHeading">Date Posted:</b>{{htmlentities($posting['date'])}} </p>
 		@if($canEdit)
 		<br/>
 		<br/>
@@ -143,26 +144,15 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 	</div>
 </div>
 
-<div class="col-md-6">
+<div class="col-md-6 container">
 	<div class="detailContainer">
-		<h2>Details</h2>
-		<hr />
-
-		@if(array_key_exists("date", $posting))
-			<p>
-				<b class="detailHeading">Date Posted:</b>{{htmlentities($posting['date'])}} 
-				@if(array_key_exists("category", $posting))
-				<br/><b class="detailHeading">Category:</b>{{htmlentities($posting['category'])}}
-				<br/><br/>
-				@endif
-			</p>
-		@endif
 			@foreach($posting as $key => $value)
 				@if($key != "posting_id" and $key != "seller_has_rated" and $key != "buyer_has_rated" and $key != "tags"
 					and $key != "hide_post" and $key != "title"
 					and $key != "description" and $key != 'username' and $key != "suggested_price")
 				@if($key != 'num_images' and $key != 'date' and $key != 'category' and $key != 'config' and !is_null($value))
 					
+					<div class="singleDetail row">
 					@if($canEdit)
 						@if($key == 'item_condition')
 						<a class="link-edit" data-edit="{{$key}}">Edit</a>
@@ -197,28 +187,30 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 					<div id="{{$key}}Hide">
 						<p><b class="detailHeading">{{$key}}:</b> <span id="{{$key}}Static">{{htmlentities($value)}}</span></p>
 					</div>
+				</div>
 				@endif
 				@endif
 			@endforeach
 			<br/>
 
-
 			@if(array_key_exists("description", $posting))
+				<div class="row centered">
+					<br/>
 				@if($canEdit)
-				<a class="link-edit" data-edit="description">Edit</a>
-				<div id="descriptionEdit" style="display:none">
-					<a class="link-edit" data-save="description" data-loading-text="Saving...">Save</a>
-					<textarea class="form-control description">{{htmlentities($posting['description'])}}</textarea>
-				</div>
-				@endif
+					<a class="link-edit" data-edit="description">Edit</a>
+					<div id="descriptionEdit" style="display:none">
+						<a class="link-edit" data-save="description" data-loading-text="Saving...">Save</a>
+						<textarea class="form-control description">{{htmlentities($posting['description'])}}</textarea>
+					</div>
+					@endif
 
-				<div id="descriptionHide">
-					<p><b>Description:</b><br/><span id="descriptionStatic">{{htmlentities($posting['description'])}}</span></p>
+					<div id="descriptionHide">
+						<p><b>Description:</b><br/><div class="wrapper-cushy"><span id="descriptionStatic">{{htmlentities($posting['description'])}}</span></div></p>
+					</div>
 				</div>
 			@endif
-
-			<a style="color:red" href="{{URL::to('/report/'.$posting['posting_id'])}}">Report </a>
 	</div>
+	<br/><a style="color:red" href="{{URL::to('/report/'.$posting['posting_id'])}}">Report Post</a>
 </div>
 
 
@@ -355,7 +347,7 @@ $('#image_main').click(function(){
 		dialog.dialog("open");
 	}
 	else{
-		$(this).append("<div id='dialog' class='wrapper-cushy'><img style='width: 100%' src='"+$(this).attr("src")+"'></div>");
+		$(this).append("<div id='dialog' class='wrapper-cushy'><img src='"+$(this).attr("src")+"'></div>");
 		$('#dialog').dialog({title: 'Image', width: $(window).width() * .98, height: $(window).height() * .95});
 	}
 })
