@@ -79,6 +79,7 @@ $('#categorySelect').change(function() {
 
 function setHooks(){
 	$('#isbnPopBtn').click(function(){
+		$('#failureMsg').html("");
 		$(this).button('loading');
 		var value = $('#isbn_10').val();
 					$('#failureMsg').html("");
@@ -92,13 +93,20 @@ function setHooks(){
 				//$('#failureMsg').html(result);
 				if(result.indexOf(value) > -1)
 				{
-					var isbn_data = result.split(',');
-					$('#isbn_10').val(isbn_data[0]);
-					$('#isbn_13').val(isbn_data[1]);
-					$('#title').val(isbn_data[2]);
-					$('#author').val(isbn_data[3]);
-					$('#publisher').val(isbn_data[4]);
-					$('#edition').val(isbn_data[5]);
+					if(result.indexOf('xdebug-error') > -1)
+					{
+						$('#failureMsg').html("<p class=\"alert\">ISBN Lookup Failed: connection timed out</p>");	
+					}
+					else
+					{
+						var isbn_data = result.split(',');
+						$('#isbn_10').val(isbn_data[0]);
+						$('#isbn_13').val(isbn_data[1]);
+						$('#title').val(isbn_data[2]);
+						$('#author').val(isbn_data[3]);
+						$('#publisher').val(isbn_data[4]);
+						$('#edition').val(isbn_data[5]);
+					}
 				}
 				else
 				{
@@ -108,45 +116,32 @@ function setHooks(){
 		});
 	});
 
-//we used to have this line if($('#picture2').val().indexOf("fakepath") > -1)
-//we don't know what it fixed but removing it we cannot recreate any issue
+	$('[data-picture]').on('change', function(){
+		$('[data-picture='+(parseInt($(this).data('picture')) + 1)+']').css('display', 'block');
+	});
 
-	$('#picture1').change(function(){
-		$('#picture2').css('display', 'block');
-	})
+	$('#submitBtn').click(function(e){
+		$('.requiredAlert').remove();
 
-	$('#picture2').change(function(){
-		$('#picture3').css('display', 'block');
-	})
-
-	$('#picture3').change(function(){
-		$('#picture4').css('display', 'block');
-	})
-
-	$('#picture4').change(function(){
-		$('#picture5').css('display', 'block');
-	})
-
-	$('#picture5').change(function(){
-		$('#picture6').css('display', 'block');
-	})
-
-	$('#picture6').change(function(){
-		$('#picture7').css('display', 'block');
-	})
-
-	$('#picture7').change(function(){
-		$('#picture8').css('display', 'block');
-	})
-
-	$('#picture8').change(function(){
-		$('#picture9').css('display', 'block');
-	})
-
-	$('#picture9').change(function(){
-		$('#picture10').css('display', 'block');
-	})
+		done = false;
+		$('[data-required=1]').each(function(){
+			if(!$(this).val() || $(this).val() == '--')
+			{
+				$(this).parent().before("<span class='alert requiredAlert'><br/><b>* Required Field</b></span>");
+				
+				if(!done)
+				{
+					done = true;
+				    $('html, body').animate(
+				    	{scrollTop: $('#categorySelect').offset().top - 100},
+				     	250);
+					
+					e.preventDefault();
+				}
+			}
+		})
+	});
 }
-
+var done = false;
 </script>
 @stop

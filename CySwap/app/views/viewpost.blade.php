@@ -350,7 +350,7 @@ $('#image_main').click(function(){
 		$(this).append("<div id='dialog' class='wrapper-cushy'><img src='"+$(this).attr("src")+"'></div>");
 		$('#dialog').dialog({title: 'Image', width: $(window).width() * .98, height: $(window).height() * .95});
 	}
-})
+});
 
 updatePictureForm();
 </script>

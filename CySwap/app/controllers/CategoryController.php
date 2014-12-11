@@ -25,7 +25,7 @@ class CategoryController extends BaseController {
 
 		for($i = 1; $i <= 10; $i++)
 		{
-			echo "<input class=\"form-control upload-form-control\" id=\"picture".$i."\" type=\"file\" name=\"picture".$i."\"";
+			echo "<input class=\"form-control upload-form-control\" data-picture=\"".$i."\" type=\"file\" name=\"picture".$i."\"";
 			if($i != 1)
 			{
 				echo " style=\"display:none;\"";
@@ -47,11 +47,22 @@ class CategoryController extends BaseController {
 				echo "<div id=\"failureMsg\"></div>";
 			}
 			echo "<div class=\"input-group detail\">";
-			echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">".$field->field_name."</label></span>";
+			echo "<span class=\"input-group-addon\"><label for=\"".$field->field_name."\">";
+			if($field->is_required)
+			{
+				echo "*";
+			}
+			echo $field->field_name."</label></span>";
 			if($field->field_name == "Item Condition")
 			{
-
-				echo "<select class=\"form-control\" name=\"".$field->field_name."\">";
+				if($field->is_required)
+				{
+					echo "<select class=\"form-control\" data-required='1' name=\"".$field->field_name."\">";
+				}
+				else
+				{
+					echo "<select class=\"form-control\" name=\"".$field->field_name."\">";
+				}
 				echo "<option name=\"none\">--</option>";
 				echo "<option name=\"new\">Brand New</option>";
 				echo "<option name=\"likenew\">Like New</option>";
@@ -66,7 +77,12 @@ class CategoryController extends BaseController {
 				if ($charLimit == 0) {
 					$charLimit = "";
 				}
-				echo "<input class=\"form-control\" name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\" maxlength=\"".$charLimit."\">";
+				echo "<input class=\"form-control\" ";
+				if($field->is_required)
+				{
+					echo "data-required='1' ";
+				}
+				echo "name=\"".$field->field_name."\" type=\"text\" value=\"\" id=\"".$fieldID."\" maxlength=\"".$charLimit."\">";
 			}
 			if($field->field_name == "Isbn 10")
 			{
@@ -82,7 +98,7 @@ class CategoryController extends BaseController {
 
 		echo "<input class=\"form-control\" name=\""."Category"."\" type=\"hidden\" value=\"".$category."\" id=\""."Category"."\">";
 
-		echo "<a> <input class=\"btn btn-default btn-hugeSubmit\" role=\"button\" type=\"submit\" value=\"Submit Post\"> </a>";
+		echo "<a> <input id='submitBtn' class=\"btn btn-default btn-hugeSubmit\" role=\"button\" type=\"submit\" value=\"Submit Post\"> </a>";
 
 		return;
 	}
