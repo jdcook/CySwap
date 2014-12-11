@@ -20,11 +20,11 @@
 	<div class="jumbotron">
 		<div class="row">
 			<div class="col-md-2">
-				<img id="logo" src="{{asset('media/logo.jpg')}}" style="width:14em; height:10em" />
+				<img id="logo" src="{{asset('media/logo.jpg')}}" style="width:8em; border-style: outset;border-width: 7px" />
 			</div>
 			<div class="col-md-1"></div>
 			<div class="col-md-4">
-				<h1 style="text-align:left">Cyswap</h1>
+				<img id="logo" src="{{asset('media/cySwapTitle.png')}}" style="width:25em; padding-top:3em" />
 			</div>
 			<div class="col-md-2">
 			</div>
