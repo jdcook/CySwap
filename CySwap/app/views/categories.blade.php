@@ -29,7 +29,9 @@
     	?>
 	@endif
 	<div class="col-sm-4 col-lg-3">
-          <a class="btn btn-default" href="{{URL::to('category/'.$category)}}"><?php $category = ucfirst($category);?> {{$category}} »</a>
+          <a class="btn btn-default" href="{{URL::to('category/'.$category)}}">
+            <?php $category = str_replace("_"," ",$category);
+            $category = ucwords($category);?> {{$category}} »</a>
     </div>
 @endforeach
 </div>
