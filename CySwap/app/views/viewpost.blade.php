@@ -86,8 +86,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 				<a class="btn btn-default accept termsBtn" href="{{URL::to('terms')}}">Terms of Use</a>
 			@else
 				<!-- if the poster is the same as the current user, let them mark as complete -->
-				@if($canEdit)
-					@if(Session::get('user') == $posting['username'])
+				@if(Session::get('user') == $posting['username'])
 					<p><b>Poster:</b><br/> {{$posting['username']}} (me)</p><br/>
 					<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
 					<div class='panel-collapse collapse wrapper' id="markCompletePanel">
@@ -105,19 +104,6 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 						{{ Form::submit('Submit', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default positive-active center-block', 'role' => 'button']) }}<br /><br />
 						{{Form::token()}}
 					</div>
-					@else
-					<p><b>Poster:</b><br/> {{$posting['username']}}</p><br/>
-					<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
-					<div class='panel-collapse collapse wrapper-cushy' id="markCompletePanel">
-						{{ Form::open(array('action'=>'TransactionController@completeTransaction')) }}
-						{{Form::hidden('postid', $posting['posting_id'])}}
-						{{Form::hidden('isFinishing', 'n', ['id'=>'isFinishing'])}}
-						<br/><br/>
-						{{ Form::submit('Delete Post', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default negative-active center-block', 'role' => 'button']) }}<br /><br />
-						{{Form::token()}}
-					</div>
-
-					@endif
 				<!-- otherwise, show contact seller button -->
 				@else
 					<p><b>Poster:</b><br/> {{$posting['username']}}</p><br/>
@@ -151,6 +137,18 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 								<br/>
 							</p>
 					</div>
+
+					@if($canEdit)
+					<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
+					<div class='panel-collapse collapse wrapper-cushy' id="markCompletePanel">
+						{{ Form::open(array('action'=>'TransactionController@completeTransaction')) }}
+						{{Form::hidden('postid', $posting['posting_id'])}}
+						{{Form::hidden('isFinishing', 'n', ['id'=>'isFinishing'])}}
+						<br/><br/>
+						{{ Form::submit('Delete Post', ['id' => 'sendEmailBtn', 'class' => 'btn btn-default negative-active center-block', 'role' => 'button']) }}<br /><br />
+						{{Form::token()}}
+					</div>
+					@endif
 				@endif
 			@endif
 		@endif
