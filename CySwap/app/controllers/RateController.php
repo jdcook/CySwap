@@ -13,6 +13,10 @@ class RateController extends BaseController {
         $loggedin_user = Session::get('user');
 
         $posting_info = App::make('User')->getSellerAndFlags($posting_id);
+        if(!count($posting_info))
+        {
+            return Redirect::to('/outputMessage')->with('message', 'Sorry, but that user does not exist.');
+        }
 
         //if logged in user is seller and seller_has_rated flag is set, don't rate  again!
         //if logged in user isn't seller and buyer_has_rated flag is set, also don't rate

@@ -28,7 +28,13 @@ class TransactionController extends BaseController {
     public function completeTransaction(){
         try{
             if(Input::get('isFinishing') == 'y'){
+
                 $postid = Input::get('postid');
+                if(!App::make('user')->doesUserExist(Session::get('ser')))
+                {
+                    return Redirect::to('/outputMessage')->with('message', 'Sorry, but that user does not exist.<br/><a class="btn btn-default" href="'.URL::to('viewpost/'.$postid).'">Back to post</a>');
+                }
+
                 App::make('Post')->deletePost($postid);
                 $username = Session::get('user');
                 Mail::send('emails.rate', array('postid'=>$postid, 'poster'=>$username), function($message)

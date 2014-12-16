@@ -14,9 +14,6 @@ class User {
 			DB::update("UPDATE CySwap2.user set positive = ? where username = ?", array($num, $username));
 			DB::update("UPDATE CySwap2.posting set $seller_or_buyer" . "_has_rated = '1' where posting_id = '$posting_id'");
 		}
-		else{
-			DB::insert("INSERT into CySwap2.user (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 0, 1, 0));
-		}
 	}
 
 	public function thumbsDown($username, $posting_id, $seller_or_buyer){
@@ -26,9 +23,6 @@ class User {
 			$num = $num + 1;
 			DB::update("UPDATE CySwap2.user set negative = ? where username = ?", array($num, $username));
 			DB::update("UPDATE CySwap2.posting set $seller_or_buyer" . "_has_rated = '1' where posting_id = '$posting_id'");
-		}
-		else{
-			DB::insert("INSERT into CySwap2.user (username, accepted_terms, positive, negative) VALUES (?,?,?,?)", array($username, 0, 1, 0));
 		}
 	}
 
@@ -173,5 +167,10 @@ class User {
 		}
 
 		return false;
+	}
+
+	public function doesUserExist($user){
+		$dbResult = DB::select("SELECT * from CySwap2.user where username = ?", array($user));
+		return count($dbResult);
 	}
 }
