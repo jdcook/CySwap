@@ -2,6 +2,9 @@
 
 @section('content')
 
+<br/>
+<p>Enter your Iowa State NetId and NetId password to log into CySwap.</p>
+
 <div class="col-md-3">
 	<form action="{{ URL::route('login-post') }}" method="post">
 		<br>
