@@ -139,6 +139,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 					</div>
 
 					@if($canEdit)
+					<br/><br/>
 					<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
 					<div class='panel-collapse collapse wrapper-cushy' id="markCompletePanel">
 						{{ Form::open(array('action'=>'TransactionController@completeTransaction')) }}
