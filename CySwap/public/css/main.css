@@ -1,3 +1,4 @@
+
 /* View Post */
 .price{
 	padding: 1em;
@@ -174,7 +175,12 @@
 }
 
 .entryimg{
-	width: auto;
+	margin-right: 2em;
+	max-width: 5em;
+}
+
+.entryimg-viewpost{
+	width: 100%;
 	height: auto;
 	margin-right: 2em;
 	max-width: 15em;
@@ -365,3 +371,9 @@ hr{
 	padding: 0 1.5em;
 }
 
+.entryimg-viewpost:hover{
+	cursor:hand;
+}	
+.entryimg-viewpost{
+	cursor:pointer;
+}	

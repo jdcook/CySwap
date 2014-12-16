@@ -48,7 +48,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 		@endif
 		<div id="imageStatic">
 			@if($posting['num_images'] > 0)
-				<img id="image_main" class="entryimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
+				<img id="image_main" class="entryimg-viewpost" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
 			@endif
 
 			@for($i = 0; $i < $posting['num_images']; $i++)
@@ -355,6 +355,7 @@ function updatePictureForm(){
 $('#image_main').click(function(){
 	var dialog = $('#dialog');
 	if(dialog.length){
+		dialog.children('img').attr("src", $(this).attr("src"));
 		dialog.dialog("open");
 	}
 	else{
