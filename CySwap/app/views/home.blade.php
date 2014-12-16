@@ -13,7 +13,8 @@
 				<a class="catLink" href="{{URL::to('category/'.$categoryname)}}">{{ucfirst($categoryname)}}</a>
 			</h2>
 			@foreach($category as $posting)
-					<div class="entry" data-postid="{{$posting['posting_id']}}">
+				<a href="{{URL::to('viewpost/'.$posting['posting_id'])}}" >
+					<div class="entry">
 						<div class="row">
 							<h4>{{htmlentities($posting['title'])}}</h4>
 						</div>
@@ -35,6 +36,7 @@
 							</div>
 						</div>
 					</div>
+				</a>
 			@endforeach
 			</div>
 		</div>

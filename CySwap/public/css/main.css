@@ -174,7 +174,7 @@
 }
 
 .entryimg{
-	width: 100%;
+	width: auto;
 	height: auto;
 	margin-right: 2em;
 	max-width: 15em;

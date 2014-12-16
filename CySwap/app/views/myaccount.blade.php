@@ -37,23 +37,29 @@ if(!count($data['posts'])){
 
 ?>
 @foreach($data['posts'] as $posting)
-    <div class="entry" data-postid="{{$posting->posting_id}}">
-        <div class="row">
-            <h4>{{htmlentities($posting->title)}}</h4>
-            <br>
-            <p><b>Category:</b> {{$posting->category}}</p>
-        </div>
-        <br />
-        <div class="row">
-            <div class="col-sm-12">  
-                @if($posting->num_images == 0)
-                    <span class="entryimg notfound glyphicon glyphicon-picture"></span>
-                @else
-                    <img class="entryimg" src="{{asset('media/post_images')}}/{{$posting->posting_id}}_0.jpg" />
-                @endif
-            </div>
+
+<a href="{{URL::to('viewpost/'.$posting->posting_id)}}" >
+<div class="entry" data-postid="{{$posting->posting_id}}">
+    <div class="row">
+        <h4>{{htmlentities($posting->title)}}</h4>
+        <br>
+        <p><b>Category:</b> {{$posting->category}}</p>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-12">  
+        @if($posting->num_images == 0)
+            <span class="entryimg notfound glyphicon glyphicon-picture"></span>
+        @else
+            <img class="entryimg liteimg" src="{{asset('media/post_images')}}/{{$posting->posting_id}}_0.jpg" />
+        @endif
+        <br/>
+        <br/>
         </div>
     </div>
+</div>
+</a>
+
 
 @endforeach
 
