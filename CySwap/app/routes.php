@@ -188,9 +188,12 @@ Route::post('rateBuyer', 'RateController@rateBuyer');
 Route::post('reportPost', 'ReportController@reportPost');
 Route::post('suspendUser', 'UserController@suspendUser');
 Route::post('banUser', 'UserController@banUser');
+Route::post('promoteUser', 'UserController@promoteUser');
+Route::post('demoteUser', 'UserController@demoteUser');
 Route::post('unBanUser', 'UserController@unBanUser');
 Route::post('replaceImages', 'PostController@replaceImages');
 Route::post('createCategory', 'CategoryController@createCategory');
+Route::post('deleteCategory', 'CategoryController@removeCategory');
 
 
 //update terms routes
@@ -212,8 +215,18 @@ Route::get('/rateBuyer/{user}/{postid}', function($user, $postid){
 Route::get('/adminArea', function(){
 	if(Session::has('usertype')){
 		$usertype = Session::get('usertype');
-		if($usertype == "admin" || $usertype == "moderator"){
+		if($usertype == "admin" ){
 			return View::make('adminArea');
+		}
+	}
+	return Redirect::to('/');
+});
+
+Route::get('/moderatorArea', function() {
+	if(Session::has('usertype')){
+		$usertype = Session::get('usertype');
+		if($usertype == "moderator" ){
+			return View::make('moderatorArea');
 		}
 	}
 	return Redirect::to('/');
@@ -243,7 +256,8 @@ Route::get('/removeCategory', function(){
 	if(Session::has('usertype')){
 		$usertype = Session::get('usertype');
 		if($usertype == "admin"){
-			return View::make('removeCategory');
+			$categories = App::make('CategoryController')->getCategories();
+			return View::make('removeCategory')->with('categories', $categories);
 		}
 	}
 	return Redirect::to('/');

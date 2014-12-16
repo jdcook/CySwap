@@ -28,6 +28,10 @@ class Category extends Eloquent {
 		return $category_config;
 	}
 
+	public function removeCategory($categoryName) {
+		
+	}
+
 	public function createCategory($post_params) {
 
 		//lowercase all characters and replace spaces with underscores

@@ -134,4 +134,18 @@ class CategoryController extends BaseController {
 		}
 		return Redirect::to('/outputMessage')->with('message', $msg);
 	}
+
+	public function removeCategory() {
+		$categoryToRemove = strtolower(Input::get('categorySelect'));
+		$categoryToRemove = str_replace(" ","_",$categoryToRemove);
+
+		try{
+			App::make('Category')->removeCategory($categoryToRemove);
+
+			$msg = $msg."Category has been removed";
+		}
+		catch(Exception $ex){
+			$msg = $msg."Error removing category: <br/>".$ex->getMessage();
+		}
+	}
 }
