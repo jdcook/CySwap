@@ -78,7 +78,7 @@
 						</li>
 						@elseif(Session::get('usertype') == "moderator")
 						<li>
-							<a href="{{URL::to('viewReports')}}">View Reports</a>
+							<a href="{{URL::to('moderatorArea')}}">Moderator Area</a>
 						</li>
 						@endif
 						<li>
