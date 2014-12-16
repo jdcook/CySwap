@@ -6,7 +6,7 @@
 	<hr>
 
 <?php $posts = $results->getItems(); ?>
-	@if(isset($posts))
+	@if(isset($posts) && !empty($posts))
 		@foreach($posts as $post)
 			<div class="col-md-6 container-fluid">
 				<div class="entry" data-postid="{{$post['posting_id']}}">
@@ -30,6 +30,8 @@
 				</div>
 			</div>
 		@endforeach
+	@else
+		<p>Sorry, no results were found.</p>
 	@endif
 
 	<br>
