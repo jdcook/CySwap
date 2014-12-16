@@ -19,12 +19,12 @@
 	<!-- header -->
 	<div class="jumbotron">
 		<div class="row">
-			<div class="col-md-2">
+			<a href="{{URL::to('/')}}" class="col-md-2">
 				<img id="logo" src="{{asset('media/logo.jpg')}}" style="width:8em; border-style: outset;border-width: 7px" />
-			</div>
-			<div class="col-md-4">
+			</a>
+			<a href="{{URL::to('/')}}" class="col-md-4">
 				<img id="logo" src="{{asset('media/cySwapTitle.png')}}" style="width:25em; padding-top:3em" />
-			</div>
+			</a>
 			<div class="col-md-3">
 			</div>
 			<div class="col-md-2">
