@@ -6,7 +6,8 @@ class TransactionController extends BaseController {
     public function beginTransaction () {
         $msg = 'The email has been sent.<br/>';
         try{
-            Mail::send('emails.contact', array('emailText'=>Input::get('emailText')), function($message)
+            $emailBody = Input::get('emailText')."<br/><br/>Please reply directly to this email. Your response will go directly to ".Session::get('user');
+            Mail::send('emails.contact', array('emailText'=>$emailBody), function($message)
             {
                 $poster = Input::get('posterName');
                 $buyer = Session::get('user');
@@ -33,7 +34,7 @@ class TransactionController extends BaseController {
                 Mail::send('emails.rate', array('postid'=>$postid, 'poster'=>$username), function($message)
                 {
                     $buyerName = Input::get('buyerName');
-                    $message->sender('cyswap@iastate.edu', 'CySwap')
+                    $message->sender('cyswap@iastate.edu', 'doNotReply:CySwap')
                     ->to($buyerName.'@iastate.edu', $buyerName)
                     ->subject('Cyswap Transaction Completed');
                 });
