@@ -38,9 +38,9 @@ if(!count($data['posts'])){
 ?>
 @foreach($data['posts'] as $posting)
 
-<a href="{{URL::to('viewpost/'.$posting->posting_id)}}" >
+<a class="entry-link" href="{{URL::to('viewpost/'.$posting->posting_id)}}" >
 <div class="entry" data-postid="{{$posting->posting_id}}">
-    <div class="row">
+    <div class="row centered">
         <h4>{{htmlentities($posting->title)}}</h4>
         <br>
         <p><b>Category:</b> {{$posting->category}}</p>

@@ -154,6 +154,7 @@
 	min-height: 15em;
 	max-height: 30em;
 	overflow: hidden;
+	text-decoration: none;
 }
 
 @media (min-width: 992px){
@@ -165,6 +166,7 @@
 .entry:hover{
 	border: 2px solid black;
 	background-color: rgb(245, 245, 245);
+	text-decoration:none;
 }
 
 .entryimg-glyph{
@@ -376,4 +378,12 @@ hr{
 }	
 .entryimg-viewpost{
 	cursor:pointer;
-}	
+}
+
+.entry-link{
+	text-decoration:none;
+}
+
+.entry-link:hover{
+	text-decoration:none;
+}

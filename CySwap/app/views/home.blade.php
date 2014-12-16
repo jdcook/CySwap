@@ -13,9 +13,9 @@
 				<a class="catLink" href="{{URL::to('category/'.$categoryname)}}">{{ucfirst($categoryname)}}</a>
 			</h2>
 			@foreach($category as $posting)
-				<a href="{{URL::to('viewpost/'.$posting['posting_id'])}}" >
+				<a class="entry-link" href="{{URL::to('viewpost/'.$posting['posting_id'])}}" >
 					<div class="entry">
-						<div class="row">
+						<div class="row centered">
 							<h4>{{htmlentities($posting['title'])}}</h4>
 						</div>
 						<br />

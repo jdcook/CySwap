@@ -58,7 +58,46 @@ class Post extends Eloquent {
 			$postingLites[$key] = (array) $value;
 		}
 
+		//$data['posts'] = Paginator::make(array_slice($topaginate, (Input::get("page", 1) - 1) * 3, 3), $total, 3);
+
 		return $postingLites;
+	}
+
+
+	public function getPaginatedLites($category, $numPerPage)
+	{
+		$postingLites = array();
+
+		$totalQuery = DB::select("SELECT COUNT(*) AS total from CySwap2.posting where category = ? and hide_post = 0", array($category));
+		$totalPosts = 0;
+		if(count($totalQuery)){
+			$totalPosts = $totalQuery[0]->total;
+		}
+
+		$pageNum = Input::get('page', 1);
+		$postingids = DB::select("SELECT posting_id from CySwap2.posting where category = ? and hide_post = 0 order by date DESC limit ?, ?", array($category, ($pageNum - 1) * $numPerPage, $numPerPage));
+
+
+		foreach($postingids as $postingIdObj) {
+			$postingidstr = $postingIdObj->posting_id;
+			//$postingLites[$postingidstr] = DB::select('select posting_id, title, author, isbn_10, isbn_13, cyswap.category_textbook.condition, num_images from cyswap.category_textbook where posting_id = '."'".$postingidstr."'")[0];
+			$result = DB::select("SELECT * from CySwap2.category_".$category." where posting_id = ?", array($postingidstr));
+
+			//check to make sure something came back
+			if(count($result)){
+				$postingLites[$postingidstr] = $result[0];
+			}
+			else{
+				//didn't find a post with that id in that category, so delete that posting
+				DB::delete('DELETE from CySwap2.posting where posting_id = ?', array($postingidstr));
+			}
+		}
+
+		foreach ($postingLites as  $key => $value) {
+			$postingLites[$key] = (array) $value;
+		}
+
+		return Paginator::make($postingLites, $totalPosts, $numPerPage);
 	}
 
 	public function postItem($post_params, $image)

@@ -8,10 +8,10 @@
 <hr>
 @foreach($postingLites as $posting)
 
-<a href="{{URL::to('viewpost/'.$posting['posting_id'])}}" >
 <div class="col-lg-4 col-md-6 container-fluid">
+	<a class="entry-link" href="{{URL::to('viewpost/'.$posting['posting_id'])}}" >
 	<div class="entry" data-postid="{{$posting['posting_id']}}">
-		<div class="row">
+		<div class="row centered">
 			<h4>{{htmlentities($posting['title'])}}</h4>
 		</div>
 		<br />
@@ -32,8 +32,11 @@
 			</div>
 		</div>
 	</div>
+	</a>
 </div>
-</a>
 @endforeach
+<div class="col-md-12 centered">
+{{$postingLites->links()}}
+</div>
 </div>
 @stop

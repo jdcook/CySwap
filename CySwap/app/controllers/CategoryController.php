@@ -4,7 +4,7 @@ class CategoryController extends BaseController {
 
 	public function showCategoryData($category)
 	{
-		$postingLites = App::make('Post')->getPostingLites($category, '4');
+		$postingLites = App::make('Post')->getPaginatedLites($category, 6);
 		return $postingLites;
 	}
 
