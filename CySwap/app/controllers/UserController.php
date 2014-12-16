@@ -103,4 +103,36 @@ class UserController extends BaseController {
         return Redirect::to('/outputMessage')->with('message', $msg);
 	}
 
+	public function promoteUser(){
+		$msg = "<a class='btn btn-default' href='".URL::to('manageUsers')."'>Return to User Management</a><br/>";
+		if(Session::has('user') && Session::has('usertype') && Session::get('usertype') != 'user'){
+			try{
+				App::make('User')->promoteUser(Input::get('promotedUser'));
+
+				$msg = $msg."User has been promoted";
+			}
+			catch(Exception $ex){
+				$msg = $msg."Error promoting user: <br/>".$ex->getMessage();
+			}
+		}
+
+        return Redirect::to('/outputMessage')->with('message', $msg);
+	}
+
+	public function demoteUser(){
+		$msg = "<a class='btn btn-default' href='".URL::to('manageUsers')."'>Return to User Management</a><br/>";
+		if(Session::has('user') && Session::has('usertype') && Session::get('usertype') != 'user'){
+			try{
+				App::make('User')->demoteUser(Input::get('demotedUser'));
+
+				$msg = $msg."User has been demoted";
+			}
+			catch(Exception $ex){
+				$msg = $msg."Error demoting user: <br/>".$ex->getMessage();
+			}
+		}
+
+        return Redirect::to('/outputMessage')->with('message', $msg);
+	}
+
 }

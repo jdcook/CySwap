@@ -157,6 +157,14 @@ class User {
 		return $canEdit;
 	}
 
+	public function promoteUser($user) {
+		DB::update('update Cyswap2.user set role = \'moderator\' where username = ?', array($user));
+	}
+
+	public function demoteUser($user) {
+		DB::update('update Cyswap2.user set role = \'user\' where username = ?', array($user));
+	}
+
 	//can't ban admins
 	public function canBan($user){
 		$dbResult = DB::select("SELECT * from CySwap2.user where username = ?", array($user));

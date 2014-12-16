@@ -1,6 +1,6 @@
-
-
-
+<?php
+$isAdmin = Session::has('usertype') && Session::get('usertype') == 'admin';
+?>
 
 <div class='panel panel-default centered'>
 	<br/>
@@ -52,4 +52,27 @@
 	    <a> <input class="btn btn-default btn-positive" role="button" type="submit" value="Clear Suspensions and Bans"> </a>
 	</div>
 	{{ Form::token().Form::close() }}
+
+	@if($result['role'] != "admin" && $isAdmin) 
+		@if($result['role'] != "moderator")
+			<br/>
+			{{ Form::open(array('action' => array('UserController@promoteUser'))) }}
+			{{ Form::hidden('promotedUser', $result['username']) }}
+			<div class='wrapper-padded' style="margin: 1em">
+			    <a> <input class="btn btn-default btn-positive" role="button" type="submit" value="Promote To Moderator"> </a>
+			</div>
+			{{ Form::token().Form::close() }}
+		@else
+			<br/>
+			{{ Form::open(array('action' => array('UserController@demoteUser'))) }}
+			{{ Form::hidden('demotedUser', $result['username']) }}
+			<div class='wrapper-padded' style="margin: 1em">
+			    <a> <input class="btn btn-default btn-positive" role="button" type="submit" value="Demote To User"> </a>
+			</div>
+			{{ Form::token().Form::close() }}
+		@endif
+	@endif
+
+
+	
 </div>
