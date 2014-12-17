@@ -5,6 +5,27 @@
 	<h1>Search Results</h1>
 	<hr>
 
+<div class="col-md-12">
+	<b>Filter By Category:</b>
+	<div class="btn-group">
+		@if(Input::has('category'))
+			<a class="btn btn-default" href="{{URL::to('search_results').'?keyword='.$data['keyword']}}">None</a>
+		@else
+			<span class="btn btn-active">None</span>
+		@endif
+		@foreach($data['categories'] as $category)
+			@if(Input::get('category', 'na') == $category)
+			<span class="btn btn-active">{{$category}}</span>
+			@else
+			<a class="btn btn-default" href="{{URL::to('search_results').'?keyword='.$data['keyword'].'&category='.$category}}">{{$category}}</a>
+			@endif
+		@endforeach
+	</div>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
 <?php $posts = $results->getItems(); ?>
 	@if(isset($posts) && !empty($posts))
 		@foreach($posts as $post)
@@ -36,7 +57,34 @@
 
 	<br>
 
+	<div class="col-md-12 centered">
 	{{ $results->links()}}
+	</div>
 
 
+@stop
+
+
+@section('javascript')
+<script>
+$('.pagination > li > a').click(function(e){
+	window.location.href = $(this).attr('href')+addCategoryParam();
+	e.preventDefault();
+});
+
+function addCategoryParam()
+{
+    var curURL = window.location.search.substring(1);
+    var variables = curURL.split('&');
+    for (var i = 0; i < variables.length; ++i) 
+    {
+        var param = variables[i].split('=');
+        if (param[0] == 'category') 
+        {
+            return "&"+variables[i];
+        }
+    }
+    return "";
+}
+</script>
 @stop

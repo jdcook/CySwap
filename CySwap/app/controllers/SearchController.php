@@ -30,11 +30,15 @@ class SearchController extends BaseController {
 		//var_dump($posting_ids[0]->posting_id);
 
 		//get posts corresponding to posting_ids
+		$category = Input::get('category', 0);
 		$posts = array();
 		foreach ($posting_ids  as $post_id){
 			$post_id_string = $post_id->posting_id;
 			$post = App::make('Post')->getPost($post_id_string);
-			array_push($posts, $post);
+			//if we're searching by category, only show results from that category
+			if(!$category || $post['category'] == $category){ 
+				array_push($posts, $post);
+			}
 		}
 
 		$posts_array = $posts;
@@ -47,7 +51,7 @@ class SearchController extends BaseController {
 		$results->appends('keyword',$keyword);
 
 		//pass results to view search
-		return View::make('search',compact('results'))->with('keyword',$keyword);
+		return View::make('search',compact('results'))->with('data', array('keyword'=>$keyword, 'categories'=>App::make('Category')->getCategories()));
 	}
 
 }
