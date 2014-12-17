@@ -1,7 +1,7 @@
 <?php
 
 class SearchController extends BaseController {
-	public $results_each_page = 5;
+	public $results_each_page = 6;
 
 	public function getResults() {
 		

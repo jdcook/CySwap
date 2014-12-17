@@ -28,27 +28,32 @@
 <br/>
 <?php $posts = $results->getItems(); ?>
 	@if(isset($posts) && !empty($posts))
-		@foreach($posts as $post)
-			<div class="col-md-6 container-fluid">
-				<div class="entry" data-postid="{{$post['posting_id']}}">
+		@foreach($posts as $posting)
+			<div class="col-lg-4 col-md-6 container-fluid">
+				<a class="entry-link" href="{{URL::to('viewpost/'.$posting['posting_id'])}}" >
+				<div class="entry" data-postid="{{$posting['posting_id']}}">
+					<div class="row centered">
+						<h4>{{htmlentities($posting['title'])}}</h4>
+					</div>
+					<br />
 					<div class="row">
-						<h2>{{$post['title']}}</h2>
-					</div>
-
-					<div class="col-sm-3">
-						@if($post['num_images'] == 0)
-							<img class="entryimg" src="{{asset('media/notAvailable.jpg')}}" />
-						@else
-							<img class="entryimg" src="{{asset('media/post_images')}}/{{$post['posting_id']}}_0.jpg" />
-						@endif
-					</div>
-
-					<br/>
-					<div class="col-sm-9 details">
-						<p><b>Title:</b> {{$post['title']}}</p>
-						<p><b>Description:</b> {{$post['description']}}</p>
+						<div class="col-lg-3">
+							@if($posting['num_images'] == 0)
+								<span class="entryimg notfound glyphicon glyphicon-picture"></span>
+							@else
+								<img class="entryimg liteimg" src="{{asset('media/post_images')}}/{{$posting['posting_id']}}_0.jpg" />
+							@endif
+							<br/>
+							<br/>
+						</div>
+						<div class="col-lg-9 details cliptext">
+							@if(array_key_exists('description', $posting))
+								<p><b>Description:</b> {{htmlentities($posting['description'])}}</p>
+							@endif
+						</div>
 					</div>
 				</div>
+				</a>
 			</div>
 		@endforeach
 	@else
