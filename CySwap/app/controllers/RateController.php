@@ -38,11 +38,11 @@ class RateController extends BaseController {
 
         if(Input::has('like')){
             App::make('User')->thumbsUp($username, $posting_id, $seller_or_buyer);
-            return Redirect::to('/outputMessage')->with('message', 'liked '.$username);
+            return Redirect::to('/outputMessage')->with('message', 'Thank you for providing feedback. You liked '.$username.'.');
         }
         else if(Input::has('dislike')){
             App::make('User')->thumbsDown($username, $posting_id, $seller_or_buyer);
-            return Redirect::to('/outputMessage')->with('message', 'disliked '.$username);
+            return Redirect::to('/outputMessage')->with('message', 'Thank you for providing feedback. You disliked '.$username.'.');
         }
         return Redirect::to('/outputMessage')->with('message', 'Submitted');
 	}
