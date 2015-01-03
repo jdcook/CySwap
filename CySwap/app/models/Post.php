@@ -221,15 +221,25 @@ class Post extends Eloquent {
 
 		$tag_string = $tag_string.") values (".$tag_tailer.")";
 
-		//insert posting lite into table
-		DB::insert('insert into CySwap2.posting (posting_id, username, date, category, hide_post) values (?, ?, ?, ?, ?)',
-			array($postid, Session::get('user'), date('Y-m-d'), $post_params['Category'], 0));
 
-		//insert posting into table
-		DB::insert($db_string, $db_array);
+		DB::beginTransaction();
 
-		//insert tags
-		DB::insert($tag_string, $tag_array);
+		try {
+			//insert posting lite into table
+			DB::insert('insert into CySwap2.posting (posting_id, username, date, category, hide_post) values (?, ?, ?, ?, ?)',
+				array($postid, Session::get('user'), date('Y-m-d'), $post_params['Category'], 0));
+
+			//insert posting into table
+			DB::insert($db_string, $db_array);
+
+			//insert tags
+			DB::insert($tag_string, $tag_array);
+
+			DB::commit();
+		} catch (Exception $e) {
+			DB::rollback();
+		}
+
 
 		//return the randomly generated post id
 		return $postid;
