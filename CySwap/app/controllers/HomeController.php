@@ -17,7 +17,7 @@ class HomeController extends BaseController {
 
 	public function showData()
 	{
-		$category1_name = 'textbook';
+		$category1_name = 'textbooks';
 		$category1 = App::make('Post')->getPostingLites($category1_name, 3);
 		$category2_name = 'tickets';
 		$category2 = App::make('Post')->getPostingLites($category2_name, 3);
