@@ -7,7 +7,6 @@
 
 <div class="col-md-3">
 	<form action="{{ URL::route('login-post') }}" method="post">
-		<br>
 
 		@if(Session::has('message'))
 			{{ Session::get('message') }}
