@@ -15,9 +15,17 @@
 		@endif
 		@foreach($data['categories'] as $category)
 			@if(Input::get('category', 'na') == $category)
-			<span class="btn btn-active">{{$category}}</span>
+			<span class="btn btn-active">
+				<?php $categoryName = str_replace("_"," ",$category);
+	    		$categoryName = ucwords($categoryName);?> 
+				{{$categoryName}}
+			</span>
 			@else
-			<a class="btn btn-default" href="{{URL::to('search_results').'?keyword='.$data['keyword'].'&category='.$category}}">{{$category}}</a>
+			<a class="btn btn-default" href="{{URL::to('search_results').'?keyword='.$data['keyword'].'&category='.$category}}">
+				<?php $categoryName = str_replace("_"," ",$category);
+	    		$categoryName = ucwords($categoryName);?> 
+				{{$categoryName}}
+			</a>
 			@endif
 		@endforeach
 	</div>
