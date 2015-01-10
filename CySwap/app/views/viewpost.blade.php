@@ -30,11 +30,11 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 </div>
 
 <div id="postImages" class="col-md-4">
+	<div class="price">
 	@if($posting['num_images'] == 0)
 		<span style="text-align: center" class="entryimg-glyph notfound glyphicon glyphicon-picture"></span>
 		<br/><br/>
 	@endif
-	<div class="price">
 		@if($canEdit)
 		<a id="imageEditBtn" class="link-edit">Replace current pictures</a>
 		<div id="imageEdit" style="display:none">
@@ -106,9 +106,15 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 					</div>
 				<!-- otherwise, show contact seller button -->
 				@else
-					<p><b>Poster:</b><br/> {{$posting['username']}}</p><br/>
-					<p><a id="contactSellerBtn" data-toggle="collapse" data-target='#contactPanel' class="btn btn-default" role="button">Contact Seller</a></p>
+					<p><b>Poster:</b><br/> {{$posting['username']}}</p>
+					 <span class="like glyphicon glyphicon-thumbs-up">
+				        {{$posting['positive']}}
+				    </span>
 
+				    <span class="dislike glyphicon glyphicon-thumbs-down">
+				        {{$posting['negative']}}
+				    </span><br style="clear:left;"/><br/>
+					<p><a id="contactSellerBtn" data-toggle="collapse" data-target='#contactPanel' class="btn btn-default" role="button">Contact Seller</a></p>
 					<div class='panel-collapse collapse' id="contactPanel">
 							<p>
 							<p id="confirmText">Send Email to {{$posting['username']}}</p>

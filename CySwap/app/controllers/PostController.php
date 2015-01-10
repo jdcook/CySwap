@@ -13,8 +13,11 @@ class PostController extends BaseController {
 			return null;
 		}
 
-		//old line that I edited, did I cause a bug
-		//$configData = DB::select("SELECT * from CySwap2.category_".$posting['category']."_config where character_limit != '0'");
+		$dbResult = App::make('User')->getUsernames($posting['username']);
+
+		$posting['positive']=$dbResult[0]->positive;
+		$posting['negative']=$dbResult[0]->negative;
+
 		$configData = DB::select("SELECT * from CySwap2.category_".$posting['category']."_config");
 		$config = array();
 		foreach($configData as $data){
