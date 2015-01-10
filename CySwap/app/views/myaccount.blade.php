@@ -6,7 +6,7 @@
 <div class="col-md-12">
     
 
-<h1><b>Profile of {{Session::get('user')}}</b></h1>
+<h1><b>Profile of {{$data['username']}}</b></h1>
 <hr/>
 </div>
 
@@ -27,7 +27,7 @@
 <br/>
 <div class="col-md-2"></div>
 <div class="wrapper-padded text-center col-md-8">
-    <h2>Current Posts</h2>
+    <h2>Active Posts</h2>
     <hr/>
 
 <?php

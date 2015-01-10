@@ -58,7 +58,6 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 		<p><b class="detailHeading">Date Posted:</b>{{htmlentities($posting['date'])}} </p>
 		@if($canEdit)
 		<br/>
-		<br/>
 		<a class="link-edit" data-edit="suggested_price">Edit</a>
 		<div id="suggested_priceEdit" class="wrapper-cushy" style="display:none">
 			<a class="link-edit" data-save="suggested_price" data-loading-text="Saving...">Save</a>
@@ -112,7 +111,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 					</div>
 				<!-- otherwise, show contact seller button -->
 				@else
-					<p><b>Poster:</b><br/> {{$posting['username']}} <a style="color:#0000FF" href="{{URL::to('profile/$posting[\'username\']')}}">(View Profile)</a></p>
+					<p><b>Poster:</b><br/> {{$posting['username']}} <a style="color:#0000FF" href="{{URL::to('profile/'.$posting['username'])}}">(View Profile)</a></p>
 					 <span class="like glyphicon glyphicon-thumbs-up">
 				        {{$posting['positive']}}
 				    </span>

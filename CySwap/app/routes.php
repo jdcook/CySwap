@@ -122,6 +122,11 @@ Route::get('viewpost/{postid}', function($postid)
 	return View::make('viewpost')->with('posting', $posting);
 });
 
+Route::get('profile/{username}', function($username){
+	$data = App::make('User')->getProfileInfo($username);
+	return View::make('myaccount')->with('data', $data);
+});
+
 Route::get('postNotFound', function(){
 	return View::make('postNotFound');
 });
