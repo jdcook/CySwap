@@ -1,2 +1,2 @@
-1) As this is just an initial version, we welcome your feedback! Please click the following link and fill out the form informing us on what can be improved! Thanks! Google Form
+1) As this is just an initial version, we welcome your feedback! Please click the following link and fill out the form informing us on what can be improved! Thanks! <a style="color:#0000FF" href="https://docs.google.com/forms/d/17W_lRYTy4jvuLeXls5Zlomdl_eHWBF0AffEaz50Go10/viewform?edit_requested=true">Google Form</a>
 2) Also as a reminder searching for an item and posting a miscellaneous item are not currently implemented on this product version. 
