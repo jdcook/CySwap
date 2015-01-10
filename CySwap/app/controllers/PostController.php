@@ -13,11 +13,6 @@ class PostController extends BaseController {
 			return null;
 		}
 
-		$dbResult = App::make('User')->getUsernames($posting['username']);
-
-		$posting['positive']=$dbResult[0]->positive;
-		$posting['negative']=$dbResult[0]->negative;
-
 		$configData = DB::select("SELECT * from CySwap2.category_".$posting['category']."_config");
 		$config = array();
 		foreach($configData as $data){

@@ -27,6 +27,12 @@ class Post extends Eloquent {
 		// cast data to array for easy processing
 		$post_array = array_merge((array) $post[0], (array) $category_info[0]);
 
+
+		$dbResult = App::make('User')->getUsernames($post_array['username']);
+
+		$post_array['positive']=$dbResult[0]->positive;
+		$post_array['negative']=$dbResult[0]->negative;
+
 		// return post array
 		return $post_array;
 	}

@@ -87,7 +87,13 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 			@else
 				<!-- if the poster is the same as the current user, let them mark as complete -->
 				@if(Session::get('user') == $posting['username'])
-					<p><b>Poster:</b><br/> {{$posting['username']}} (me)</p><br/>
+					<p><b>Poster:</b><br/> {{$posting['username']}} (me)</p>
+					<span class="like glyphicon glyphicon-thumbs-up">
+				        {{$posting['positive']}}
+				    </span>
+				    <span class="dislike glyphicon glyphicon-thumbs-down">
+				        {{$posting['negative']}}
+				    </span><br style="clear:left;"/><br/>
 					<p>	<a id="markCompleteBtn" data-toggle="collapse" data-target='#markCompletePanel' class="btn btn-default center-block" role="button">Close Post</a></p>
 					<div class='panel-collapse collapse wrapper' id="markCompletePanel">
 						{{ Form::open(array('action'=>'TransactionController@completeTransaction')) }}
@@ -106,11 +112,10 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 					</div>
 				<!-- otherwise, show contact seller button -->
 				@else
-					<p><b>Poster:</b><br/> {{$posting['username']}}</p>
+					<p><b>Poster:</b><br/> {{$posting['username']}} <a style="color:#0000FF" href="{{URL::to('profile/$posting[\'username\']')}}">(View Profile)</a></p>
 					 <span class="like glyphicon glyphicon-thumbs-up">
 				        {{$posting['positive']}}
 				    </span>
-
 				    <span class="dislike glyphicon glyphicon-thumbs-down">
 				        {{$posting['negative']}}
 				    </span><br style="clear:left;"/><br/>
@@ -167,7 +172,7 @@ $canEdit = Session::has('usertype') && (Session::get('usertype') == 'admin' || S
 			@foreach($posting as $key => $value)
 				@if($key != "posting_id" and $key != "seller_has_rated" and $key != "buyer_has_rated" and $key != "tags"
 					and $key != "hide_post" and $key != "title"
-					and $key != "description" and $key != 'username' and $key != "suggested_price")
+					and $key != "description" and $key != 'username' and $key != "suggested_price" and $key != "positive" and $key != "negative")
 				@if($key != 'num_images' and $key != 'date' and $key != 'category' and $key != 'config' and !is_null($value))
 					
 					<div class="singleDetail row">
